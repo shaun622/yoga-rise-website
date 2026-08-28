@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.reference/
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+npm-debug.log*
+
