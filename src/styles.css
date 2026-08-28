@@ -14,6 +14,10 @@
   --body-size: clamp(1rem, 0.95vw, 1.125rem);
 }
 
+html[data-layout-variant='02'] {
+  --page-pad: clamp(3.25rem, 7vw, 8.4rem);
+}
+
 *,
 *::before,
 *::after {
@@ -833,6 +837,46 @@ h2 {
   transform: translateY(0);
 }
 
+.variant-switcher {
+  position: fixed;
+  z-index: 1100;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: var(--white);
+  background: rgba(27, 9, 7, 0.94);
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(0.5rem);
+}
+
+.variant-switcher a {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.variant-switcher a + a {
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.variant-switcher a:hover,
+.variant-switcher a:focus-visible,
+.variant-switcher a.is-current {
+  color: var(--brown);
+  background: var(--white);
+}
+
+.site-toast {
+  bottom: 5.25rem;
+}
+
 @media (max-width: 1280px) {
   .primary-nav {
     gap: 1.65rem;
@@ -863,6 +907,10 @@ h2 {
 @media (max-width: 980px) {
   :root {
     --page-pad: clamp(1.35rem, 5vw, 3rem);
+  }
+
+  html[data-layout-variant='02'] {
+    --page-pad: clamp(1.8rem, 7vw, 4rem);
   }
 
   .hero {
@@ -1067,6 +1115,17 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  .variant-switcher {
+    right: 0.85rem;
+    bottom: 0.85rem;
+  }
+
+  .variant-switcher a {
+    width: 2.35rem;
+    height: 2.35rem;
+    font-size: 0.7rem;
+  }
+
   .button-row {
     align-items: stretch;
     flex-direction: column;

@@ -17,6 +17,13 @@ npm run build
 
 The static output is written to `dist/`.
 
+## Layout comparison
+
+- `/01/` — original Adobe XD spacing
+- `/02/` — increased site-wide margins for a calmer layout
+
+Use the fixed `01 / 02` control in the bottom-right corner to switch between them.
+
 ## Cloudflare Pages
 
 - Framework preset: Vite
@@ -32,4 +39,3 @@ authentication, payment system, or course gating are included in this first home
 The article thumbnails and two team profiles intentionally retain the placeholders present in the
 source design. Ticketing, contact, social, article, and newsletter destinations need final client
 URLs or service providers before they can be connected.
-

@@ -4,6 +4,15 @@ import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import './styles.css';
 
+const layoutVariant = window.location.pathname.startsWith('/02') ? '02' : '01';
+document.documentElement.dataset.layoutVariant = layoutVariant;
+
+document.querySelectorAll('[data-variant-link]').forEach((link) => {
+  const isCurrent = link.dataset.variantLink === layoutVariant;
+  link.classList.toggle('is-current', isCurrent);
+  if (isCurrent) link.setAttribute('aria-current', 'page');
+});
+
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const navigation = document.querySelector('[data-navigation]');
 
