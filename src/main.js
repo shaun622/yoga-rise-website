@@ -5,13 +5,40 @@ import '@fontsource/inter/latin-700.css';
 import './styles.css';
 
 const layoutVariant = window.location.pathname.startsWith('/02') ? '02' : '01';
+const comparisonScrollKey = 'yogarise-comparison-scroll';
 document.documentElement.dataset.layoutVariant = layoutVariant;
 
 document.querySelectorAll('[data-variant-link]').forEach((link) => {
   const isCurrent = link.dataset.variantLink === layoutVariant;
   link.classList.toggle('is-current', isCurrent);
   if (isCurrent) link.setAttribute('aria-current', 'page');
+
+  link.addEventListener('click', (event) => {
+    if (isCurrent) {
+      event.preventDefault();
+      return;
+    }
+
+    window.sessionStorage.setItem(comparisonScrollKey, String(window.scrollY));
+  });
 });
+
+const savedComparisonScroll = Number(window.sessionStorage.getItem(comparisonScrollKey));
+window.sessionStorage.removeItem(comparisonScrollKey);
+
+if (Number.isFinite(savedComparisonScroll) && savedComparisonScroll > 0) {
+  window.addEventListener(
+    'load',
+    () => {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() =>
+          window.scrollTo({ top: savedComparisonScroll, behavior: 'instant' }),
+        );
+      });
+    },
+    { once: true },
+  );
+}
 
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const navigation = document.querySelector('[data-navigation]');
