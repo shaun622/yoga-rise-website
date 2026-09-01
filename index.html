@@ -16,6 +16,18 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/hero.webp" />
     <title>YogaRise — Grow beyond the mat</title>
+    <script>
+      const liveHosts = new Set(['www.yogarise.com.au', 'yogarise.com.au']);
+      const siteMode = liveHosts.has(window.location.hostname) ? 'live' : 'staging';
+      document.documentElement.dataset.siteMode = siteMode;
+
+      if (siteMode === 'staging') {
+        const robots = document.createElement('meta');
+        robots.name = 'robots';
+        robots.content = 'noindex, nofollow';
+        document.head.append(robots);
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -57,10 +69,31 @@
             education, the community and the industry standing that turn a qualification into a
             career.
           </p>
-          <div class="button-row">
+          <div class="button-row hero-actions">
             <a class="button button-light" href="#expo">Explore the Expo</a>
             <a class="button button-light" href="#courses">Explore our courses</a>
           </div>
+
+          <form class="hero-optin" data-hero-optin novalidate>
+            <p class="hero-optin-title">Be first to hear what’s next.</p>
+            <div class="hero-optin-fields">
+              <label>
+                <span class="sr-only">Email address</span>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                  autocomplete="email"
+                  required
+                />
+              </label>
+              <button type="submit">Keep me posted <span aria-hidden="true">→</span></button>
+            </div>
+            <p class="hero-optin-note">
+              Join the YogaRise list for event news and updates. Unsubscribe anytime.
+            </p>
+            <p class="hero-optin-message" role="status" aria-live="polite" data-optin-message></p>
+          </form>
         </div>
 
         <h1 class="hero-title" id="hero-title">The science of yoga business</h1>

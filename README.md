@@ -17,6 +17,14 @@ npm run build
 
 The static output is written to `dist/`.
 
+## Live and staging views
+
+- `https://www.yogarise.com.au/` — temporary hero-only launch view with an opt-in form
+- `https://yoga-rise-website.pages.dev/` — complete staging site, hidden from search indexing
+
+The view is selected from the hostname, so one deployment keeps production and staging in sync.
+The root route uses layout `02` by default.
+
 ## Layout comparison
 
 - `/01/` — original Adobe XD spacing
@@ -37,5 +45,5 @@ authentication, payment system, or course gating are included in this first home
 ## Content status
 
 The article thumbnails and two team profiles intentionally retain the placeholders present in the
-source design. Ticketing, contact, social, article, and newsletter destinations need final client
-URLs or service providers before they can be connected.
+source design. Ticketing, contact, social, article, and newsletter destinations—including the
+temporary live opt-in—need final client URLs or service providers before they can be connected.

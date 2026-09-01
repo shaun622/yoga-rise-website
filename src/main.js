@@ -4,7 +4,7 @@ import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import './styles.css';
 
-const layoutVariant = window.location.pathname.startsWith('/02') ? '02' : '01';
+const layoutVariant = window.location.pathname.startsWith('/01') ? '01' : '02';
 const comparisonScrollKey = 'yogarise-comparison-scroll';
 document.documentElement.dataset.layoutVariant = layoutVariant;
 
@@ -107,4 +107,19 @@ newsletter?.addEventListener('submit', (event) => {
   }
 
   message.textContent = 'Signup is not connected yet, so no details were sent.';
+});
+
+const heroOptin = document.querySelector('[data-hero-optin]');
+heroOptin?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const email = heroOptin.querySelector('input[type="email"]');
+  const message = heroOptin.querySelector('[data-optin-message]');
+
+  if (!email?.value || !email.checkValidity()) {
+    message.textContent = 'Please enter a valid email address.';
+    email?.focus();
+    return;
+  }
+
+  message.textContent = 'Thanks — the mailing-list connection is coming shortly.';
 });
