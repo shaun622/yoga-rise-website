@@ -2,6 +2,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "yoga-rise",
   "compatibility_date": "2026-08-28",
-  "pages_build_output_dir": "./dist"
+  "pages_build_output_dir": "./dist",
+  "d1_databases": [
+    {
+      "binding": "SUBSCRIBERS_DB",
+      "database_name": "yoga-rise-subscribers",
+      "database_id": "bd4585a3-5ce8-4b5c-9c3c-e395608ce964"
+    }
+  ]
 }
-
