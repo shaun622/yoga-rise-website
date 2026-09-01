@@ -1027,6 +1027,19 @@ html[data-site-mode='live'] .hero-optin {
     width: min(21rem, 48vw);
   }
 
+  .hero-optin-fields {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .hero-optin-fields label:first-child {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.78);
+  }
+
+  .hero-optin-fields label + label {
+    border-left: 0;
+  }
+
   .site-header {
     align-items: flex-start;
     padding-top: 2rem;
@@ -1251,6 +1264,10 @@ html[data-site-mode='live'] .hero-optin {
   .hero-optin-fields label + label {
     border-top: 1px solid rgba(255, 255, 255, 0.78);
     border-left: 0;
+  }
+
+  .hero-optin-fields label:first-child {
+    border-bottom: 0;
   }
 
   .hero-optin-fields button {
