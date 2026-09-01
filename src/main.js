@@ -83,7 +83,7 @@ heroOptin?.addEventListener('submit', async (event) => {
   const message = heroOptin.querySelector('[data-optin-message]');
 
   if (!fullName?.value.trim() || !fullName.checkValidity()) {
-    message.textContent = 'Please enter your full name.';
+    message.textContent = 'Please enter your first name.';
     fullName?.focus();
     return;
   }

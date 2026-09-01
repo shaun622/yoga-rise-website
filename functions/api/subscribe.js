@@ -28,8 +28,8 @@ export async function onRequestPost({ request, env }) {
     .trim()
     .replace(/\s+/g, ' ');
   const email = String(body.email ?? '').trim().toLowerCase();
-  if (!fullName || fullName.length < 2 || fullName.length > 120) {
-    return json({ ok: false, message: 'Please enter your full name.' }, 400);
+  if (!fullName || fullName.length > 120) {
+    return json({ ok: false, message: 'Please enter your first name.' }, 400);
   }
   if (!email || email.length > 254 || !emailPattern.test(email)) {
     return json({ ok: false, message: 'Please enter a valid email address.' }, 400);
