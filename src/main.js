@@ -76,10 +76,17 @@ newsletter?.addEventListener('submit', (event) => {
 const heroOptin = document.querySelector('[data-hero-optin]');
 heroOptin?.addEventListener('submit', async (event) => {
   event.preventDefault();
+  const fullName = heroOptin.querySelector('input[name="full_name"]');
   const email = heroOptin.querySelector('input[type="email"]');
   const company = heroOptin.querySelector('input[name="company"]');
   const submit = heroOptin.querySelector('[data-optin-submit]');
   const message = heroOptin.querySelector('[data-optin-message]');
+
+  if (!fullName?.value.trim() || !fullName.checkValidity()) {
+    message.textContent = 'Please enter your full name.';
+    fullName?.focus();
+    return;
+  }
 
   if (!email?.value || !email.checkValidity()) {
     message.textContent = 'Please enter a valid email address.';
@@ -94,7 +101,11 @@ heroOptin?.addEventListener('submit', async (event) => {
     const response = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, company: company?.value ?? '' }),
+      body: JSON.stringify({
+        fullName: fullName.value,
+        email: email.value,
+        company: company?.value ?? '',
+      }),
     });
     const result = await response.json();
 

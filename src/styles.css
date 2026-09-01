@@ -331,7 +331,7 @@ html[data-site-mode='live'] .hero-copy > p:not(.hero-kicker) {
 
 html[data-site-mode='live'] .hero-optin {
   display: block;
-  width: min(35rem, 100%);
+  width: min(42rem, 100%);
   margin-top: 2.6rem;
 }
 
@@ -344,8 +344,12 @@ html[data-site-mode='live'] .hero-optin {
 
 .hero-optin-fields {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(9rem, 0.9fr) minmax(12rem, 1.1fr) auto;
   border: 1px solid rgba(255, 255, 255, 0.78);
+}
+
+.hero-optin-fields label + label {
+  border-left: 1px solid rgba(255, 255, 255, 0.78);
 }
 
 .hero-optin-fields input,
@@ -1242,6 +1246,11 @@ html[data-site-mode='live'] .hero-optin {
 
   .hero-optin-fields {
     grid-template-columns: 1fr;
+  }
+
+  .hero-optin-fields label + label {
+    border-top: 1px solid rgba(255, 255, 255, 0.78);
+    border-left: 0;
   }
 
   .hero-optin-fields button {

@@ -24,14 +24,24 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: true });
   }
 
+  const fullName = String(body.fullName ?? '')
+    .trim()
+    .replace(/\s+/g, ' ');
   const email = String(body.email ?? '').trim().toLowerCase();
+  if (!fullName || fullName.length < 2 || fullName.length > 120) {
+    return json({ ok: false, message: 'Please enter your full name.' }, 400);
+  }
   if (!email || email.length > 254 || !emailPattern.test(email)) {
     return json({ ok: false, message: 'Please enter a valid email address.' }, 400);
   }
 
+  const [firstName, ...lastNameParts] = fullName.split(' ');
+
   try {
     const mailerLiteBody = new URLSearchParams({
       'fields[email]': email,
+      'fields[name]': firstName,
+      'fields[last_name]': lastNameParts.join(' '),
       'ml-submit': '1',
       anticsrf: 'true',
     });
