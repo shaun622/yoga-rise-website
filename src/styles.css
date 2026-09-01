@@ -273,6 +273,15 @@ h2 {
   display: none;
 }
 
+.form-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 html[data-site-mode='live'] {
   background: var(--brown);
 }
@@ -363,6 +372,11 @@ html[data-site-mode='live'] .hero-optin {
 .hero-optin-fields button:focus-visible {
   color: var(--brown);
   background: var(--white);
+}
+
+.hero-optin-fields button:disabled {
+  cursor: wait;
+  opacity: 0.68;
 }
 
 .hero-optin-note,

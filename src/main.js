@@ -110,9 +110,11 @@ newsletter?.addEventListener('submit', (event) => {
 });
 
 const heroOptin = document.querySelector('[data-hero-optin]');
-heroOptin?.addEventListener('submit', (event) => {
+heroOptin?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const email = heroOptin.querySelector('input[type="email"]');
+  const company = heroOptin.querySelector('input[name="company"]');
+  const submit = heroOptin.querySelector('[data-optin-submit]');
   const message = heroOptin.querySelector('[data-optin-message]');
 
   if (!email?.value || !email.checkValidity()) {
@@ -121,5 +123,26 @@ heroOptin?.addEventListener('submit', (event) => {
     return;
   }
 
-  message.textContent = 'Thanks — the mailing-list connection is coming shortly.';
+  submit.disabled = true;
+  message.textContent = 'Joining…';
+
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.value, company: company?.value ?? '' }),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || 'Signup is temporarily unavailable.');
+    }
+
+    message.textContent = 'You’re on the list. Thanks for joining us.';
+    heroOptin.reset();
+  } catch (error) {
+    message.textContent = error.message || 'Signup is temporarily unavailable.';
+  } finally {
+    submit.disabled = false;
+  }
 });

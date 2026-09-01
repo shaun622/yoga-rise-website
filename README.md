@@ -45,5 +45,6 @@ authentication, payment system, or course gating are included in this first home
 ## Content status
 
 The article thumbnails and two team profiles intentionally retain the placeholders present in the
-source design. Ticketing, contact, social, article, and newsletter destinations—including the
-temporary live opt-in—need final client URLs or service providers before they can be connected.
+source design. Ticketing, contact, social, article, and the full-site footer newsletter still need
+final client URLs or service providers. The temporary live opt-in stores unique email addresses in
+the Cloudflare D1 binding named `SUBSCRIBERS_DB`.
