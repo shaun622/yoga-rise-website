@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-AU" class="survey-document">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Thank you for completing the Yoga Teacher Industry Survey."
+    />
+    <meta name="theme-color" content="#1b0907" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="Thank you — YogaRise" />
+    <meta
+      property="og:description"
+      content="Thank you for completing the Yoga Teacher Industry Survey."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/hero.webp" />
+    <title>Thank you — YogaRise</title>
+    <script type="module" src="/src/survey-thank-you.js"></script>
+  </head>
+  <body class="survey-page-body">
+    <a class="skip-link" href="#thank-you-content">Skip to content</a>
+
+    <main class="survey-thanks-layout" id="thank-you-content">
+      <a class="survey-brand" href="/" aria-label="YogaRise home">
+        <img src="/assets/yogarise-logo.svg" alt="YogaRise" />
+      </a>
+
+      <div class="survey-thanks-content">
+        <h1>Thank you for completing the survey.</h1>
+
+        <form class="survey-thanks-form" data-survey-thanks-form novalidate>
+          <p class="survey-thanks-form-title">Be the first to know.</p>
+          <label class="form-honeypot" aria-hidden="true">
+            Company
+            <input type="text" name="company" tabindex="-1" autocomplete="off" />
+          </label>
+          <div class="survey-thanks-fields">
+            <label>
+              <span class="sr-only">First name</span>
+              <input
+                type="text"
+                name="first_name"
+                placeholder="First name"
+                autocomplete="given-name"
+                maxlength="120"
+                required
+              />
+            </label>
+            <label>
+              <span class="sr-only">Last name</span>
+              <input
+                type="text"
+                name="last_name"
+                placeholder="Last name"
+                autocomplete="family-name"
+                maxlength="120"
+              />
+            </label>
+            <label>
+              <span class="sr-only">Email address</span>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                autocomplete="email"
+                required
+              />
+            </label>
+            <label>
+              <span class="sr-only">Mobile number (optional)</span>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Mobile (optional)"
+                autocomplete="tel"
+                maxlength="40"
+              />
+            </label>
+            <button type="submit" data-survey-thanks-submit>
+              Keep me posted <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p class="survey-thanks-note">
+            Put your details below to be the first to know about our next events.
+          </p>
+          <p
+            class="survey-thanks-message"
+            role="status"
+            aria-live="polite"
+            data-survey-thanks-message
+          ></p>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

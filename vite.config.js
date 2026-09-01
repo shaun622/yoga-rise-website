@@ -8,6 +8,10 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
         survey: resolve(import.meta.dirname, 'yoga-teacher-industry-survey/index.html'),
+        surveyThankYou: resolve(
+          import.meta.dirname,
+          'yoga-teacher-industry-survey/thank-you/index.html',
+        ),
       },
     },
   },
