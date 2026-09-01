@@ -269,6 +269,10 @@ h2 {
   display: none;
 }
 
+.hero-live-brand {
+  display: none;
+}
+
 .form-honeypot {
   position: absolute;
   width: 1px;
@@ -303,8 +307,21 @@ html[data-site-mode='live'] .hero {
   background-size: cover;
 }
 
+html[data-site-mode='live'] .hero-live-brand {
+  position: absolute;
+  z-index: 2;
+  top: 5.5%;
+  left: var(--page-pad);
+  display: block;
+  width: clamp(16rem, 24vw, 29rem);
+}
+
+html[data-site-mode='live'] .hero-live-brand img {
+  width: 100%;
+}
+
 html[data-site-mode='live'] .hero-copy {
-  top: 18%;
+  top: 43%;
   width: min(42rem, 49vw);
 }
 
@@ -997,8 +1014,13 @@ html[data-site-mode='live'] .hero-optin {
   }
 
   html[data-site-mode='live'] .hero-copy {
-    top: 20%;
+    top: 39%;
     width: min(38rem, calc(100vw - (var(--page-pad) * 2)));
+  }
+
+  html[data-site-mode='live'] .hero-live-brand {
+    top: 4.5%;
+    width: min(21rem, 48vw);
   }
 
   .site-header {
@@ -1201,8 +1223,13 @@ html[data-site-mode='live'] .hero-optin {
   }
 
   html[data-site-mode='live'] .hero-copy {
-    top: 15%;
+    top: 31%;
     font-size: 0.98rem;
+  }
+
+  html[data-site-mode='live'] .hero-live-brand {
+    top: 4%;
+    width: min(16rem, 60vw);
   }
 
   html[data-site-mode='live'] .hero-copy > p:not(.hero-kicker) {

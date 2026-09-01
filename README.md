@@ -39,5 +39,6 @@ authentication, payment system, or course gating are included in this first home
 
 The article thumbnails and two team profiles intentionally retain the placeholders present in the
 source design. Ticketing, contact, social, article, and the full-site footer newsletter still need
-final client URLs or service providers. The temporary live opt-in stores unique email addresses in
+final client URLs or service providers. The temporary live opt-in submits to the client-provided
+MailerLite form (`2606050 / 197361563373406082`) and stores a backup of unique email addresses in
 the Cloudflare D1 binding named `SUBSCRIBERS_DB`.
