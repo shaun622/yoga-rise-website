@@ -1,6 +1,44 @@
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mailerLiteFormUrl =
   'https://assets.mailerlite.com/jsonp/2606050/forms/197361563373406082/subscribe';
+const mailerLiteCallback = 'mlWebformSubmitted';
+
+export function parseMailerLiteResponse(responseText) {
+  const text = responseText.trim();
+  if (!text) return null;
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    const jsonpMatch = text.match(/^[^(]+\((.*)\);?$/s);
+    if (!jsonpMatch) return null;
+
+    try {
+      return JSON.parse(jsonpMatch[1]);
+    } catch {
+      return null;
+    }
+  }
+}
+
+export function buildMailerLiteUrl({ email, firstName, lastName }) {
+  const url = new URL(mailerLiteFormUrl);
+  url.search = new URLSearchParams({
+    'fields[email]': email,
+    'fields[name]': firstName,
+    'fields[last_name]': lastName,
+    // The supplied MailerLite embed labels this field as optional, but its
+    // generated markup marks it as required. Keep it out of the visible form
+    // while satisfying that server-side form configuration.
+    'fields[phone]': 'Not provided',
+    'ml-submit': '1',
+    anticsrf: 'true',
+    ajax: '1',
+    guid: crypto.randomUUID(),
+    callback: mailerLiteCallback,
+  }).toString();
+  return url;
+}
 
 function json(payload, status = 200) {
   return Response.json(payload, {
@@ -38,23 +76,23 @@ export async function onRequestPost({ request, env }) {
   const [firstName, ...lastNameParts] = fullName.split(' ');
 
   try {
-    const mailerLiteBody = new URLSearchParams({
-      'fields[email]': email,
-      'fields[name]': firstName,
-      'fields[last_name]': lastNameParts.join(' '),
-      'ml-submit': '1',
-      anticsrf: 'true',
+    // MailerLite's own embed submits this endpoint as an AJAX JSONP GET.
+    // Mirroring that request shape is important: a plain POST can return an
+    // HTML 200 response without creating the subscriber.
+    const mailerLiteUrl = buildMailerLiteUrl({
+      email,
+      firstName,
+      lastName: lastNameParts.join(' '),
     });
-    const mailerLiteResponse = await fetch(mailerLiteFormUrl, {
-      method: 'POST',
+    const mailerLiteResponse = await fetch(mailerLiteUrl, {
+      method: 'GET',
       headers: {
-        Accept: 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        Accept: 'application/javascript, application/json, text/javascript, */*; q=0.01',
       },
-      body: mailerLiteBody.toString(),
     });
+    const mailerLiteResult = parseMailerLiteResponse(await mailerLiteResponse.text());
 
-    if (!mailerLiteResponse.ok) {
+    if (!mailerLiteResponse.ok || mailerLiteResult?.success !== true) {
       return json({ ok: false, message: 'Signup is temporarily unavailable.' }, 502);
     }
   } catch {
