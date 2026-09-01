@@ -23,14 +23,7 @@ The static output is written to `dist/`.
 - `https://yoga-rise-website.pages.dev/` — complete staging site, hidden from search indexing
 
 The view is selected from the hostname, so one deployment keeps production and staging in sync.
-The root route uses layout `02` by default.
-
-## Layout comparison
-
-- `/01/` — original Adobe XD spacing
-- `/02/` — increased site-wide margins for a calmer layout
-
-Use the fixed `01 / 02` control in the bottom-right corner to switch between them.
+The site uses the approved layout `02`; the earlier layout comparison routes redirect to the root.
 
 ## Cloudflare Pages
 
