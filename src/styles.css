@@ -433,6 +433,64 @@ html[data-site-mode='live'] .hero-title {
   font-weight: 500;
 }
 
+.survey-optin {
+  width: min(70rem, calc(100vw - (2 * var(--page-pad)))) !important;
+}
+
+.survey-optin .hero-optin-fields {
+  grid-template-columns: repeat(4, minmax(8rem, 1fr)) auto;
+}
+
+.survey-optin .hero-optin-fields button {
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .survey-optin {
+    width: min(42rem, calc(100vw - (2 * var(--page-pad)))) !important;
+  }
+
+  .survey-optin .hero-optin-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .survey-optin .hero-optin-fields label:nth-child(3),
+  .survey-optin .hero-optin-fields label:nth-child(4),
+  .survey-optin .hero-optin-fields button {
+    border-top: 1px solid rgba(255, 255, 255, 0.78);
+  }
+
+  .survey-optin .hero-optin-fields label:nth-child(3) {
+    border-left: 0;
+  }
+
+  .survey-optin .hero-optin-fields button {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .survey-optin .hero-optin-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .survey-optin .hero-optin-fields label {
+    grid-column: auto !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.78) !important;
+    border-left: 0 !important;
+  }
+
+  .survey-optin .hero-optin-fields label:first-child {
+    border-top: 0 !important;
+  }
+
+  .survey-optin .hero-optin-fields button {
+    grid-column: auto;
+  }
+}
+
 .expo {
   display: grid;
   min-height: 69.2rem;

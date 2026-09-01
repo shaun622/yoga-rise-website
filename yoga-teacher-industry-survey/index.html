@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en-AU" data-site-mode="live">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Register your interest in upcoming YogaRise events for Australia’s yoga teachers."
+    />
+    <meta name="theme-color" content="#1b0907" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="YogaRise — Yoga Teacher Industry Survey" />
+    <meta
+      property="og:description"
+      content="Register your interest in upcoming YogaRise events for Australia’s yoga teachers."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/hero.webp" />
+    <title>Yoga Teacher Industry Survey — YogaRise</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <main id="main-content">
+      <section class="hero survey-hero" aria-labelledby="hero-title">
+        <a class="hero-live-brand" href="/" aria-label="YogaRise home">
+          <img src="/assets/yogarise-logo.svg" alt="YogaRise" />
+        </a>
+
+        <div class="hero-copy">
+          <p class="hero-kicker">Grow beyond the mat</p>
+          <p>
+            Australia’s yoga industry has never had a professional home. YogaRise is building one,
+            bringing together the education, community and opportunities yoga teachers need to turn
+            their qualification into a sustainable career.
+          </p>
+
+          <form class="hero-optin survey-optin" data-survey-optin novalidate>
+            <p class="hero-optin-title">Be the first to know.</p>
+            <label class="form-honeypot" aria-hidden="true">
+              Company
+              <input type="text" name="company" tabindex="-1" autocomplete="off" />
+            </label>
+            <div class="hero-optin-fields">
+              <label>
+                <span class="sr-only">First name</span>
+                <input
+                  type="text"
+                  name="first_name"
+                  placeholder="First name"
+                  autocomplete="given-name"
+                  maxlength="120"
+                  required
+                />
+              </label>
+              <label>
+                <span class="sr-only">Last name</span>
+                <input
+                  type="text"
+                  name="last_name"
+                  placeholder="Last name"
+                  autocomplete="family-name"
+                  maxlength="120"
+                />
+              </label>
+              <label>
+                <span class="sr-only">Email address</span>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                  autocomplete="email"
+                  required
+                />
+              </label>
+              <label>
+                <span class="sr-only">Mobile number (optional)</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Mobile (optional)"
+                  autocomplete="tel"
+                  maxlength="40"
+                />
+              </label>
+              <button type="submit" data-survey-submit>
+                Submit <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="hero-optin-note">
+              Put your details below to be the first to know about our next events.
+            </p>
+            <p
+              class="hero-optin-message"
+              role="status"
+              aria-live="polite"
+              data-survey-message
+            ></p>
+          </form>
+        </div>
+
+        <h1 class="hero-title" id="hero-title">The science of yoga business</h1>
+      </section>
+    </main>
+
+    <script type="module" src="/src/survey.js"></script>
+  </body>
+</html>

@@ -7,15 +7,22 @@ function createGuid() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-export function buildMailerLiteUrl({ email, firstName, guid = createGuid() }) {
-  const url = new URL(mailerLiteFormUrl);
+export function buildMailerLiteUrl({
+  email,
+  firstName,
+  lastName = '',
+  phone = 'Not provided',
+  formUrl = mailerLiteFormUrl,
+  guid = createGuid(),
+}) {
+  const url = new URL(formUrl);
   url.search = new URLSearchParams({
     'fields[email]': email,
     'fields[name]': firstName,
-    'fields[last_name]': '',
+    'fields[last_name]': lastName,
     // The supplied MailerLite embed labels this field as optional, but its
     // generated markup marks it as required.
-    'fields[phone]': 'Not provided',
+    'fields[phone]': phone || 'Not provided',
     'ml-submit': '1',
     anticsrf: 'true',
     ajax: '1',
@@ -25,7 +32,13 @@ export function buildMailerLiteUrl({ email, firstName, guid = createGuid() }) {
   return url;
 }
 
-export function subscribeToMailerLite({ email, firstName }) {
+export function subscribeToMailerLite({
+  email,
+  firstName,
+  lastName,
+  phone,
+  formUrl,
+}) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     const timeout = window.setTimeout(() => {
@@ -49,7 +62,7 @@ export function subscribeToMailerLite({ email, firstName }) {
     };
 
     script.async = true;
-    script.src = buildMailerLiteUrl({ email, firstName }).toString();
+    script.src = buildMailerLiteUrl({ email, firstName, lastName, phone, formUrl }).toString();
     script.onerror = () => {
       cleanup();
       reject(new Error('Signup is temporarily unavailable.'));
