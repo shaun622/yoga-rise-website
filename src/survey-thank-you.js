@@ -2,7 +2,11 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import './styles.css';
-import { subscribeToMailerLite, surveyMailerLiteFormUrl } from './mailerlite.js';
+import {
+  getMailerLiteLocalValidationMessage,
+  subscribeToMailerLite,
+  surveyMailerLiteFormUrl,
+} from './mailerlite.js';
 
 const form = document.querySelector('[data-survey-thanks-form]');
 
@@ -26,6 +30,13 @@ form?.addEventListener('submit', async (event) => {
   if (!email?.value || !email.checkValidity()) {
     message.textContent = 'Please enter a valid email address.';
     email?.focus();
+    return;
+  }
+
+  const mailerLiteValidationMessage = getMailerLiteLocalValidationMessage(email.value);
+  if (mailerLiteValidationMessage) {
+    message.textContent = mailerLiteValidationMessage;
+    email.focus();
     return;
   }
 
