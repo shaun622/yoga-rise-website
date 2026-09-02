@@ -3,7 +3,7 @@ import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import './styles.css';
-import { subscribeToMailerLite } from './mailerlite.js';
+import { submitSignup } from './signup.js';
 
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const navigation = document.querySelector('[data-navigation]');
@@ -100,23 +100,12 @@ heroOptin?.addEventListener('submit', async (event) => {
 
   try {
     if (!company?.value) {
-      await subscribeToMailerLite({
+      await submitSignup({
+        source: 'website',
         firstName: firstName.value.trim(),
         email: email.value.trim().toLowerCase(),
+        company: '',
       });
-
-      // MailerLite is the source of truth. Keep the D1 backup best-effort so
-      // an internal storage issue can never turn a confirmed signup into an
-      // error for the visitor.
-      fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: firstName.value,
-          email: email.value,
-          company: '',
-        }),
-      }).catch(() => {});
     }
 
     message.textContent = 'You’re on the list. Thanks for joining us.';
