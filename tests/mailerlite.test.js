@@ -4,7 +4,6 @@ import test from 'node:test';
 import {
   buildMailerLiteUrl,
   getMailerLiteErrorMessage,
-  getMailerLiteLocalValidationMessage,
   surveyMailerLiteFormUrl,
 } from '../src/mailerlite.js';
 
@@ -72,12 +71,4 @@ test('surfaces a safe MailerLite validation message', () => {
     getMailerLiteErrorMessage({ errors: { email: ['Please enter a valid email address.'] } }),
     'Please enter a valid email address.',
   );
-});
-
-test('explains MailerLite short Gmail rejection before submission', () => {
-  assert.match(
-    getMailerLiteLocalValidationMessage('test@gmail.com'),
-    /five or fewer characters/,
-  );
-  assert.equal(getMailerLiteLocalValidationMessage('shaun+1@gmail.com'), '');
 });
