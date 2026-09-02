@@ -29,13 +29,83 @@ function clean(value, maxLength) {
     .slice(0, maxLength + 1);
 }
 
-function publicMailerLiteError(status) {
-  if (status === 422) return 'Please enter a valid email address.';
-  if (status === 429) return 'Too many signup attempts. Please wait a moment and try again.';
-  return 'Signup is temporarily unavailable. Please try again shortly.';
+function hasErrorField(errorFields, fieldName) {
+  return errorFields.some((field) => field === fieldName || field.startsWith(`${fieldName}.`));
 }
 
-async function storeSubscriberBackup(env, email, source) {
+function publicMailerLiteError(status, errorFields) {
+  if (status === 401) {
+    return {
+      message: 'The signup connection is not authorised with MailerLite. Please let us know.',
+      status: 503,
+    };
+  }
+  if (status === 403) {
+    return {
+      message: 'MailerLite denied access to the mailing list. Please let us know.',
+      status: 503,
+    };
+  }
+  if (status === 404 || (status === 422 && hasErrorField(errorFields, 'groups'))) {
+    return {
+      message: 'The selected MailerLite group is unavailable. Please let us know.',
+      status: 503,
+    };
+  }
+  if (status === 422 && hasErrorField(errorFields, 'email')) {
+    return { message: 'Please enter a valid email address.', status: 422 };
+  }
+  if (status === 422) {
+    return {
+      message: 'MailerLite could not accept those details. Please check them and try again.',
+      status: 422,
+    };
+  }
+  if (status === 429) {
+    return {
+      message: 'Too many signup attempts. Please wait a moment and try again.',
+      status: 429,
+    };
+  }
+  if (status >= 500) {
+    return {
+      message: 'MailerLite is temporarily unavailable. Please try again shortly.',
+      status: 503,
+    };
+  }
+  return {
+    message: `MailerLite rejected the signup request (error ${status}). Please let us know.`,
+    status: 502,
+  };
+}
+
+async function readMailerLiteError(response) {
+  try {
+    const payload = await response.json();
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+      return { message: '', fields: [] };
+    }
+
+    const message = clean(payload.message, 300).replace(
+      /[^\s@]+@[^\s@]+\.[^\s@]+/g,
+      '[email redacted]',
+    );
+    const fields =
+      payload.errors && typeof payload.errors === 'object' && !Array.isArray(payload.errors)
+        ? Object.keys(payload.errors).slice(0, 20)
+        : [];
+
+    return { message, fields };
+  } catch {
+    return { message: '', fields: [] };
+  }
+}
+
+function withReference(message, requestId) {
+  return `${message} Reference: ${requestId.slice(0, 8).toUpperCase()}.`;
+}
+
+async function storeSubscriberBackup(env, email, source, requestId) {
   if (!env.SUBSCRIBERS_DB) return;
 
   try {
@@ -47,10 +117,14 @@ async function storeSubscriberBackup(env, email, source) {
       .bind(email, source)
       .run();
   } catch (error) {
-    console.error('Subscriber backup failed', {
-      source,
-      error: error instanceof Error ? error.message : 'Unknown D1 error',
-    });
+    console.error(
+      JSON.stringify({
+        event: 'subscriber_backup_failed',
+        requestId,
+        source,
+        error: error instanceof Error ? clean(error.message, 300) : 'Unknown D1 error',
+      }),
+    );
   }
 }
 
@@ -71,6 +145,7 @@ export async function onRequestPost(context) {
   // Treat the hidden honeypot as a successful no-op so bots receive no useful signal.
   if (body.company) return json({ ok: true });
 
+  const requestId = crypto.randomUUID();
   const sourceName = clean(body.source || 'website', 20).toLowerCase();
   const source = signupSources[sourceName];
   const firstName = clean(body.firstName ?? body.fullName, 120);
@@ -94,8 +169,24 @@ export async function onRequestPost(context) {
     return json({ ok: false, message: 'Please check your phone number.' }, 400);
   }
   if (!env.MAILER_API_TOKEN) {
-    console.error('MailerLite signup is missing MAILER_API_TOKEN', { source: sourceName });
-    return json({ ok: false, message: 'Signup is temporarily unavailable.' }, 503);
+    console.error(
+      JSON.stringify({
+        event: 'mailerlite_signup_configuration_error',
+        requestId,
+        source: sourceName,
+        reason: 'MAILER_API_TOKEN is missing',
+      }),
+    );
+    return json(
+      {
+        ok: false,
+        message: withReference(
+          'The signup connection is not configured. Please let us know.',
+          requestId,
+        ),
+      },
+      503,
+    );
   }
 
   const fields = { name: firstName };
@@ -118,24 +209,52 @@ export async function onRequestPost(context) {
       }),
     });
   } catch (error) {
-    console.error('MailerLite signup request failed', {
-      source: sourceName,
-      error: error instanceof Error ? error.message : 'Unknown network error',
-    });
-    return json({ ok: false, message: 'Signup is temporarily unavailable.' }, 502);
-  }
-
-  if (!mailerLiteResponse.ok) {
-    console.error('MailerLite signup was rejected', {
-      source: sourceName,
-      status: mailerLiteResponse.status,
-    });
+    console.error(
+      JSON.stringify({
+        event: 'mailerlite_signup_network_error',
+        requestId,
+        source: sourceName,
+        error: error instanceof Error ? clean(error.message, 300) : 'Unknown network error',
+      }),
+    );
     return json(
-      { ok: false, message: publicMailerLiteError(mailerLiteResponse.status) },
-      mailerLiteResponse.status === 429 ? 429 : 502,
+      {
+        ok: false,
+        message: withReference(
+          'MailerLite could not be reached. Please try again shortly.',
+          requestId,
+        ),
+      },
+      502,
     );
   }
 
-  context.waitUntil(storeSubscriberBackup(env, email, source.backupSource));
+  if (!mailerLiteResponse.ok) {
+    const mailerLiteError = await readMailerLiteError(mailerLiteResponse);
+    const publicError = publicMailerLiteError(
+      mailerLiteResponse.status,
+      mailerLiteError.fields,
+    );
+
+    console.error(
+      JSON.stringify({
+        event: 'mailerlite_signup_rejected',
+        requestId,
+        source: sourceName,
+        status: mailerLiteResponse.status,
+        upstreamMessage: mailerLiteError.message,
+        errorFields: mailerLiteError.fields,
+      }),
+    );
+    return json(
+      {
+        ok: false,
+        message: withReference(publicError.message, requestId),
+      },
+      publicError.status,
+    );
+  }
+
+  context.waitUntil(storeSubscriberBackup(env, email, source.backupSource, requestId));
   return json({ ok: true });
 }
