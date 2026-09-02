@@ -2,10 +2,7 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import './styles.css';
-import { subscribeToMailerLite } from './mailerlite.js';
-
-const surveyMailerLiteFormUrl =
-  'https://assets.mailerlite.com/jsonp/2606050/forms/197286111087690808/subscribe';
+import { submitSignup } from './signup.js';
 
 const form = document.querySelector('[data-survey-thanks-form]');
 
@@ -37,12 +34,13 @@ form?.addEventListener('submit', async (event) => {
 
   try {
     if (!company?.value) {
-      await subscribeToMailerLite({
+      await submitSignup({
+        source: 'survey',
         firstName: firstName.value.trim(),
         lastName: lastName?.value.trim() || '',
         email: email.value.trim().toLowerCase(),
-        phone: phone?.value.trim() || 'Not provided',
-        formUrl: surveyMailerLiteFormUrl,
+        phone: phone?.value.trim() || '',
+        company: '',
       });
     }
 
