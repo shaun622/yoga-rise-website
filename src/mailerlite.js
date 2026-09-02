@@ -9,6 +9,17 @@ function cleanMessage(value) {
   return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240);
 }
 
+export function getMailerLiteLocalValidationMessage(email) {
+  const [localPart = '', domain = ''] = String(email).trim().toLowerCase().split('@');
+  const gmailName = localPart.split('+')[0];
+
+  if (domain === 'gmail.com' && gmailName.length <= 5) {
+    return 'MailerLite does not accept Gmail addresses with five or fewer characters. Please use your real address; for testing, add +1 before @gmail.com.';
+  }
+
+  return '';
+}
+
 export function getMailerLiteErrorMessage(result) {
   const directMessage = cleanMessage(result?.message || result?.error);
   if (directMessage) return directMessage;
@@ -93,7 +104,11 @@ export function subscribeToMailerLite({
     script.src = buildMailerLiteUrl({ email, firstName, lastName, phone, formUrl }).toString();
     script.onerror = () => {
       cleanup();
-      reject(new Error('Signup is temporarily unavailable.'));
+      reject(
+        new Error(
+          'MailerLite could not accept this email address. Please use a real inbox; for testing, add +1 to your usual address.',
+        ),
+      );
     };
     document.head.append(script);
   });
