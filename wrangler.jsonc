@@ -3,6 +3,9 @@
   "name": "yoga-rise",
   "compatibility_date": "2026-08-28",
   "pages_build_output_dir": "./dist",
+  "secrets": {
+    "required": ["MAILER_API_TOKEN"]
+  },
   "d1_databases": [
     {
       "binding": "SUBSCRIBERS_DB",
