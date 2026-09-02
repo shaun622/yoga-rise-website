@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildMailerLiteUrl } from '../src/mailerlite.js';
+import {
+  buildMailerLiteUrl,
+  getMailerLiteErrorMessage,
+  surveyMailerLiteFormUrl,
+} from '../src/mailerlite.js';
 
 test('builds the browser-native MailerLite JSONP request', () => {
   const url = buildMailerLiteUrl({
@@ -49,4 +53,22 @@ test('preserves the survey embed\'s optional mobile behaviour', () => {
   });
 
   assert.equal(url.searchParams.get('fields[phone]'), 'Not provided');
+});
+
+test('uses the supplied survey MailerLite embed endpoint', () => {
+  const url = buildMailerLiteUrl({
+    email: 'teacher@example.com',
+    firstName: 'Alex',
+    formUrl: surveyMailerLiteFormUrl,
+    guid: 'survey-guid',
+  });
+
+  assert.equal(url.origin + url.pathname, surveyMailerLiteFormUrl);
+});
+
+test('surfaces a safe MailerLite validation message', () => {
+  assert.equal(
+    getMailerLiteErrorMessage({ errors: { email: ['Please enter a valid email address.'] } }),
+    'Please enter a valid email address.',
+  );
 });
