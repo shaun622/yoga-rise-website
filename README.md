@@ -32,15 +32,14 @@ The site uses the approved layout `02`; the earlier layout comparison routes red
 - Build output directory: `dist`
 - Production branch: `main`
 
-The repository is designed for Cloudflare Pages Git integration. The signup forms use a Pages
-Function and the encrypted `MAILER_API_TOKEN` secret; authentication, payments, and course gating
-are not included in this first homepage phase.
+The repository is designed for Cloudflare Pages Git integration. The custom-styled signup forms
+submit through the public endpoints supplied by the client's MailerLite embeds, so no API token or
+Pages Function is required. Authentication, payments, and course gating are not included in this
+first homepage phase.
 
 ## Content status
 
 The article thumbnails and two team profiles intentionally retain the placeholders present in the
 source design. Ticketing, contact, social, article, and the full-site footer newsletter still need
-final client URLs or service providers. The temporary live opt-in adds subscribers to MailerLite
-group `197361749519762447`, while the survey thank-you opt-in uses group `197286125900924756`.
-Unique email addresses are also stored as a best-effort backup in the Cloudflare D1 binding named
-`SUBSCRIBERS_DB`.
+final client URLs or service providers. The temporary live opt-in and survey thank-you opt-in each
+use the corresponding MailerLite embed form supplied by the client.
