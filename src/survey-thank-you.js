@@ -2,7 +2,7 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import './styles.css';
-import { submitSignup } from './signup.js';
+import { subscribeToMailerLite, surveyMailerLiteFormUrl } from './mailerlite.js';
 
 const form = document.querySelector('[data-survey-thanks-form]');
 
@@ -34,13 +34,12 @@ form?.addEventListener('submit', async (event) => {
 
   try {
     if (!company?.value) {
-      await submitSignup({
-        source: 'survey',
+      await subscribeToMailerLite({
         firstName: firstName.value.trim(),
         lastName: lastName?.value.trim() || '',
         email: email.value.trim().toLowerCase(),
         phone: phone?.value.trim() || '',
-        company: '',
+        formUrl: surveyMailerLiteFormUrl,
       });
     }
 
