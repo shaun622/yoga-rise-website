@@ -3,7 +3,7 @@ import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import './styles.css';
-import { submitSignup } from './signup.js';
+import { subscribeToMailerLite } from './mailerlite.js';
 
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const navigation = document.querySelector('[data-navigation]');
@@ -100,11 +100,9 @@ heroOptin?.addEventListener('submit', async (event) => {
 
   try {
     if (!company?.value) {
-      await submitSignup({
-        source: 'website',
+      await subscribeToMailerLite({
         firstName: firstName.value.trim(),
         email: email.value.trim().toLowerCase(),
-        company: '',
       });
     }
 
