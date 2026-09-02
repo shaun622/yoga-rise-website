@@ -1,6 +1,34 @@
 const mailerLiteFormUrl =
   'https://assets.mailerlite.com/jsonp/2606050/forms/197361563373406082/subscribe';
+export const surveyMailerLiteFormUrl =
+  'https://assets.mailerlite.com/jsonp/2606050/forms/197286111087690808/subscribe';
 const mailerLiteCallback = 'mlWebformSubmitted';
+
+function cleanMessage(value) {
+  if (typeof value !== 'string') return '';
+  return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240);
+}
+
+export function getMailerLiteErrorMessage(result) {
+  const directMessage = cleanMessage(result?.message || result?.error);
+  if (directMessage) return directMessage;
+
+  const errors = result?.errors;
+  if (Array.isArray(errors)) {
+    const message = errors.map((error) => cleanMessage(error?.message || error)).find(Boolean);
+    if (message) return message;
+  }
+
+  if (errors && typeof errors === 'object') {
+    for (const value of Object.values(errors)) {
+      const values = Array.isArray(value) ? value : [value];
+      const message = values.map((error) => cleanMessage(error?.message || error)).find(Boolean);
+      if (message) return message;
+    }
+  }
+
+  return 'MailerLite could not accept those details. Please check them and try again.';
+}
 
 function createGuid() {
   if (typeof crypto?.randomUUID === 'function') return crypto.randomUUID();
@@ -58,7 +86,7 @@ export function subscribeToMailerLite({
         resolve(result);
         return;
       }
-      reject(new Error('Signup is temporarily unavailable.'));
+      reject(new Error(getMailerLiteErrorMessage(result)));
     };
 
     script.async = true;
