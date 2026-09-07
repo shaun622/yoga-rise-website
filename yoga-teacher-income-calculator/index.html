@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Understand your teaching income, expenses and pricing with the YogaRise income calculator." />
+    <meta name="theme-color" content="#1b0907" />
+    <link rel="icon" href="/assets/yogarise-favicon.png" type="image/png" />
+    <title>YogaRise</title>
+    <script type="module" src="/src/income-calculator.js"></script>
+  </head>
+  <body class="calculator-page">
+    <a class="skip-link" href="#calculator">Skip to calculator</a>
+    <main>
+      <section class="calculator-hero" aria-labelledby="page-title">
+        <div class="calculator-wrap">
+          <img class="calculator-logo" src="/assets/yogarise-logo.svg" alt="YogaRise" width="400" height="245" />
+          <p class="calculator-eyebrow">The science of yoga business</p>
+          <h1 id="page-title">Yoga teacher<br />income &amp; pricing<br /><span>calculator.</span></h1>
+          <p class="calculator-intro">Is your current teaching model capable of supporting the income and lifestyle you want?</p>
+          <a class="calculator-button" href="#calculator">Explore your numbers <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="calculator-guide calculator-wrap" aria-labelledby="guide-title">
+        <p class="calculator-eyebrow">A little clarity goes a long way</p>
+        <h2 id="guide-title">How to use this calculator</h2>
+        <ol class="calculator-steps">
+          <li><h3>Fill in your numbers</h3><p>Complete the fields as accurately as you can. If you don’t know an exact figure, use your best estimate.</p></li>
+          <li><h3>Check your results</h3><p>Your results automatically update in Your Business at a Glance as you enter your numbers.</p></li>
+          <li><h3>Take a step back</h3><p>The numbers aren’t a measure of your worth or success. They’re information to help you understand your current business model.</p></li>
+          <li><h3>Choose your next action</h3><p>Review the levers to close the gap and choose one or two areas you’d like to explore or improve.</p></li>
+        </ol>
+        <p class="calculator-guide-note">There isn’t one “right” way to build a yoga career. The goal is to understand your numbers so you can make decisions that are right for you, your business and the way you want to work.</p>
+      </section>
+
+      <section id="calculator" class="calculator-workspace" aria-label="Income and pricing calculator">
+        <div class="calculator-wrap">
+          <div class="calculator-section-heading"><div><p class="calculator-eyebrow">Start with where you are</p><h2>Your numbers.</h2></div><p>All amounts in AUD.<br />Your figures stay in this page and are cleared when you reload.</p></div>
+          <noscript><p class="calculator-notice">Please enable JavaScript to use the calculator and see your results.</p></noscript>
+          <form id="income-inputs" class="calculator-inputs" novalidate>
+            <fieldset><legend><span>01</span>Your teaching schedule &amp; rates</legend><div id="teaching-fields" class="calculator-fields"></div></fieldset>
+            <fieldset><legend><span>02</span>Your business expenses</legend><p class="calculator-field-note">Annual overhead and teaching-related costs.</p><div id="expense-fields" class="calculator-fields"></div></fieldset>
+            <fieldset><legend><span>03</span>Your time breakdown</legend><p class="calculator-field-note">Average time per studio or corporate class, in minutes.</p><div id="time-fields" class="calculator-fields"></div></fieldset>
+            <fieldset><legend><span>04</span>Your sustainable income goal</legend><p class="calculator-field-note">Choose your annual take-home goal and the percentage of positive profit you want to set aside.</p><div id="goal-fields" class="calculator-fields"></div></fieldset>
+          </form>
+          <p id="calculator-validation" class="calculator-validation" role="status"></p>
+        </div>
+      </section>
+
+      <aside class="calculator-perspective">
+        <div class="calculator-wrap"><p class="calculator-eyebrow">YogaRise perspective</p><h2>Your numbers are information,<br /><span>not a judgment.</span></h2><p>The calculator helps you make intentional decisions about where to take your business. More classes isn’t the only path. Reviewing your pricing, business model, product mix, or cost structure can often unlock sustainability faster.</p></div>
+      </aside>
+
+      <section class="calculator-results calculator-wrap" aria-labelledby="results-title">
+        <p class="calculator-eyebrow">See the bigger picture</p><h2 id="results-title">Your business at a glance.</h2>
+        <p class="calculator-field-note">Results update as you change your figures.</p>
+        <div class="calculator-metrics">
+          <div class="calculator-metric featured"><h3>Annual gross income</h3><output id="resGross">$0</output></div>
+          <div class="calculator-metric"><h3>Annual expenses</h3><output id="resExpenses">$0</output></div>
+          <div class="calculator-metric"><h3>Net before reserve</h3><output id="resNet">$0</output></div>
+          <div class="calculator-metric"><h3>Tax / financial reserve</h3><output id="resReserve">$0</output></div>
+          <div class="calculator-metric"><h3>Income after reserve</h3><output id="resAvailable">$0</output></div>
+          <div class="calculator-metric featured"><h3 id="gap-label">Income gap / surplus</h3><output id="resGap">$0</output></div>
+          <div class="calculator-metric"><h3>Studio effective hourly rate</h3><output id="resHourly">$0/hr</output></div>
+          <div class="calculator-metric"><h3>Teaching-related hours / week</h3><output id="resHoursWeek">0 hrs</output></div>
+        </div>
+        <div class="calculator-assumptions"><h3>What’s included</h3><p>The income gap compares income after your chosen reserve with your annual take-home goal. The reserve is a simple percentage of positive profit, not a calculation of your actual tax.</p><p>The studio hourly rate is studio pay less the per-class cost, divided by your total time per class. Weekly hours include studio and corporate classes plus 75 minutes per private session, as assumed in this model. Workshop, retreat and other work hours are not included. Per-class expenses apply to studio and corporate classes; include other costs in annual expenses.</p></div>
+
+        <div class="calculator-levers"><p class="calculator-eyebrow">Choose your next action</p><h2>Levers to close the gap.</h2><p class="calculator-field-note">Potential additional gross income using your current rates and teaching weeks, before additional expenses and reserves. Explore each option independently.</p>
+          <ul>
+            <li><span>Teach 2 more studio classes per week</span><output id="leverMoreClasses">+$0/yr</output></li>
+            <li><span>Raise your corporate class rate by $30</span><output id="leverRaiseCorporate">+$0/yr</output></li>
+            <li><span>Raise your studio class rate by $5</span><output id="leverRaiseRate">+$0/yr</output></li>
+            <li><span>Add 1 private client per week</span><output id="leverAddPrivate">+$0/yr</output></li>
+            <li><span>Add 2 workshops per year</span><output id="leverAddWorkshops">+$0/yr</output></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer class="calculator-footer calculator-wrap"><span>YogaRise</span><p>Grow beyond the mat.</p></footer>
+  </body>
+</html>

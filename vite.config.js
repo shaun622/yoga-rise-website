@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
+        incomeCalculator: resolve(import.meta.dirname, 'yoga-teacher-income-calculator/index.html'),
         survey: resolve(import.meta.dirname, 'yoga-teacher-industry-survey/index.html'),
         surveyThankYou: resolve(
           import.meta.dirname,
