@@ -1,12 +1,10 @@
 .calculator-page { background: #f6f5f2; line-height: 1.55; }
 .calculator-wrap { width: min(100% - 2 * clamp(1.25rem, 6vw, 7rem), 1180px); margin-inline: auto; }
-.calculator-page h1, .calculator-page h2, .calculator-page h3 { letter-spacing: -0.045em; line-height: 1.08; }
+.calculator-page h2, .calculator-page h3 { letter-spacing: -0.045em; line-height: 1.08; }
 .calculator-page h2 { font-size: clamp(2rem, 3.8vw, 3.8rem); font-weight: 500; margin-bottom: 1.5rem; }
 .calculator-eyebrow { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1.5rem; }
 .calculator-hero { padding-block: clamp(2.5rem, 6vw, 6rem); color: white; background: linear-gradient(90deg, rgba(20,5,3,.8), rgba(20,5,3,.3)), url('/assets/hero.webp') center 46% / cover; }
 .calculator-logo { width: clamp(155px, 21vw, 280px); height: auto; margin-bottom: clamp(3rem, 6vw, 6rem); }
-.calculator-hero h1 { font-size: clamp(2.5rem, 5.6vw, 5.7rem); font-weight: 600; margin: 0 0 1.8rem; }
-.calculator-hero h1 span { font-weight: 400; }
 .calculator-intro { max-width: 550px; font-size: clamp(1.05rem, 1.5vw, 1.3rem); margin-bottom: 2rem; }
 .calculator-button { display: inline-flex; justify-content: space-between; gap: 3rem; border: 1px solid #fff; padding: 1rem 1.4rem; font-size: .8rem; font-weight: 600; text-transform: uppercase; }
 .calculator-button:hover { background: #fff; color: #1b0907; }
