@@ -39,10 +39,13 @@ for (const [section, fields] of Object.entries(sections)) {
 
 const form = document.getElementById('income-inputs');
 const inputs = [...form.querySelectorAll('input')];
-const outputs = [...document.querySelectorAll('.calculator-results output')];
+const outputs = [...document.querySelectorAll('.calculator-results output, .calculator-live-summary output')];
 const currency = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
 const hours = new Intl.NumberFormat('en-AU', { maximumFractionDigits: 1 });
-const show = (id, value) => { document.getElementById(id).textContent = value; };
+const show = (id, value) => {
+  document.getElementById(id).textContent = value;
+  document.querySelectorAll(`[data-mirror="${id}"]`).forEach(element => { element.textContent = value; });
+};
 
 function calculate() {
   const values = {};

@@ -38,6 +38,8 @@
         <div class="calculator-wrap">
           <div class="calculator-section-heading"><div><p class="calculator-eyebrow">Start with where you are</p><h2>Your numbers.</h2></div><p>Your figures stay in this page and are cleared when you reload.</p></div>
           <noscript><p class="calculator-notice">Please enable JavaScript to use the calculator and see your results.</p></noscript>
+          <div class="calculator-entry-layout">
+          <div class="calculator-entry-fields">
           <form id="income-inputs" class="calculator-inputs" novalidate>
             <fieldset><legend><span>01</span>Your teaching schedule &amp; rates</legend><div id="teaching-fields" class="calculator-fields"></div></fieldset>
             <fieldset><legend><span>02</span>Your business expenses</legend><p class="calculator-field-note">Annual overhead and teaching-related costs.</p><div id="expense-fields" class="calculator-fields"></div></fieldset>
@@ -45,6 +47,17 @@
             <fieldset><legend><span>04</span>Your sustainable income goal</legend><p class="calculator-field-note">Choose your annual take-home goal and the percentage of positive profit you want to set aside.</p><div id="goal-fields" class="calculator-fields"></div></fieldset>
           </form>
           <p id="calculator-validation" class="calculator-validation" role="status"></p>
+          </div>
+          <aside class="calculator-live-summary" aria-labelledby="live-summary-title">
+            <p class="calculator-eyebrow">As you enter your figures</p>
+            <h2 id="live-summary-title">Your running totals.</h2>
+            <div class="calculator-summary-row"><h3>Annual gross income</h3><output data-mirror="resGross" aria-live="off">$0</output></div>
+            <div class="calculator-summary-row"><h3>Annual expenses</h3><output data-mirror="resExpenses" aria-live="off">$0</output></div>
+            <div class="calculator-summary-row"><h3>Income after reserve</h3><output data-mirror="resAvailable" aria-live="off">$0</output></div>
+            <div class="calculator-summary-row calculator-summary-gap"><h3 data-mirror="gap-label">Income gap / surplus</h3><output data-mirror="resGap" aria-live="off">$0</output></div>
+            <a href="#results-title">View full breakdown <span aria-hidden="true">↘</span></a>
+          </aside>
+          </div>
         </div>
       </section>
 
