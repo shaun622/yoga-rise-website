@@ -43,7 +43,7 @@ first homepage phase.
 - GA4 account/property: YogaRise; web stream: YogaRise Website
 - Measurement ID: `G-8L51BW487V`
 - Reporting: Australia/Sydney, Australian dollars
-- Shared tracking module: `src/analytics.js`, imported by all four page entry points.
+- Shared tracking module: `src/analytics.js`, imported by all page entry points.
 - Tracking runs only on the two live YogaRise hostnames, excluding localhost and Pages previews.
 - Page URL/referrer query strings and fragments are excluded. Google advertising signals and
   ad personalisation are disabled. Enhanced form interactions and site search are disabled in GA4.
@@ -55,7 +55,26 @@ first homepage phase.
 
 ## Content status
 
-The article thumbnails and two team profiles intentionally retain the placeholders present in the
-source design. Ticketing, contact, social, article, and the full-site footer newsletter still need
-final client URLs or service providers. The temporary live opt-in and survey thank-you opt-in each
-use the corresponding MailerLite embed form supplied by the client.
+The homepage shows the latest published articles from `content/articles.js`. Nic Dorsch's portrait
+and the Marketing Health Check destination remain pending. Ticketing, contact, social, and the
+full-site footer newsletter still need final client URLs or service providers. The temporary live
+opt-in and survey thank-you opt-in each use the corresponding MailerLite embed supplied by the client.
+
+## Publishing articles
+
+Add articles to `content/articles.js` with a unique slug, title, excerpt, ISO publication date,
+image class/description, HTML body and CTA. Set `status: 'draft'` to withhold a post or `published`
+to include it. The build generates the blog index and full article pages, and inserts the four
+most recent published articles into the staging homepage. Restart the dev server after content
+changes. No browser API, CMS, or new runtime service is required.
+
+The two initial articles use 2026-09-09 as a preview publication date; confirm dates before launch.
+Blog pages are currently `noindex, nofollow`, and are not added to the live sitemap.
+The marketing article's CTA is non-clickable until a destination is supplied.
+
+## September homepage review
+
+Changes are isolated on `codex/shaun-homepage-edits` for a Cloudflare Pages branch preview.
+Do not merge to `main` until approved. The live hero/form code and outreach pages are unchanged.
+The three new WebP assets derive from the supplied Drive images, with event scenes selected by
+CSS background positioning. These are illustrative images, not photographs of a past YogaRise event.
