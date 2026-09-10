@@ -43,7 +43,7 @@ function renderBody(article) {
     : `<p class="article-cta-pending">${escape(article.cta.label)}<small>Link coming soon</small></p>`;
   return `<article>
     <header class="article-heading"><p class="article-eyebrow">YogaRise insights</p><h1>${escape(article.title)}</h1><p>${escape(article.excerpt)}</p></header>
-    <div class="article-body">${article.body}<aside class="article-cta">${cta}</aside><a class="article-back" href="/#stay-connected">← Back to articles</a></div>
+    <div class="article-body">${article.body}<aside class="article-cta">${cta}</aside><a class="article-back" href="/blog/">← Back to articles</a></div>
   </article>`;
 }
 
