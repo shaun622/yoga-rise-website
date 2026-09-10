@@ -55,7 +55,7 @@ export const articles = [
     imageAlt: 'Illustrative image of yoga professionals connecting at an industry event',
     excerpt: 'More content is not always the answer. Step back and explore whether your positioning, offers and marketing help people take the next step.',
     source: 'https://docs.google.com/document/d/1e68oDkvZXTkI_DkDU-a46tgA6sOdTncTP3HTQfE_JPs/edit',
-    // No invented destination: connect the Health Check when its URL is supplied.
+    // Keep inactive until the Health Check page and its assessment are both released.
     cta: { label: 'Take the free YogaRise Marketing Health Check', href: null },
     body: `
       <p class="article-lead">Marketing can easily become another thing on the to-do list: post more, create more, show up more.</p>

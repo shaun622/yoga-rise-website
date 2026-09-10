@@ -1,0 +1,77 @@
+export const contentPages = [
+  {
+    key: 'about',
+    path: '/about/',
+    source: 'about/index.html',
+    label: 'About',
+    status: 'draft',
+    dependencies: ['partner'],
+    primary: true,
+  },
+  {
+    key: 'awards',
+    path: '/awards/',
+    source: 'awards/index.html',
+    label: 'Awards',
+    status: 'draft',
+    dependencies: [],
+    primary: true,
+  },
+  {
+    key: 'membership',
+    path: '/membership/',
+    source: 'membership/index.html',
+    label: 'Membership',
+    status: 'draft',
+    dependencies: [],
+    primary: true,
+  },
+  {
+    key: 'partner',
+    path: '/become-a-partner/',
+    source: 'become-a-partner/index.html',
+    label: 'Partner',
+    status: 'draft',
+    dependencies: ['ambassador'],
+    footer: true,
+  },
+  {
+    key: 'ambassador',
+    path: '/become-a-brand-ambassador/',
+    source: 'become-a-brand-ambassador/index.html',
+    label: 'Ambassador',
+    status: 'draft',
+    dependencies: [],
+    footer: true,
+  },
+  {
+    key: 'volunteer',
+    path: '/become-a-volunteer/',
+    source: 'become-a-volunteer/index.html',
+    label: 'Volunteer',
+    status: 'draft',
+    dependencies: [],
+    footer: true,
+  },
+  {
+    key: 'healthCheck',
+    path: '/yogarise-marketing-health-check/',
+    source: 'yogarise-marketing-health-check/index.html',
+    label: 'Health Check',
+    status: 'draft',
+    dependencies: [],
+  },
+  {
+    key: 'expo',
+    path: '/expo/',
+    source: 'expo/index.html',
+    label: 'Expo',
+    status: 'draft',
+    dependencies: ['partner', 'ambassador'],
+    primary: true,
+  },
+];
+
+export function activeContentPages({ includeDrafts = false } = {}) {
+  return contentPages.filter((page) => includeDrafts || page.status === 'released');
+}

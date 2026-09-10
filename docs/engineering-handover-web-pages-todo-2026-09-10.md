@@ -1,5 +1,7 @@
 # YogaRise — engineering execution handover
 
+> **Superseded:** use [the Sol implementation handover](sol-handover/README.md). All previously inaccessible copy documents are now readable; Expo is newly in scope. This revision is retained as historical context, not current execution instructions.
+
 Revision 1 · Prepared 10 September 2026 · Owner/approver: Shaun
 
 ## 1. Read this before starting

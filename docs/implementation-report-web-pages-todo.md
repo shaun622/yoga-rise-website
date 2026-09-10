@@ -1,5 +1,7 @@
 # YogaRise web pages — implementation report
 
+> **Historical report:** the revised [Sol handover](sol-handover/README.md) resolves the source-access blockers and adds Expo. This report describes the earlier partial implementation only; it does not describe completion of the new ten-task scope.
+
 Updated 10 September 2026. This report follows `engineering-handover-web-pages-todo-2026-09-10.md` without variation.
 
 ## Baseline and environment
