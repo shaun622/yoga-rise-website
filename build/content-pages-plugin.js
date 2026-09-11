@@ -1,4 +1,5 @@
 import { relative, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { activeContentPages, contentPages } from '../content/page-release.js';
 
 const toPosix = (value) => value.replaceAll('\\', '/');
@@ -18,7 +19,7 @@ export function contentPagesPlugin({ review = false } = {}) {
   let root;
   const activePages = activeContentPages({ includeDrafts: review });
   const activeByKey = new Map(activePages.map((page) => [page.key, page]));
-  const knownSources = new Set(['index.html', 'blog/index.html', ...contentPages.map((page) => page.source)]);
+  const knownSources = new Set(['index.html', 'blog/index.html', 'yoga-teacher-income-calculator/index.html', ...contentPages.map((page) => page.source)]);
 
   for (const page of activePages) {
     for (const dependency of page.dependencies) {
@@ -39,6 +40,8 @@ export function contentPagesPlugin({ review = false } = {}) {
       if (!knownSources.has(source)) return html;
 
       let transformed = html
+        .replace('<!-- site:header -->', () => readFileSync(resolve(root, 'build/site-header.html'), 'utf8'))
+        .replace('<!-- site:footer -->', () => readFileSync(resolve(root, 'build/site-footer.html'), 'utf8'))
         .replace('<!-- content:primary-nav -->', pageLinks(activePages))
         .replace('<!-- content:footer-nav -->', pageLinks(activePages, { footer: true }));
 

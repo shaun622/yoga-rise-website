@@ -61,6 +61,12 @@ full-homepage navigation and the content/blog footers. See the current
 [published-pages and outstanding-work note](docs/published-pages-and-outstanding-items-2026-09-11.md)
 for the exact omissions and completion requirements. This supersedes the earlier whole-page holds.
 
+The full homepage, content pages, blog and calculator use the shared homepage-style header/footer
+in `build/site-header.html` and `build/site-footer.html`, with `src/site-chrome.*` for common
+styling and menu behaviour. Update these sources rather than creating per-page variants. The
+temporary homepage and header-free survey/thank-you presentation remain unchanged. Unfinished
+footer controls are omitted; the footer links to the existing working signup page.
+
 The homepage shows the latest published articles from `content/articles.js`. Revised team content,
 the Marketing Health Check assessment, ticketing, contact/social/legal destinations and the
 full-site footer newsletter still need final client inputs or providers. The temporary live

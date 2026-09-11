@@ -6,3 +6,4 @@ import './styles.css';
 import './staging-home.css';
 import './blog.css';
 import './analytics.js';
+import './site-chrome.js';

@@ -3,8 +3,8 @@
 .calculator-page h2, .calculator-page h3 { letter-spacing: -0.045em; line-height: 1.08; }
 .calculator-page h2 { font-size: clamp(2rem, 3.8vw, 3.8rem); font-weight: 500; margin-bottom: 1.5rem; }
 .calculator-eyebrow { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1.5rem; }
-.calculator-hero { padding-block: clamp(2.5rem, 6vw, 6rem); color: white; background: linear-gradient(90deg, rgba(20,5,3,.8), rgba(20,5,3,.3)), url('/assets/hero.webp') center 46% / cover; }
-.calculator-logo { width: clamp(155px, 21vw, 280px); height: auto; margin-bottom: clamp(3rem, 6vw, 6rem); }
+.calculator-hero { padding-block: 0 clamp(2.5rem, 6vw, 6rem); color: white; background: linear-gradient(90deg, rgba(20,5,3,.8), rgba(20,5,3,.3)), url('/assets/hero.webp') center 46% / cover; }
+.calculator-hero > .calculator-wrap { padding-top: clamp(2.5rem, 4vw, 4rem); }
 .calculator-intro { max-width: 550px; font-size: clamp(1.05rem, 1.5vw, 1.3rem); margin-bottom: 2rem; }
 .calculator-button { display: inline-flex; justify-content: space-between; gap: 3rem; border: 1px solid #fff; padding: 1rem 1.4rem; font-size: .8rem; font-weight: 600; text-transform: uppercase; }
 .calculator-button:hover { background: #fff; color: #1b0907; }
@@ -65,9 +65,6 @@
 .calculator-levers ul { padding: 0; margin: 2rem 0 0; list-style: none; }
 .calculator-levers li { display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid #bfb6af; padding: 1.3rem 0; }
 .calculator-levers output { font-size: clamp(1.15rem, 2.5vw, 1.8rem); text-align: right; overflow-wrap: anywhere; min-width: 0; }
-.calculator-footer { display: flex; justify-content: space-between; gap: 1rem; padding-block: 2rem; border-top: 1px solid #bfb6af; font-size: .9rem; }
-.calculator-footer span { font-weight: 700; }
-.calculator-footer p { margin: 0; }
 @media (max-width: 900px) {
   .calculator-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .calculator-inputs { grid-template-columns: minmax(0, 1fr); gap: 1rem; }

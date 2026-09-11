@@ -10,6 +10,18 @@ The full-site header links About, Expo, Awards, Membership and Blog. Its footer 
 
 The custom-domain homepage remains the temporary hero and working opt-in at [www.yogarise.com.au](https://www.yogarise.com.au/). Its header remains hidden. The full homepage and its navigation remain available at [yoga-rise-website.pages.dev](https://yoga-rise-website.pages.dev/). These are two hostname-selected views of the same deployment, not separate staging infrastructure.
 
+## Shared header/footer correction
+
+Shaun subsequently selected the full homepage header and footer design for all standard pages. The full homepage, eight content pages, blog index, both articles and income calculator now use the same build-time header/footer partials and shared styling/menu behaviour. Page-specific hero photos and body content remain separate. The survey and thank-you pages remain header-free, and the custom-domain homepage remains hero/opt-in only.
+
+- Shared header retains the homepage logo proportions, transparent photographic placement, type, navigation spacing and large mobile menu. The common primary menu links About, Expo, Awards, Membership and Blog. The homepage-only Resources anchor is no longer in the common header because it has no standalone destination accessible from the temporary live homepage; the homepage Resources section and calculator footer link remain available.
+- Shared footer retains the homepage photograph, logo/tagline, navigation, lower signup area, divider, copyright and acknowledgement. Unfinished contact/social/legal links and disconnected input fields are omitted everywhere. The signup area links to the existing working signup page rather than adding another form integration.
+- About's restrained heading is widened to avoid the narrow three-line wrap; spacing between the header and introduction is reduced. Ripple diagrams align with the section text and have a proper gap before their supporting paragraphs. The earlier mission image/card spacing correction remains.
+- Shared sources: `build/site-header.html`, `build/site-footer.html`, `src/site-chrome.js` and `src/site-chrome.css`. The existing content-page plugin inserts them before rendering release-aware navigation. Do not copy a separate header or footer into each page.
+- Unused alternate content/blog/calculator header/footer styles and duplicate menu handlers have been removed. Calculator calculations, newsletter integration, survey handling, analytics, DNS, release statuses and indexing directives are unchanged.
+
+This supersedes the earlier simplified inner-page footer and separate menu specification in the Sol handover. Production compilation and source/output inspection are performed for this release; no automated tests or form submissions are run. Browser visual review remains subject to Shaun's separate approval.
+
 ## Page-by-page completion list
 
 | Page | Published content | Excluded for now | What is needed to finish |
@@ -39,7 +51,7 @@ The existing field specifications and local form layouts are in [the form handov
 
 ## Other unfinished work — unchanged in this release
 
-- Full-homepage launch: the custom-domain homepage has not switched to the complete design. That view still has separate team, course/event destination, contact/social/legal-link and footer-newsletter work. The unavailable “Buy tickets” placeholder has been withheld.
+- Full-homepage launch: the custom-domain homepage has not switched to the complete design. That view still has separate team and course/event destination work. Contact/social/legal destinations and an inline footer newsletter need approved inputs before adding them back to the shared footer; the current footer has a working signup-page link. The unavailable “Buy tickets” placeholder has been withheld.
 - Search launch: existing `noindex, nofollow` directives on content/blog pages remain, and the sitemap still lists only the homepage. Public access is not the same as search-indexing readiness. Review canonical URLs, indexing directives, sitemap and article dates as a separate full-site launch step.
 - Design QA: browser/responsive/keyboard review of all new pages is outstanding. No tests or live form submissions are authorised by this note.
 

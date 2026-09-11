@@ -5,29 +5,8 @@ import '@fontsource/inter/latin-700.css';
 import './styles.css';
 import './staging-home.css';
 import './analytics.js';
+import './site-chrome.js';
 import { subscribeToMailerLite } from './mailerlite.js';
-
-const menuToggle = document.querySelector('[data-menu-toggle]');
-const navigation = document.querySelector('[data-navigation]');
-
-function closeMenu() {
-  menuToggle?.setAttribute('aria-expanded', 'false');
-  navigation?.classList.remove('is-open');
-  document.body.classList.remove('menu-open');
-}
-
-menuToggle?.addEventListener('click', () => {
-  const willOpen = menuToggle.getAttribute('aria-expanded') !== 'true';
-  menuToggle.setAttribute('aria-expanded', String(willOpen));
-  navigation?.classList.toggle('is-open', willOpen);
-  document.body.classList.toggle('menu-open', willOpen);
-});
-
-navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeMenu();
-});
 
 const teamGrid = document.querySelector('[data-team-grid]');
 document.querySelector('[data-team-prev]')?.addEventListener('click', () => {
@@ -59,21 +38,6 @@ document.querySelectorAll('.placeholder-link').forEach((link) => {
     event.preventDefault();
     showNotice('This destination will be connected when the final client link is supplied.');
   });
-});
-
-const newsletter = document.querySelector('.newsletter');
-newsletter?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const email = newsletter.querySelector('input[type="email"]');
-  const message = newsletter.querySelector('[data-form-message]');
-
-  if (!email?.value || !email.checkValidity()) {
-    message.textContent = 'Please enter a valid email address.';
-    email?.focus();
-    return;
-  }
-
-  message.textContent = 'Signup is not connected yet, so no details were sent.';
 });
 
 const heroOptin = document.querySelector('[data-hero-optin]');

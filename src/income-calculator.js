@@ -5,6 +5,7 @@ import '@fontsource/inter/latin-700.css';
 import './styles.css';
 import './income-calculator.css';
 import './analytics.js';
+import './site-chrome.js';
 
 const sections = {
   teaching: [
