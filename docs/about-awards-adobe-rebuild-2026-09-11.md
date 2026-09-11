@@ -40,7 +40,7 @@ The Awards screen is misleadingly titled “Yogarise – About Page – 1” in 
 
 ## Responsive follow-up — 11 September 2026
 
-- Shared footer: replaced uneven flex wrapping with a deliberate grid. At widths up to 1600px, all ten links use two aligned columns; above that, five content-sized columns form two consistent rows. Mobile retains two columns below the logo. Link destinations and shared markup are unchanged.
+- Shared footer: replaced uneven flex wrapping with a deliberate grid. Shaun subsequently requested the compact two-column menu on wide screens too. All ten links now use two aligned columns at every width, capped at 30rem beside the logo; mobile retains two columns below the logo. Link destinations and shared markup are unchanged.
 - Image grids: allowed for two/three lines of heading text plus divider padding, preventing photos from starting at different heights. Confirmed all five About audience photos have the same top coordinate at 1280px after the change.
 - Short section dividers are left-aligned with their headings and body copy.
 - About/Awards no longer inherit the global 320px body minimum, avoiding clipping when a 320px browser viewport also reserves space for a scrollbar.
@@ -52,3 +52,4 @@ The Awards screen is misleadingly titled “Yogarise – About Page – 1” in 
 - Full homepage: shared footer visually checked at 1280×720; layout/overflow inspected at the 1601px transition to the wide grid. The wide grid was also visually checked on About at 1920px.
 - Production preview confirms About's team remains absent and Awards contains only its approved hero, purpose and 2027 closing sections, with no nomination form. Review-only content remains available in the local review build.
 - Production and review compilation passed after the CSS adjustments. These were visual/DOM layout checks, not automated tests, form tests or a guarantee covering every browser/device. Temporary viewport override was reset afterward.
+- Wide-screen footer follow-up: production compilation passed and the compact two-column menu was visually checked through the Edge extension at 1920×1080. All ten links occupy a 480px-wide grid; the temporary viewport override was reset. Existing laptop/mobile rules and content publication holds were preserved.
