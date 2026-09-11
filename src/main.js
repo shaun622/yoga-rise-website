@@ -8,13 +8,7 @@ import './analytics.js';
 import './site-chrome.js';
 import { subscribeToMailerLite } from './mailerlite.js';
 
-const teamGrid = document.querySelector('[data-team-grid]');
-document.querySelector('[data-team-prev]')?.addEventListener('click', () => {
-  teamGrid?.scrollBy({ left: -(teamGrid.clientWidth * 0.82), behavior: 'smooth' });
-});
-document.querySelector('[data-team-next]')?.addEventListener('click', () => {
-  teamGrid?.scrollBy({ left: teamGrid.clientWidth * 0.82, behavior: 'smooth' });
-});
+import './team.js';
 
 let toastTimer;
 function showNotice(message) {

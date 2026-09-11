@@ -23,7 +23,7 @@ The Awards screen is misleadingly titled “Yogarise – About Page – 1” in 
 
 - The common homepage header/footer and approved roomier site gutters take precedence over XD's old menu destinations and unfinished footer controls.
 - XD includes placeholder images. Existing site photos fill those slots; they are illustrative, not claimed to depict award winners or a past YogaRise event. Final audience/category imagery can replace these without redesigning their layout.
-- About team remains excluded from production, awaiting Valerie's final revision.
+- Superseded by Shaun's later screenshot edits: About now publishes the approved five-person team shared with the homepage. See `homepage-team-update-2026-09-11.md`. The historical review-only note below describes the earlier Adobe rebuild, not current release status.
 - Awards categories, nomination invitation, form and nomination buttons remain excluded from production. Their Adobe-style designs exist in review mode; no new form destination or data collection is introduced.
 - Existing approved body copy is retained except for the redundant About hero headings, Adobe ecosystem title/lead hierarchy and promotion of section labels into the designed headings. The Awards heading's XD typo is corrected using the existing “Why the YogaRise Awards” wording. Previously removed duplicate copy is not restored.
 - Existing noindex directives, DNS, analytics, MailerLite, temporary homepage, calculator and all other content-page layouts are unchanged.

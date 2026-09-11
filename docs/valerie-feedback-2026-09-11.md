@@ -7,7 +7,7 @@ This supplements the existing Sol handover; it does not release draft pages or c
 
 | Plan task | Result |
 | --- | --- |
-| Revised team | Held. Latest replacement names/order/bios are not specified in the messages. Homepage and About team copy remain unchanged; do not infer membership from uploaded portraits. |
+| Revised team | Superseded by the later supplied Web edits row and screenshot approval. Home and About now share Valerie, Nic, Emma, Peter and Derek in that order, with approved copy/portraits. See `homepage-team-update-2026-09-11.md`. |
 | Distorted collage face | Community banner is a fixed upper-row crop; narrow screens show only the upper-left speaker panel. Absolute image positioning and overflow clipping keep the rejected lower panels out of the visible area. Original file is preserved. |
 | Resources alignment | Replaced large fixed vertical gaps/minimum height with responsive column spacing. Heading/button remain together, body aligns toward the image bottom on desktop, and content stacks without artificial gaps on tablet/mobile. Current copy, image and link remain. |
 | Article alignment | One 49rem maximum reading frame now contains heading, feature image and body, with shared responsive outer gutters. |

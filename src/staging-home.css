@@ -1,4 +1,6 @@
 /* Approved homepage edits. Live hero and outreach page rules stay unchanged. */
+html[data-site-mode='staging'] body { min-width: 0; }
+
 html[data-site-mode='staging'] .hero {
   display: flex;
   height: auto;
@@ -106,17 +108,13 @@ html[data-site-mode='staging'] .hero-actions .button {
 .community-banner-updated { position: relative; min-height: 0; aspect-ratio: 1536 / 490; overflow: hidden; background: #111; }
 .community-banner-updated img { position: absolute; inset: 0 auto auto 0; display: block; width: 100%; height: auto; }
 
-.team { min-height: auto; }
-.team-card h3 { min-height: 3.2rem; }
-.team-card img, .team-card .image-placeholder {
-  height: auto;
-  aspect-ratio: 3 / 4;
-  margin-top: 1.5rem;
+.why { background-image: url('/assets/yogarise-movement.png'); background-position: center 60%; }
+.why-overlay {
+  background: linear-gradient(90deg, rgba(23, 11, 5, 0.76), rgba(23, 11, 5, 0.28)), linear-gradient(transparent 40%, rgba(23, 11, 5, 0.65));
+  mix-blend-mode: normal;
 }
-.team-card p { line-height: 1.5; }
-.team-card p strong { display: inline-block; min-height: 2.8em; }
-.team-card .portrait-derek { object-fit: contain; object-position: center bottom; background: var(--paper); }
-.portrait-pending { display: grid; place-items: center; color: #81736d; font-size: 3rem; font-weight: 400; }
+
+
 
 .stay-connected { min-height: auto; }
 .stay-connected .section-intro { margin-bottom: 4rem; }
@@ -134,6 +132,7 @@ html[data-site-mode='staging'] .hero-actions .button {
   html[data-site-mode='staging'] .hero-copy > p:not(.hero-kicker) { margin-bottom: 0.8rem; }
 }
 
+
 @media (max-width: 980px) {
   html[data-site-mode='staging'] .hero { background-position: 56% center; }
   html[data-site-mode='staging'] .hero-copy { width: min(38rem, 100%); }
@@ -142,9 +141,11 @@ html[data-site-mode='staging'] .hero-actions .button {
   .resources { grid-template-columns: minmax(0, 1fr); }
   .resources .section-body { margin: 0; }
   .resources-image { max-width: none; }
+
 }
 
 @media (max-width: 640px) {
+  .why { background-position: 80% center; }
   .community-banner-updated { aspect-ratio: 765 / 490; }
   .community-banner-updated img { width: 200.8%; max-width: none; }
   html[data-site-mode='staging'] .hero { gap: 2rem; background-position: 61% center; }
@@ -152,5 +153,5 @@ html[data-site-mode='staging'] .hero-actions .button {
   html[data-site-mode='staging'] .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
   .article-grid { grid-template-columns: 1fr; }
   .article-card h3 { min-height: auto; }
-  .team-card h3 { min-height: 3.2rem; }
+
 }

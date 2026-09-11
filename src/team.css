@@ -1,0 +1,35 @@
+.team { min-height: auto; }
+.team-grid {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 5.25rem) / 4);
+  gap: 1.75rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: thin;
+}
+.team-card { min-width: 0; scroll-snap-align: start; }
+.team-grid:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+.team-controls button[aria-disabled='true'] { opacity: 0.35; cursor: default; }
+.team-card h3 { min-height: 3.2rem; }
+.team-card img, .team-card .image-placeholder {
+  height: auto;
+  aspect-ratio: 3 / 4;
+  margin-top: 1.5rem;
+}
+.team .team-card p { line-height: 1.5; }
+.team-card p strong { display: inline-block; min-height: 2.8em; }
+.team-card .portrait-derek { object-fit: contain; object-position: center bottom; background: var(--paper); }
+
+@media (min-width: 981px) and (max-width: 1280px) {
+  .team-grid { grid-auto-columns: calc((100% - 3.5rem) / 3); }
+}
+
+@media (max-width: 980px) {
+  .team-grid { grid-auto-columns: calc((100% - 1.5rem) / 2); gap: 1.5rem; }
+}
+
+@media (max-width: 640px) {
+  .team-grid { grid-auto-columns: 86%; }
+}

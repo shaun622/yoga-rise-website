@@ -42,6 +42,7 @@ export function contentPagesPlugin({ review = false } = {}) {
       let transformed = html
         .replace('<!-- site:header -->', () => readFileSync(resolve(root, 'build/site-header.html'), 'utf8'))
         .replace('<!-- site:footer -->', () => readFileSync(resolve(root, 'build/site-footer.html'), 'utf8'))
+        .replace('<!-- site:team -->', () => readFileSync(resolve(root, 'build/site-team.html'), 'utf8'))
         .replace('<!-- content:primary-nav -->', pageLinks(activePages))
         .replace('<!-- content:footer-nav -->', pageLinks(activePages, { footer: true }));
 

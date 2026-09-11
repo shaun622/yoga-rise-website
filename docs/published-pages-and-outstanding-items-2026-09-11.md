@@ -28,7 +28,7 @@ About and Awards subsequently received an Adobe-specific layout rebuild. See [th
 
 | Page | Published content | Excluded for now | What is needed to finish |
 | --- | --- | --- | --- |
-| [About](https://www.yogarise.com.au/about/) | Mission, ecosystem, audience, vision, founder story and community/partnership links. | Team section awaiting Valerie's revision. | Confirm final team names, order, roles, biographies and portraits. Do not infer the team from uploaded photos. |
+| [About](https://www.yogarise.com.au/about/) | Mission, ecosystem, audience, vision, founder story, shared five-person team and community/partnership links. | None of the revised team content is withheld. | Team revision is now supplied and approved; maintain the shared homepage/About team source. Other site-wide launch items below remain. |
 | [Awards](https://www.yogarise.com.au/awards/) | Awards introduction, purpose and 2027 announcement; working link to the existing signup homepage. | Provisional category cards, nomination invitation section, nomination form and nomination buttons. | Confirm categories, criteria, judging/timing details; supply nomination form integration and the shared form requirements below. |
 | [Membership](https://www.yogarise.com.au/membership/) | Community introduction, intended audience and link to signup updates. Clearly states membership is coming soon. | Enrolment buttons and unconfirmed detailed benefits such as monthly sessions, library access, discounts and perks. | Confirm the offer, benefits, launch timing, pricing/terms and actual joining destination. |
 | [Become a Partner](https://www.yogarise.com.au/become-a-partner/) | Partnership overview, objectives, partnership types, current partners and Ambassador information link. | Enquiry form and all buttons pointing to it. | Supply the partnership enquiry integration, recipient and shared form requirements. |
@@ -53,7 +53,7 @@ The existing field specifications and local form layouts are in [the form handov
 
 ## Other unfinished work — unchanged in this release
 
-- Full-homepage launch: the custom-domain homepage has not switched to the complete design. That view still has separate team and course/event destination work. Contact/social/legal destinations and an inline footer newsletter need approved inputs before adding them back to the shared footer; the current footer has a working signup-page link. The unavailable “Buy tickets” placeholder has been withheld.
+- Full-homepage launch: the custom-domain homepage has not switched to the complete design. Team revision is complete; course/event destination work remains. Contact/social/legal destinations and an inline footer newsletter need approved inputs before adding them back to the shared footer; the current footer has a working signup-page link. The unavailable “Buy tickets” placeholder and “As Seen In” section are withheld.
 - Search launch: existing `noindex, nofollow` directives on content/blog pages remain, and the sitemap still lists only the homepage. Public access is not the same as search-indexing readiness. Review canonical URLs, indexing directives, sitemap and article dates as a separate full-site launch step.
 - Design QA: browser/responsive/keyboard review of all new pages is outstanding. No tests or live form submissions are authorised by this note.
 
