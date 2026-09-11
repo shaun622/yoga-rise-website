@@ -63,7 +63,10 @@ opt-in and survey thank-you opt-in each use the corresponding MailerLite embed s
 ## Publishing articles
 
 Add articles to `content/articles.js` with a unique slug, title, excerpt, ISO publication date,
-image class/description, HTML body and CTA. Set `status: 'draft'` to withhold a post or `published`
+image metadata, HTML body and CTA. Images use `imageSrc` (1536px WebP), `imageSrcSmall`
+(768px WebP), `imageWidth`, `imageHeight` and `imageAlt`. Cards and article feature images
+share these assets; use versioned filenames because assets have immutable caching.
+Set `status: 'draft'` to withhold a post or `published`
 to include it. The build generates the blog index and full article pages, and inserts the four
 most recent published articles into the staging homepage. Restart the dev server after content
 changes. No browser API, CMS, or new runtime service is required.
@@ -78,3 +81,9 @@ Changes are isolated on `codex/shaun-homepage-edits` for a Cloudflare Pages bran
 Do not merge to `main` until approved. The live hero/form code and outreach pages are unchanged.
 The three new WebP assets derive from the supplied Drive images, with event scenes selected by
 CSS background positioning. These are illustrative images, not photographs of a past YogaRise event.
+
+The 11 September feedback implementation replaces both article images with Valerie's matching
+supplied images and adds article feature images, aligns article headings/body, removes the intro
+divider, corrects Resources spacing and crops the community banner to its upper row (speaker
+panel only on mobile). The team revision and production launch remain pending; see
+[the feedback report](docs/valerie-feedback-2026-09-11.md).

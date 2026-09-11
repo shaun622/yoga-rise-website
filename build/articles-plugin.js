@@ -23,15 +23,27 @@ function publishedArticles() {
     if (article.cta?.href && !/^\/(?!\/)/.test(article.cta.href)) {
       throw new Error(`Article CTA must use a site-relative URL: ${article.slug}`);
     }
+    if (![article.imageSrc, article.imageSrcSmall].every((src) => /^\/assets\/[a-z0-9-]+\.webp$/.test(src))
+      || !Number.isInteger(article.imageWidth) || article.imageWidth <= 0
+      || !Number.isInteger(article.imageHeight) || article.imageHeight <= 0 || !article.imageAlt) {
+      throw new Error(`Missing or invalid article image: ${article.slug}`);
+    }
   }
   return articles.filter((article) => article.status === 'published')
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
+function articleImage(article, hero = false) {
+  const sizes = hero
+    ? '(max-width: 640px) calc(100vw - 3rem), (max-width: 980px) 86vw, 784px'
+    : '(max-width: 640px) calc(100vw - 3rem), 43vw';
+  return `<img class="${hero ? 'article-feature-image' : 'article-image'}" src="${escape(article.imageSrc)}" srcset="${escape(article.imageSrcSmall)} 768w, ${escape(article.imageSrc)} 1536w" sizes="${sizes}" width="${article.imageWidth}" height="${article.imageHeight}" alt="${escape(article.imageAlt)}" loading="${hero ? 'eager' : 'lazy'}" decoding="async" />`;
+}
+
 function cards(posts) {
   return posts.map((article) => `<article class="article-card">
     <h3><a href="${articleUrl(article)}">${escape(article.title)}</a></h3>
-    <div class="article-image supplied-scene ${escape(article.imageClass)}" role="img" aria-label="${escape(article.imageAlt)}"></div>
+    ${articleImage(article)}
     <p>${escape(article.excerpt)}</p>
     <a class="button button-small button-dark" href="${articleUrl(article)}" aria-label="Read ${escape(article.title)}">Read more</a>
   </article>`).join('\n');
@@ -41,8 +53,9 @@ function renderBody(article) {
   const cta = article.cta?.href
     ? `<a class="button button-dark" href="${escape(article.cta.href)}">${escape(article.cta.label)} <span aria-hidden="true">→</span></a>`
     : `<p class="article-cta-pending">${escape(article.cta.label)}<small>Link coming soon</small></p>`;
-  return `<article>
+  return `<article class="article-detail">
     <header class="article-heading"><p class="article-eyebrow">YogaRise insights</p><h1>${escape(article.title)}</h1><p>${escape(article.excerpt)}</p></header>
+    ${articleImage(article, true)}
     <div class="article-body">${article.body}<aside class="article-cta">${cta}</aside><a class="article-back" href="/blog/">← Back to articles</a></div>
   </article>`;
 }

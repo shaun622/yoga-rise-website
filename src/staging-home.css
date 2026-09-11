@@ -108,14 +108,22 @@ html[data-site-mode='staging'] .hero-actions .button {
   background-size: 435.1% 309.4%;
   background-position: right bottom;
 }
-.scene-networking {
-  background-image: url('/assets/yogarise-event-scenes.webp');
-  background-size: 245.8% 195.4%;
-  background-position: left bottom;
+.resources {
+  min-height: 0;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: stretch;
+  gap: clamp(2.5rem, 5vw, 6rem);
+  padding-block: clamp(3rem, 6vw, 7rem);
 }
-.resources-image { width: 100%; aspect-ratio: 353 / 331; align-self: center; }
-.community-banner-updated { min-height: 0; background: #111; }
-.community-banner-updated img { width: 100%; height: auto; }
+.resources-copy { min-width: 0; gap: clamp(1.75rem, 3vw, 3rem); }
+.resources h2 { margin: 0; line-height: 1.3; }
+.resources .section-body { width: min(31rem, 100%); margin: auto 0 0; line-height: 1.5; }
+.resources .button { max-width: 100%; white-space: normal; }
+.resources-image { width: 100%; aspect-ratio: 353 / 331; align-self: start; }
+/* Only show the upper row. Fixed source proportions prevent the rejected
+   lower panel from reappearing on short or narrow screens. */
+.community-banner-updated { position: relative; min-height: 0; aspect-ratio: 1536 / 490; overflow: hidden; background: #111; }
+.community-banner-updated img { position: absolute; inset: 0 auto auto 0; display: block; width: 100%; height: auto; }
 
 .team { min-height: auto; }
 .team-card h3 { min-height: 3.2rem; }
@@ -133,7 +141,7 @@ html[data-site-mode='staging'] .hero-actions .button {
 .stay-connected .section-intro { margin-bottom: 4rem; }
 .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
 .article-card h3 { min-height: 4.5rem; line-height: 1.3; }
-.article-card .article-image { width: 100%; aspect-ratio: 1.55; margin-top: 1.5rem; }
+.article-card .article-image { display: block; width: 100%; height: auto; aspect-ratio: 1.55; object-fit: cover; object-position: center 40%; margin-top: 1.5rem; }
 .article-card p { max-width: 38rem; line-height: 1.5; }
 .article-card .article-date { margin: 1rem 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
@@ -154,10 +162,14 @@ html[data-site-mode='staging'] .footer-nav { flex-wrap: wrap; }
   html[data-site-mode='staging'] .primary-nav { flex-wrap: nowrap; justify-content: center; gap: 1rem; font-size: clamp(2rem, 7vw, 3.5rem); }
   .expo { grid-template-columns: 1fr; }
   .expo-image { max-width: 100%; max-height: none; }
-  .resources-image { max-width: 40rem; }
+  .resources { grid-template-columns: minmax(0, 1fr); }
+  .resources .section-body { margin: 0; }
+  .resources-image { max-width: none; }
 }
 
 @media (max-width: 640px) {
+  .community-banner-updated { aspect-ratio: 765 / 490; }
+  .community-banner-updated img { width: 200.8%; max-width: none; }
   html[data-site-mode='staging'] .hero { gap: 2rem; background-position: 61% center; }
   html[data-site-mode='staging'] .hero-actions .button { padding: 0.75rem 0.55rem; font-size: 0.7rem; }
   html[data-site-mode='staging'] .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
