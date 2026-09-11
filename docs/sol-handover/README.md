@@ -129,6 +129,8 @@ The original Expo DOCX is retained in ignored `.reference/sol-handover-2026-09-1
 
 ### T01 — About
 
+**Superseded layout:** Shaun approved rebuilding About and Awards directly against the Adobe artboards on 11 September. Use [the Adobe rebuild record](../about-awards-adobe-rebuild-2026-09-11.md) and `src/adobe-pages.css` for these two pages. The generic layout table below is historical, not a direction to override the artboards. Existing content publication holds remain in force.
+
 Build `about/index.html`; use [all About copy](copy/T01-about.md), with the editorial decisions above.
 
 | Order / ID | Content and layout |

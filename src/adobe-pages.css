@@ -1,0 +1,233 @@
+/* About / Awards: Adobe artboards c6cb3d0b… / 8797bc79…, inspected 11 Sep 2026.
+   Deliberately page-scoped: header/footer styling comes from the shared homepage components. */
+.adobe-page {
+  min-width: 0;
+  --adobe-title: clamp(1.9rem, 2.35vw, 2.8125rem);
+  --adobe-lead: clamp(1.125rem, 1.303vw, 1.5625rem);
+  --adobe-body: clamp(1rem, 0.94vw, 1.125rem);
+  --adobe-space: clamp(3.5rem, 5.2vw, 6.25rem);
+}
+
+.adobe-page .adobe-hero {
+  display: flex;
+  min-height: clamp(42rem, 52vw, 64rem);
+  flex-direction: column;
+  color: var(--white);
+  background: linear-gradient(rgba(9, 2, 1, 0.08), rgba(9, 2, 1, 0.08)), url('/assets/hero.webp') top center / cover no-repeat;
+}
+
+.adobe-page .adobe-hero-copy {
+  width: 100%;
+  margin-top: auto;
+  padding: clamp(7rem, 11vw, 13rem) var(--page-pad) clamp(4rem, 5.3vw, 6.5rem);
+}
+
+.adobe-page .adobe-hero h1 {
+  max-width: 60rem;
+  margin: 0 0 1.65rem;
+  font-size: var(--adobe-lead);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-wrap: pretty;
+}
+
+.adobe-page .adobe-hero-copy > p {
+  max-width: 57rem;
+  margin-bottom: 1.6rem;
+  font-size: var(--adobe-lead);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+.adobe-page .adobe-hero-copy > :last-child { margin-bottom: 0; }
+.adobe-page .adobe-hero-awards .adobe-hero-copy { padding-top: clamp(5rem, 8vw, 9rem); }
+.adobe-page .adobe-hero-copy > .adobe-awards-summary { max-width: 39rem; margin-top: 2.75rem; font-size: var(--adobe-body); line-height: 1.35; }
+.adobe-page .adobe-hero-copy > .adobe-button { margin-top: 1.5rem; }
+
+.adobe-page .adobe-paper { background: var(--paper); }
+.adobe-page .adobe-white { background: var(--white); }
+.adobe-page .adobe-section {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding: var(--adobe-space) var(--page-pad);
+}
+.adobe-page .adobe-section h2 {
+  max-width: none;
+  margin: 0 0 clamp(2.5rem, 4vw, 4.8rem);
+  font-size: var(--adobe-title);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  text-wrap: pretty;
+}
+.adobe-page .adobe-section h3 { font-size: clamp(1rem, 1.04vw, 1.25rem); line-height: 1.25; }
+.adobe-page .adobe-section p { font-size: var(--adobe-body); font-weight: 500; line-height: 1.4; }
+.adobe-page .adobe-section .adobe-lead { font-size: var(--adobe-lead); line-height: 1.35; letter-spacing: -0.025em; }
+.adobe-page .adobe-section .adobe-lead-display { font-size: var(--adobe-title); font-weight: 500; line-height: 1.2; letter-spacing: -0.045em; }
+.adobe-page .adobe-uppercase { text-transform: uppercase; }
+.adobe-page .adobe-rule { width: min(100%, 31rem); margin: 0 0 1.5rem; border: 0; border-top: 1px solid var(--line-dark); }
+.adobe-page .adobe-top-rule { border-top: 1px solid var(--line-dark); padding-top: clamp(2.5rem, 4vw, 5rem); }
+.adobe-page .adobe-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(2rem, 4vw, 4.8rem);
+}
+.adobe-page .adobe-split > * { min-width: 0; }
+.adobe-page .adobe-prose { padding-block: clamp(1rem, 3vw, 3.5rem); color: var(--body); }
+.adobe-page .adobe-prose h2, .adobe-page .adobe-prose .adobe-lead-display { color: var(--ink); }
+.adobe-page .adobe-prose > p { max-width: 42rem; margin-bottom: 1.4rem; }
+.adobe-page .adobe-prose > :last-child { margin-bottom: 0; }
+.adobe-page .adobe-image { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.adobe-page .adobe-portrait { aspect-ratio: 4 / 5; object-position: center top; }
+
+/* The mission and nomination invitation are a single photographic canvas. */
+.adobe-page .adobe-photo {
+  color: var(--white);
+  background: linear-gradient(rgba(30, 10, 3, 0.48), rgba(30, 10, 3, 0.48)), url('/assets/why-yogarise.webp') left center / cover no-repeat;
+}
+.adobe-page .adobe-photo .adobe-section { padding-block: clamp(4rem, 5.5vw, 7rem) clamp(5rem, 8vw, 10rem); }
+.adobe-page .adobe-photo h2 { margin-bottom: 1.5rem; text-transform: uppercase; }
+.adobe-page .adobe-photo .adobe-rule { margin-bottom: 3.5rem; border-color: var(--line-light); }
+.adobe-page .adobe-photo-intro { max-width: 39rem; }
+.adobe-page .adobe-photo-intro p { max-width: 39rem; }
+.adobe-page .adobe-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 6rem);
+  margin: clamp(5rem, 9vw, 11rem) 0 0;
+  padding: clamp(3.5rem, 5vw, 6rem) 0 0;
+  border-top: 1px solid var(--line-light);
+  list-style: none;
+}
+.adobe-page .adobe-pillars li { min-width: 0; }
+.adobe-page .adobe-pillars h3 { margin: 2rem 0 1.5rem; text-transform: uppercase; }
+.adobe-page .adobe-pillars p { max-width: 24rem; margin-bottom: 0; }
+.adobe-page .adobe-icon { width: 3.65rem; height: 3.65rem; object-fit: contain; object-position: left center; }
+.adobe-page .adobe-mission .adobe-section { min-height: clamp(43rem, 68vw, 81rem); }
+.adobe-page .adobe-recognition .adobe-pillars { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(4rem, 7vw, 8rem); }
+.adobe-page .adobe-recognition .adobe-pillars p { margin-top: 2.5rem; }
+.adobe-page .adobe-recognition-close { max-width: 41rem; margin-top: 4rem; }
+.adobe-page .adobe-recognition .button-row { margin-top: 2.75rem; }
+
+.adobe-page .adobe-ecosystem-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding-bottom: clamp(3rem, 5vw, 6rem); border-bottom: 1px solid var(--line-dark); }
+.adobe-page .adobe-ecosystem-heading h2 { margin-bottom: 0; }
+.adobe-page .adobe-ecosystem-heading .adobe-lead-display { margin: 0 0 3rem; }
+.adobe-page .adobe-ecosystem-heading p:last-child { margin-bottom: 0; }
+.adobe-page .adobe-ecosystem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 29rem) minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  align-items: start;
+  width: min(100%, 78rem);
+  margin: clamp(4rem, 7vw, 8rem) auto 0;
+}
+.adobe-page .adobe-ecosystem-graphic { grid-column: 2; grid-row: 1 / 3; width: 100%; height: auto; }
+.adobe-page .adobe-ecosystem-labels { display: contents; list-style: none; }
+.adobe-page .adobe-ecosystem-labels li { min-width: 0; }
+.adobe-page .adobe-ecosystem-labels h3 { margin-bottom: 1.8rem; text-transform: uppercase; }
+.adobe-page .adobe-ecosystem-labels p { margin: 0; color: var(--body); }
+.adobe-page .adobe-node-expo { grid-column: 1; grid-row: 1; text-align: right; }
+.adobe-page .adobe-node-events { grid-column: 1; grid-row: 2; text-align: right; align-self: end; }
+.adobe-page .adobe-node-membership { grid-column: 2; grid-row: 3; text-align: center; }
+.adobe-page .adobe-node-awards { grid-column: 3; grid-row: 2; align-self: end; }
+.adobe-page .adobe-node-resources { grid-column: 3; grid-row: 1; }
+.adobe-page .adobe-ecosystem-caption { margin: 4rem 0 0; text-align: center; }
+
+.adobe-page .adobe-image-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; gap: clamp(1rem, 1.3vw, 1.6rem); margin-top: clamp(3rem, 5vw, 6rem); }
+.adobe-page .adobe-image-grid article { min-width: 0; }
+.adobe-page .adobe-image-grid h3 { display: flex; align-items: flex-end; min-height: calc(2.5em + 1.5rem + 1px); margin: 0 0 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-dark); text-transform: uppercase; }
+.adobe-page .adobe-image-grid img { width: 100%; height: auto; aspect-ratio: 1.15; object-fit: cover; margin-bottom: 1.75rem; }
+.adobe-page .adobe-image-grid p { color: var(--body); }
+.adobe-page .adobe-category-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3.5rem clamp(2rem, 5vw, 6rem); }
+.adobe-page .adobe-category-grid h3 { min-height: calc(3.75em + 1.5rem + 1px); }
+.adobe-page .adobe-section-intro { max-width: 50rem; }
+.adobe-page .adobe-image-banner { height: clamp(24rem, 49vw, 59rem); background: var(--brown) url('/assets/footer.webp') center 42% / cover no-repeat; }
+.adobe-page .adobe-founder .adobe-prose { padding-top: 2.5rem; }
+.adobe-page .adobe-founder .adobe-lead-display { margin-bottom: clamp(3rem, 5vw, 6rem); }
+.adobe-page .adobe-founder .signature { margin-top: 3.5rem; }
+.adobe-page .adobe-team-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.75rem; }
+.adobe-page .adobe-team-grid img { aspect-ratio: 4 / 5; object-position: top; }
+.adobe-page .adobe-team-role { text-transform: uppercase; }
+
+.adobe-page .adobe-button {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: 1rem 1.75rem;
+  border: 1px solid currentColor;
+  font-size: var(--adobe-body);
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: center;
+  text-transform: uppercase;
+}
+.adobe-page .adobe-button:hover { color: var(--white); background: var(--brown); }
+.adobe-page .adobe-photo .adobe-button:hover, .adobe-page .adobe-hero .adobe-button:hover { color: var(--brown); background: var(--white); }
+.adobe-page .adobe-close .adobe-top-rule { padding-top: var(--adobe-space); }
+.adobe-page .adobe-close h2 { margin-bottom: 4rem; }
+.adobe-page .adobe-close-copy { max-width: 50rem; }
+.adobe-page .adobe-close-copy p { margin-bottom: 1.8rem; }
+.adobe-page .adobe-cta-list { display: grid; gap: 1.25rem; margin: 4rem 0 0; padding: 0; list-style: none; }
+.adobe-page .adobe-cta-list li { display: grid; grid-template-columns: 2.5rem minmax(12rem, 15rem) minmax(10rem, 13rem); align-items: center; gap: 1.25rem; }
+.adobe-page .adobe-cta-arrow { font-size: 2rem; font-weight: 400; line-height: 1; }
+.adobe-page .adobe-cta-list .adobe-button { padding: 1rem; font-size: 0.875rem; text-transform: none; }
+.adobe-page .adobe-text-link { display: inline-flex; min-height: 3rem; align-items: center; gap: 1.5rem; font-size: var(--adobe-body); }
+.adobe-page .adobe-text-link:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+.adobe-page .adobe-nomination-form .form-shell { max-width: 70rem; }
+.adobe-page .adobe-nomination-form .form-shell h2 { margin-bottom: 3rem; }
+
+@media (max-width: 1100px) {
+  .adobe-page .adobe-image-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.5rem; }
+  .adobe-page .adobe-category-grid, .adobe-page .adobe-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adobe-page .adobe-ecosystem { column-gap: 1.25rem; grid-template-columns: minmax(0, 1fr) minmax(14rem, 22rem) minmax(0, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .adobe-page .adobe-split, .adobe-page .adobe-ecosystem-heading { grid-template-columns: 1fr; }
+  .adobe-page .adobe-prose { padding-top: 0; }
+  .adobe-page .adobe-hero { min-height: 43rem; background-position: 58% top; }
+  .adobe-page .adobe-hero-copy { padding-top: 7rem; }
+  .adobe-page .adobe-hero-copy > p { max-width: 39rem; }
+  .adobe-page .adobe-photo { background-position: 45% center; }
+  .adobe-page .adobe-mission .adobe-section { min-height: 0; }
+  .adobe-page .adobe-pillars { gap: 2rem; }
+  .adobe-page .adobe-recognition .adobe-pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adobe-page .adobe-ecosystem { display: flex; flex-direction: column; align-items: center; }
+  .adobe-page .adobe-ecosystem-graphic { max-width: 21rem; }
+  .adobe-page .adobe-ecosystem-labels { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; padding: 0; }
+  .adobe-page .adobe-ecosystem-labels li { grid-column: auto; grid-row: auto; align-self: start; border-top: 1px solid var(--line-dark); padding-top: 1.5rem; text-align: left; }
+  .adobe-page .adobe-ecosystem-labels h3 { margin-bottom: 1rem; }
+  .adobe-page .adobe-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adobe-page .adobe-image-grid h3 { min-height: calc(2.5em + 1.5rem + 1px); }
+  .adobe-page .adobe-category-grid h3 { min-height: calc(3.75em + 1.5rem + 1px); }
+}
+
+@media (max-width: 640px) {
+  .adobe-page .adobe-section, .adobe-page .adobe-hero-copy { padding-inline: 1.5rem; }
+  .adobe-page .adobe-hero { background-size: auto 100%; background-position: 48% top; }
+  .adobe-page .adobe-hero-copy { padding-top: 6rem; padding-bottom: 3.5rem; background: linear-gradient(transparent, rgba(16, 4, 3, 0.45)); }
+  .adobe-page .adobe-section h2 { margin-bottom: 2.5rem; }
+  .adobe-page .adobe-photo .adobe-section { padding-block: 3.5rem; }
+  .adobe-page .adobe-photo .adobe-rule { margin-bottom: 2rem; }
+  .adobe-page .adobe-pillars, .adobe-page .adobe-recognition .adobe-pillars { grid-template-columns: 1fr; margin-top: 3rem; padding-top: 2.5rem; gap: 2.5rem; }
+  .adobe-page .adobe-pillars h3 { margin-block: 1.25rem 0.75rem; }
+  .adobe-page .adobe-pillars p { max-width: 32rem; }
+  .adobe-page .adobe-recognition .adobe-pillars p { margin-top: 1.25rem; }
+  .adobe-page .adobe-ecosystem-heading .adobe-lead-display { margin-bottom: 1.75rem; }
+  .adobe-page .adobe-cta-list li { grid-template-columns: 1.5rem 1fr; gap: 1rem; }
+  .adobe-page .adobe-cta-list .adobe-button { grid-column: 2; justify-self: start; }
+  .adobe-page .adobe-photo { background-image: linear-gradient(rgba(30, 10, 3, 0.65), rgba(30, 10, 3, 0.65)), url('/assets/why-yogarise.webp'); }
+}
+
+@media (max-width: 440px) {
+  .adobe-page .adobe-image-grid, .adobe-page .adobe-ecosystem-labels { grid-template-columns: 1fr; }
+  .adobe-page .adobe-image-grid h3 { min-height: 0; }
+}

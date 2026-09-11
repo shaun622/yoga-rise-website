@@ -24,6 +24,8 @@ This supersedes the earlier simplified inner-page footer and separate menu speci
 
 ## Page-by-page completion list
 
+About and Awards subsequently received an Adobe-specific layout rebuild. See [the design/source record](about-awards-adobe-rebuild-2026-09-11.md). The earlier About hero/mission spacing patches are superseded by this rebuild. Shared header/footer and all exclusions below remain unchanged; image-led slots use existing site imagery where XD contains placeholders.
+
 | Page | Published content | Excluded for now | What is needed to finish |
 | --- | --- | --- | --- |
 | [About](https://www.yogarise.com.au/about/) | Mission, ecosystem, audience, vision, founder story and community/partnership links. | Team section awaiting Valerie's revision. | Confirm final team names, order, roles, biographies and portraits. Do not infer the team from uploaded photos. |
