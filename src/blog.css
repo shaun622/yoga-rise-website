@@ -19,6 +19,8 @@
 .article-heading > p:last-child:not(.article-eyebrow) { max-width: 45rem; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.5; margin-bottom: 0; color: var(--body); }
 .article-body { padding: clamp(2rem, 4vw, 3rem) 0 clamp(3rem, 6vw, 5rem); font-weight: 400; line-height: 1.7; }
 .article-body p { margin-bottom: 1.3rem; }
+.article-body p a { text-decoration: underline; text-underline-offset: 0.18em; }
+.article-body p a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .article-body .article-lead { font-size: 1.4rem; color: var(--brown); }
 .article-body h2 { margin: 3rem 0 1.5rem; font-size: clamp(1.6rem, 2.5vw, 2.25rem); line-height: 1.2; font-weight: 500; }
 .article-body li { padding-left: 0.3rem; margin-bottom: 0.6rem; }

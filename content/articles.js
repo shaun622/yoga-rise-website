@@ -42,7 +42,7 @@ export const articles = [
       <ul><li>Increasing your rates</li><li>Offering private sessions</li><li>Developing workshops</li><li>Exploring corporate yoga</li><li>Running retreats</li><li>Creating different offers</li><li>Reducing unnecessary expenses</li><li>Changing the mix of work you do</li></ul>
       <p>Sometimes a small change can have a meaningful impact on the overall model.</p>
       <h2>Start with your numbers.</h2>
-      <p>We've created the <strong>YogaRise Pricing &amp; Income Calculator</strong> to help you get a clearer picture of your current business.</p>
+      <p>We've created the <strong><a href="/yoga-teacher-income-calculator/">YogaRise Pricing &amp; Income Calculator</a></strong> to help you get a clearer picture of your current business.</p>
       <p>Simply enter your income, teaching hours, expenses and other relevant numbers.</p>
       <p>The calculator will then give you an overview of your business, including your estimated income, expenses and effective hourly rate, <strong>along with some areas you might want to explore next.</strong></p>
       <p><strong>No judgement. No “right” answer. Just better information to help you make more intentional decisions.</strong></p>
