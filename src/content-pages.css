@@ -163,6 +163,10 @@
 .content-page .content-image { width: 100%; min-height: 24rem; max-height: 42rem; object-fit: cover; }
 .content-page .portrait-image { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top center; }
 
+/* Separate the mission's two rows and keep its photo proportional to the copy. */
+.content-page #our-mission { display: grid; gap: clamp(2rem, 4vw, 4rem); }
+.content-page #our-mission .content-image { height: auto; min-height: 0; max-height: none; aspect-ratio: 3 / 2; }
+
 .content-page .content-card-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); }
 .content-page .content-card-grid.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .content-page .content-card-grid.is-five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
