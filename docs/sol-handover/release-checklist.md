@@ -1,5 +1,7 @@
 # YogaRise — completion and release checklist
 
+**11 September release update:** The table below records the original full-functionality handover. Shaun has since approved publishing the finished content from all eight draft pages, with incomplete sections omitted. See the [current publication and outstanding-work note](../published-pages-and-outstanding-items-2026-09-11.md) for the release set and the work still needed to restore those sections.
+
 Use with [README.md](README.md). This is an acceptance specification, **not permission to run tests, submit forms or deploy**. Record the method actually used; distinguish code inspection from rendered verification and live delivery.
 
 ## Per-task report

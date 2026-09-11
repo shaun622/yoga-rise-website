@@ -2,6 +2,8 @@
 
 Prepared 10 September 2026 · Revision 2 · Start here
 
+**Release update, 11 September:** Shaun subsequently approved publishing all eight pages with unfinished sections excluded. Use the [current publication and outstanding-work note](../published-pages-and-outstanding-items-2026-09-11.md) for release status. The original full-page copy/design and form contracts below remain references for completing omitted sections, not instructions to expose them now.
+
 ## Outcome and authority
 
 Build the eight new page layouts below, finish the two existing article tasks, and preserve the approved spacious **design 02**. All ten selected spreadsheet documents are now readable and their copy is saved in this package. **The previous “seven documents inaccessible” gate is resolved.** Expo is now marked To Do and is explicitly added as T10.

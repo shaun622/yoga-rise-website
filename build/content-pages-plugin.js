@@ -3,7 +3,7 @@ import { activeContentPages, contentPages } from '../content/page-release.js';
 
 const toPosix = (value) => value.replaceAll('\\', '/');
 const primaryOrder = ['about', 'expo', 'awards', 'membership'];
-const footerOrder = [...primaryOrder, 'partner', 'ambassador', 'volunteer'];
+const footerOrder = [...primaryOrder, 'partner', 'ambassador', 'volunteer', 'healthCheck'];
 
 function pageLinks(pages, { footer = false } = {}) {
   const order = footer ? footerOrder : primaryOrder;
@@ -18,7 +18,7 @@ export function contentPagesPlugin({ review = false } = {}) {
   let root;
   const activePages = activeContentPages({ includeDrafts: review });
   const activeByKey = new Map(activePages.map((page) => [page.key, page]));
-  const knownSources = new Set(contentPages.map((page) => page.source));
+  const knownSources = new Set(['index.html', 'blog/index.html', ...contentPages.map((page) => page.source)]);
 
   for (const page of activePages) {
     for (const dependency of page.dependencies) {

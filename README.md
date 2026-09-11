@@ -55,9 +55,15 @@ first homepage phase.
 
 ## Content status
 
-The homepage shows the latest published articles from `content/articles.js`. Nic Dorsch's portrait
-and the Marketing Health Check destination remain pending. Ticketing, contact, social, and the
-full-site footer newsletter still need final client URLs or service providers. The temporary live
+The eight Docs-derived content pages are now released as informational pages, with unfinished
+sections and disconnected actions excluded from production HTML. They are linked through the
+full-homepage navigation and the content/blog footers. See the current
+[published-pages and outstanding-work note](docs/published-pages-and-outstanding-items-2026-09-11.md)
+for the exact omissions and completion requirements. This supersedes the earlier whole-page holds.
+
+The homepage shows the latest published articles from `content/articles.js`. Revised team content,
+the Marketing Health Check assessment, ticketing, contact/social/legal destinations and the
+full-site footer newsletter still need final client inputs or providers. The temporary live
 opt-in and survey thank-you opt-in each use the corresponding MailerLite embed supplied by the client.
 
 ## Publishing articles
@@ -77,8 +83,8 @@ The marketing article's CTA is non-clickable until a destination is supplied.
 
 ## September homepage review
 
-Changes are isolated on `codex/shaun-homepage-edits` for a Cloudflare Pages branch preview.
-Do not merge to `main` until approved. The live hero/form code and outreach pages are unchanged.
+The approved September homepage/article changes have been merged and deployed through `main`.
+The live hero/form code and outreach pages are unchanged.
 The three new WebP assets derive from the supplied Drive images, with event scenes selected by
 CSS background positioning. These are illustrative images, not photographs of a past YogaRise event.
 
