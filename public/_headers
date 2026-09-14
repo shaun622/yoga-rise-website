@@ -7,3 +7,8 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+https://yoga-rise-website.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://:version.yoga-rise-website.pages.dev/*
+  X-Robots-Tag: noindex, nofollow

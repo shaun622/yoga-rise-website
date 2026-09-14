@@ -1,5 +1,5 @@
-/* Approved September feedback, ONLY on the exact demo host. The unscoped
-   production styles and their original assets intentionally remain unchanged. */
+/* Approved September feedback shared by Pages and the launched main site.
+   The data marker preserves the existing scoped styles and asset selection. */
 html[data-demo-site='yoga-rise-website.pages.dev'] {
   --demo-hero: url('/assets/demo-20260911/seated.webp');
   --demo-hero-position: center;

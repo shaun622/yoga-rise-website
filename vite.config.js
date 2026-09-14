@@ -3,11 +3,12 @@ import { resolve } from 'node:path';
 import { articlesPlugin } from './build/articles-plugin.js';
 import { contentPageInputs, contentPagesPlugin } from './build/content-pages-plugin.js';
 import { demoSitePlugin } from './build/demo-site-plugin.js';
+import { launchPlugin } from './build/launch-plugin.js';
 
 export default defineConfig(({ mode }) => {
   const review = mode === 'review';
   return {
-    plugins: [demoSitePlugin(), contentPagesPlugin({ review }), articlesPlugin()],
+    plugins: [demoSitePlugin(), contentPagesPlugin({ review }), articlesPlugin(), ...(!review ? [launchPlugin()] : [])],
     build: {
       assetsInlineLimit: 0,
       outDir: review ? 'dist-review' : 'dist',

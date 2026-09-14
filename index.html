@@ -19,16 +19,8 @@
     <title>YogaRise</title>
     <link rel="canonical" href="https://www.yogarise.com.au/" />
     <script>
-      const liveHosts = new Set(['www.yogarise.com.au', 'yogarise.com.au']);
-      const siteMode = liveHosts.has(window.location.hostname) ? 'live' : 'staging';
-      document.documentElement.dataset.siteMode = siteMode;
-
-      if (siteMode === 'staging') {
-        const robots = document.createElement('meta');
-        robots.name = 'robots';
-        robots.content = 'noindex, nofollow';
-        document.head.append(robots);
-      }
+      // Retain the approved full-homepage layout on both live and preview hosts.
+      document.documentElement.dataset.siteMode = 'staging';
     </script>
   </head>
   <body>

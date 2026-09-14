@@ -2,12 +2,12 @@ import './demo-site.css';
 import './demo-pages.css';
 import { registerDemoDraftPages, renderDemoPage, updateDemoDestinationLinks } from './demo-pages.js';
 
-// The .com.au pages are the unchanged default. No query string, cookie or
-// local-storage setting can activate these edits on a production domain.
-const isDemo = location.hostname === 'yoga-rise-website.pages.dev'
-  || (import.meta.env.DEV
-    && ['localhost', '127.0.0.1'].includes(location.hostname)
-    && !new URLSearchParams(location.search).has('original'));
+// Main-site cutover approved 14 September. Outreach forms keep their original
+// custom-domain presentation; their integrations are not part of this switch.
+const isDemo = (['yoga-rise-website.pages.dev', 'www.yogarise.com.au', 'yogarise.com.au', 'localhost', '127.0.0.1'].includes(location.hostname)
+  || location.hostname.endsWith('.yoga-rise-website.pages.dev'))
+  && !(location.hostname.endsWith('yogarise.com.au')
+    && location.pathname.startsWith('/yoga-teacher-industry-survey'));
 
 function replaceImage(selector, file, alt, dimensions = [768, 512]) {
   const image = document.querySelector(selector);
@@ -95,8 +95,8 @@ function updateExpo() {
 }
 
 if (isDemo) {
-  // Run after the original page modules have wired the shared header. These
-  // changes never run on either .com.au hostname, including unknown routes.
+  // Run after the page modules have wired the shared header. Unconnected form
+  // drafts remain development-only, including after the main-site cutover.
   const mountDemoPage = async () => {
     let drafts;
     if (import.meta.env.DEV) {

@@ -19,10 +19,12 @@ The static output is written to `dist/`.
 
 ## Live and staging views
 
-- `https://www.yogarise.com.au/` — temporary hero-only launch view with an opt-in form
-- `https://yoga-rise-website.pages.dev/` — complete staging site, hidden from search indexing
+- `https://www.yogarise.com.au/` — full approved website; the established signup form is retained in the homepage footer
+- `https://yoga-rise-website.pages.dev/` — the same full design, hidden from search indexing
 
-The view is selected from the hostname, so one deployment keeps production and staging in sync.
+Both domains use one deployment. The September client edits are now enabled on the main domain.
+Survey and survey thank-you pages preserve their original custom-domain presentation and connections.
+See [the main-site migration record](docs/main-site-migration-2026-09-14.md) for scope and remaining form work.
 The site uses the approved layout `02`; the earlier layout comparison routes redirect to the root.
 
 ## Cloudflare Pages
@@ -50,8 +52,9 @@ first homepage phase.
 - No form values, survey answers or calculator figures are sent by the tracking module.
 - Search Console domain property: `yogarise.com.au`, verified using a Cloudflare DNS TXT record.
   Keep the `google-site-verification` record in place to retain verification.
-- Submitted sitemap: `https://www.yogarise.com.au/sitemap.xml`. It currently lists only the homepage;
-  outreach, thank-you and calculator pages retain their existing `noindex` directives.
+- Submitted sitemap: `https://www.yogarise.com.au/sitemap.xml`, generated at build time for the 15
+  released, indexable URLs. Outreach, thank-you, calculator and unavailable Health Check assessment
+  pages retain `noindex`. Pages and branch previews also receive `X-Robots-Tag: noindex, nofollow`.
 
 ## Content status
 

@@ -15,8 +15,16 @@ export function registerDemoDraftPages(drafts) {
   if (import.meta.env.DEV) drafts.forEach(([path, page]) => pages.set(path, page));
 }
 
-// Reuse Pages' existing root fallback. Do not emit new static HTML routes:
-// those would also be served on the main custom domains in this deployment.
+function loadBookingCalendar() {
+  if (document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')) return;
+  const script = document.createElement('script');
+  script.src = 'https://assets.calendly.com/assets/external/widget.js';
+  script.async = true;
+  document.head.append(script);
+}
+
+// Ready routes are emitted as static HTML for launch. Retain this renderer for
+// local source previews and the explicitly development-only form drafts.
 export function renderDemoPage() {
   const path = location.pathname.replace(/\/+$/, '');
   const page = pages.get(path);
@@ -24,6 +32,10 @@ export function renderDemoPage() {
   const main = document.querySelector('#main-content');
   const header = document.querySelector('[data-site-header]');
   if (!main || !header) return false;
+  if (main.hasAttribute('data-ready-page')) {
+    if (path === '/book-a-call') loadBookingCalendar();
+    return true;
+  }
 
   const template = document.createElement('template');
   template.innerHTML = page.html;
@@ -37,14 +49,11 @@ export function renderDemoPage() {
   document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
-  document.querySelector('link[rel="canonical"]')?.setAttribute('href', `${location.origin}${path}/`);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', `https://www.yogarise.com.au${path}/`);
   document.querySelector('[data-site-footer] .newsletter')?.setAttribute('id', 'demo-newsletter');
 
   if (path === '/book-a-call') {
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    document.head.append(script);
+    loadBookingCalendar();
   }
   // Native initial fragment navigation may run before this content exists.
   if (location.hash) {
