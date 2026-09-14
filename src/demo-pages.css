@@ -87,6 +87,30 @@ html[data-demo-site] .demo-booking-fallback { margin-top: 2rem; text-align: cent
 html[data-demo-site] .demo-booking-fallback a { text-decoration: underline; text-underline-offset: 0.2em; }
 html[data-demo-site] #demo-newsletter { scroll-margin-top: 3rem; }
 html[data-demo-site] .demo-form-shell { max-width: 60rem; }
+/* The client-owned Jotform keeps its own branding and validation. Only style
+   its container: never crop the iframe or override its automatic height. */
+html[data-demo-site] .presenter-application-layout {
+  display: grid;
+  grid-template-columns: minmax(15rem, 1fr) minmax(0, 2fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  max-width: 84rem;
+  margin-inline: auto;
+}
+html[data-demo-site] .presenter-application-intro { min-width: 0; padding-top: 2rem; border-top: 1px solid var(--line-dark); }
+html[data-demo-site] .presenter-form-fallback { margin-top: 2rem; font-size: 0.9rem; }
+html[data-demo-site] .presenter-form-fallback a { display: block; margin-top: 0.5rem; text-decoration: underline; text-underline-offset: 0.25em; }
+html[data-demo-site] .presenter-form-panel { min-width: 0; width: 100%; background: #fff; }
+html[data-demo-site] .presenter-form-panel iframe { display: block; width: 100%; max-width: 100%; border: 0; }
+html[data-demo-site] .presenter-form-panel noscript p { padding: 1.5rem; }
+@media (max-width: 1200px) {
+  html[data-demo-site] .presenter-application-layout { grid-template-columns: minmax(0, 1fr); max-width: 52rem; }
+  html[data-demo-site] .presenter-application-intro { max-width: 40rem; }
+}
+@media (max-width: 640px) {
+  html[data-demo-site] .presenter-application-section { padding-inline: 0; }
+  html[data-demo-site] .presenter-application-intro { margin-inline: var(--page-pad); }
+}
 html[data-demo-site] .demo-draft-notice { padding: 1rem; border: 1px dashed currentColor; }
 html[data-demo-site] .demo-enquiry-form fieldset { min-width: 0; margin: 2rem 0; padding: 0; border: 0; }
 html[data-demo-site] .demo-enquiry-form legend { margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600; }

@@ -26,8 +26,8 @@ function updateFooter() {
   const links = new Map([...navigation.querySelectorAll('a')]
     .map((link) => [link.getAttribute('href'), link]));
   const general = ['/about/', '/expo/', '/membership/', '/blog/'];
-  const contribute = ['/become-a-partner/', '/become-a-brand-ambassador/', '/become-a-volunteer/'];
-  // Reuse the released links; do not create destinations for Contact/Presenter.
+  const contribute = ['/become-a-speaker/', '/become-a-partner/', '/become-a-brand-ambassador/', '/become-a-volunteer/'];
+  // Reuse released links; Contact remains unpublished.
   if (![...general, ...contribute].every((path) => links.has(path))) return;
   const makeList = (paths) => {
     const list = document.createElement('ul');

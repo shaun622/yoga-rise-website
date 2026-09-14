@@ -7,6 +7,7 @@ const readyPages = [
   ['events', 'Events', 'Events that bring the yoga industry together.'],
   ['resources', 'Resources', 'Practical tools for life beyond the mat.'],
   ['book-a-call', 'Book a call', 'Book a YogaRise call with Valerie Saindon.'],
+  ['become-a-speaker', 'Become a YogaRise Presenter', 'Share your expertise with the YogaRise community. Apply to present at events, workshops and education programs.'],
 ];
 const protectedPages = new Set([
   'yoga-teacher-industry-survey/index.html',
@@ -61,7 +62,7 @@ export function launchPlugin() {
           const fileName = `${name}/index.html`;
           this.emitFile({ type: 'asset', fileName, source: metadata(html, fileName) });
         }
-        // A genuine 404 prevents unfinished Contact/Presenter paths becoming a
+        // A genuine 404 prevents unfinished paths such as Contact becoming a
         // misleading homepage, now that ready destinations have real files.
         const notFound = template.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,
           `<main id="main-content"><section class="demo-landing-hero">${header}<div class="demo-landing-intro"><h1>Page not found</h1><p>This page is not available.</p><a class="button button-light" href="/">Back to YogaRise</a></div></section></main>`)

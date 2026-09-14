@@ -2,12 +2,14 @@ import courses from './demo-pages/courses.html?raw';
 import events from './demo-pages/events.html?raw';
 import resources from './demo-pages/resources.html?raw';
 import booking from './demo-pages/book-a-call.html?raw';
+import presenter from './demo-pages/become-a-speaker.html?raw';
 
 const pages = new Map([
   ['/courses', { title: 'Courses', html: courses }],
   ['/events', { title: 'Events', html: events }],
   ['/resources', { title: 'Resources', html: resources }],
   ['/book-a-call', { title: 'Book a call', html: booking }],
+  ['/become-a-speaker', { title: 'Become a YogaRise Presenter', html: presenter }],
 ]);
 
 export function registerDemoDraftPages(drafts) {
@@ -42,6 +44,15 @@ export function renderDemoPage() {
   // Move the existing header, preserving its mobile-menu event handlers.
   template.content.querySelector('[data-demo-header-slot]').replaceWith(header);
   main.replaceChildren(template.content);
+  // Scripts inserted through a template are inert. Execute the supplied embed
+  // for local previews only; static production HTML already runs it once.
+  const presenterEmbed = main.querySelector('script[data-presenter-jotform]');
+  if (presenterEmbed) {
+    const script = document.createElement('script');
+    script.src = presenterEmbed.src;
+    script.dataset.presenterJotform = '';
+    presenterEmbed.replaceWith(script);
+  }
   main.classList.add('demo-landing-page');
   document.title = `${page.title} | YogaRise`;
   const description = main.querySelector('.demo-landing-intro > p:not(.demo-eyebrow)')?.textContent

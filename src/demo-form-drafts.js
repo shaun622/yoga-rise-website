@@ -1,10 +1,8 @@
 // Development-only UI. This module is dynamically imported inside a DEV
 // guard, and must not be emitted by the normal production build.
-import speaker from './demo-pages/speaker.draft.html?raw';
 import contact from './demo-pages/contact.draft.html?raw';
 
 export const draftPages = [
-  ['/become-a-speaker', { title: 'Become a YogaRise Presenter (local draft)', html: speaker }],
   ['/contact', { title: 'Contact (local draft)', html: contact }],
 ];
 
@@ -35,12 +33,6 @@ export function mountDraftForms() {
       navigation.append(item);
     } else navigation.append(link);
   });
-  const contributorList = document.querySelector('.demo-footer-contribute ul');
-  if (contributorList) {
-    const item = document.createElement('li');
-    item.innerHTML = '<a href="/become-a-speaker/">Presenter</a>';
-    contributorList.prepend(item);
-  }
   if (location.pathname.replace(/\/+$/, '') === '/membership') {
     const title = [...document.querySelectorAll('h2')].find((h2) => h2.textContent === 'Join the YogaRise community.');
     const button = title?.closest('section')?.querySelector('a.content-button');
