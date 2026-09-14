@@ -48,15 +48,6 @@ function updateFooter() {
   navigation.classList.add('demo-footer-nav');
 }
 
-function updateTeamCrop() {
-  const portrait = document.querySelector('[data-team-grid] img[src="/assets/valerie.webp"]');
-  if (!portrait) return;
-  const frame = document.createElement('div');
-  frame.className = 'demo-valerie-frame';
-  portrait.before(frame);
-  frame.append(portrait);
-}
-
 function updateExpo() {
   const hero = document.querySelector('.page-hero-expo');
   if (!hero) return;
@@ -113,7 +104,6 @@ if (isDemo) {
     mountDemoPage();
   }
   updateFooter();
-  updateTeamCrop();
   updateExpo();
 
   replaceImage('#courses > img', 'courses', 'Illustrative image of a yoga professional studying an online course');

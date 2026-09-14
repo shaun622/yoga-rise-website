@@ -94,21 +94,6 @@ html[data-demo-site] .demo-footer-heading {
   line-height: 1.35;
 }
 
-/* Crop only the shared Home/About team portrait, not the founder or speakers. */
-html[data-demo-site] .demo-valerie-frame {
-  aspect-ratio: 3 / 4;
-  margin-top: 1.5rem;
-  overflow: hidden;
-}
-html[data-demo-site] .team-card .demo-valerie-frame img {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  object-fit: cover;
-  transform: scale(1.38);
-  transform-origin: 50% 0%;
-}
-
 /* Expo audience: the homepage's paper, top rule and copy/image proportions. */
 html[data-demo-site] .demo-expo-audience-band { background: var(--paper); }
 html[data-demo-site] .content-page .demo-expo-audience {
