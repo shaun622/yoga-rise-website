@@ -1,4 +1,6 @@
 import './demo-site.css';
+import './demo-pages.css';
+import { registerDemoDraftPages, renderDemoPage, updateDemoDestinationLinks } from './demo-pages.js';
 
 // The .com.au pages are the unchanged default. No query string, cookie or
 // local-storage setting can activate these edits on a production domain.
@@ -93,6 +95,23 @@ function updateExpo() {
 }
 
 if (isDemo) {
+  // Run after the original page modules have wired the shared header. These
+  // changes never run on either .com.au hostname, including unknown routes.
+  const mountDemoPage = async () => {
+    let drafts;
+    if (import.meta.env.DEV) {
+      drafts = await import('./demo-form-drafts.js');
+      registerDemoDraftPages(drafts.draftPages);
+    }
+    renderDemoPage();
+    updateDemoDestinationLinks();
+    drafts?.mountDraftForms();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountDemoPage, { once: true });
+  } else {
+    mountDemoPage();
+  }
   updateFooter();
   updateTeamCrop();
   updateExpo();

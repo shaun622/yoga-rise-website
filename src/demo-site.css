@@ -105,8 +105,8 @@ html[data-demo-site] .team-card .demo-valerie-frame img {
   height: 100%;
   margin: 0;
   object-fit: cover;
-  transform: scale(1.16);
-  transform-origin: 50% 14%;
+  transform: scale(1.38);
+  transform-origin: 50% 0%;
 }
 
 /* Expo audience: the homepage's paper, top rule and copy/image proportions. */

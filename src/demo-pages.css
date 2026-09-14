@@ -1,0 +1,133 @@
+/* No unscoped selectors: custom-domain rendering remains unchanged. */
+html[data-demo-site] .demo-landing-page {
+  color: var(--ink, #160705);
+  background: var(--paper, #e9e8e4);
+  font-size: clamp(1rem, 1.1vw, 1.2rem);
+  line-height: 1.6;
+}
+html[data-demo-site] .demo-landing-hero {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 8vw, 8rem);
+  padding: clamp(1.5rem, 3.5vh, 3.5rem) var(--page-pad) clamp(4rem, 7vw, 7rem);
+  min-height: min(900px, 100svh);
+  color: #fff;
+  background-image: linear-gradient(90deg, rgba(16, 4, 3, 0.86), rgba(16, 4, 3, 0.25)), var(--demo-landing-image);
+  background-position: center;
+  background-size: cover;
+}
+html[data-demo-site] .demo-landing-hero-courses { --demo-landing-image: url('/assets/demo-20260911/educators.webp'); }
+html[data-demo-site] .demo-landing-hero-events { --demo-landing-image: url('/assets/demo-20260911/events.webp'); }
+html[data-demo-site] .demo-landing-hero-resources { --demo-landing-image: url('/assets/demo-20260911/studio-owners.webp'); }
+html[data-demo-site] .demo-landing-hero-booking { --demo-landing-image: url('/assets/demo-20260911/about-hero.webp'); min-height: 36rem; }
+html[data-demo-site] .demo-landing-hero-speaker { --demo-landing-image: url('/assets/demo-20260911/partner-hero.webp'); }
+html[data-demo-site] .demo-landing-hero-contact { --demo-landing-image: url('/assets/hero.webp'); }
+html[data-demo-site] .demo-landing-hero > .site-header[data-site-header] { padding: 0; }
+html[data-demo-site] .demo-landing-intro { width: min(48rem, 100%); margin-top: auto; }
+html[data-demo-site] .demo-landing-page h1 {
+  margin: 1rem 0 1.5rem;
+  font-size: clamp(2.2rem, 4.1vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+html[data-demo-site] .demo-landing-page h2 {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1.8rem, 2.7vw, 3.1rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+html[data-demo-site] .demo-landing-page p { margin: 0 0 1.25rem; }
+html[data-demo-site] .demo-landing-page .demo-eyebrow {
+  margin-bottom: 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+html[data-demo-site] .demo-landing-page .button {
+  max-width: 100%;
+  min-height: 3.25rem;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: normal;
+}
+html[data-demo-site] .demo-landing-section {
+  padding: clamp(3.5rem, 6vw, 7rem) var(--page-pad);
+  scroll-margin-top: 1.5rem;
+}
+html[data-demo-site] .demo-landing-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 6rem);
+}
+html[data-demo-site] .demo-landing-split > * { min-width: 0; }
+html[data-demo-site] .demo-landing-image { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+html[data-demo-site] .demo-landing-lead { font-size: clamp(1.15rem, 1.5vw, 1.6rem); line-height: 1.45; }
+html[data-demo-site] .demo-landing-measure { max-width: 52rem; }
+html[data-demo-site] .demo-landing-dark { color: #fff; background: #1b0907; }
+html[data-demo-site] .demo-landing-ruled { border-top: 1px solid var(--line-dark, #a8a5a0); }
+html[data-demo-site] .demo-landing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 3rem);
+  margin-top: 3rem;
+}
+html[data-demo-site] .demo-landing-grid article { min-width: 0; border-top: 1px solid var(--line-dark); padding-top: 1.5rem; }
+html[data-demo-site] .demo-landing-grid h3 { min-height: 3.5em; margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.4; text-transform: uppercase; }
+html[data-demo-site] .demo-card-intro { font-weight: 600; }
+html[data-demo-site] .demo-booking-section { background: #fff; }
+html[data-demo-site] .demo-booking-section h2 { text-align: center; }
+html[data-demo-site] .demo-booking-fallback { margin-top: 2rem; text-align: center; font-size: 0.95rem; }
+html[data-demo-site] .demo-booking-fallback a { text-decoration: underline; text-underline-offset: 0.2em; }
+html[data-demo-site] #demo-newsletter { scroll-margin-top: 3rem; }
+html[data-demo-site] .demo-form-shell { max-width: 60rem; }
+html[data-demo-site] .demo-draft-notice { padding: 1rem; border: 1px dashed currentColor; }
+html[data-demo-site] .demo-enquiry-form fieldset { min-width: 0; margin: 2rem 0; padding: 0; border: 0; }
+html[data-demo-site] .demo-enquiry-form legend { margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600; }
+html[data-demo-site] .demo-enquiry-form label { display: grid; gap: 0.6rem; margin-bottom: 1.25rem; }
+html[data-demo-site] .demo-form-grid,
+html[data-demo-site] .demo-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1.5rem; }
+html[data-demo-site] .demo-form-full { grid-column: 1 / -1; }
+html[data-demo-site] .demo-enquiry-form input:not([type='checkbox']),
+html[data-demo-site] .demo-enquiry-form select,
+html[data-demo-site] .demo-enquiry-form textarea {
+  width: 100%; min-width: 0; min-height: 3.5rem; padding: 0.9rem;
+  border: 1px solid currentColor; border-radius: 0; font: inherit; font-size: 1rem;
+  color: inherit; background: transparent;
+}
+html[data-demo-site] .demo-enquiry-form textarea { min-height: 140px; resize: vertical; }
+html[data-demo-site] .demo-enquiry-form .demo-choice-grid label { display: flex; align-items: start; gap: 0.75rem; }
+html[data-demo-site] .demo-choice-grid input { width: 1.1rem; height: 1.1rem; flex: 0 0 auto; margin-top: 0.2rem; }
+html[data-demo-site] .demo-field-help { font-size: 0.9rem; font-weight: 400; }
+html[data-demo-site] .demo-enquiry-form button:disabled { opacity: 0.55; cursor: not-allowed; }
+html[data-demo-site] .demo-calculator-dialog {
+  width: min(42rem, calc(100% - 2rem)); max-height: calc(100svh - 2rem);
+  margin: auto; padding: clamp(1.5rem, 4vw, 3rem); overflow-y: auto;
+  color: #1b0907; background: #e9e8e4; border: 1px solid currentColor;
+}
+html[data-demo-site] .demo-calculator-dialog::backdrop { background: rgba(16, 4, 3, 0.75); }
+html[data-demo-site] .demo-dialog-close { display: block; margin-left: auto; width: 2.75rem; height: 2.75rem; border: 0; background: transparent; font-size: 2rem; cursor: pointer; }
+@media (max-width: 980px) {
+  html[data-demo-site] .demo-landing-split { grid-template-columns: minmax(0, 1fr); }
+  html[data-demo-site] .demo-landing-grid { grid-template-columns: minmax(0, 1fr); }
+  html[data-demo-site] .demo-landing-grid h3 { min-height: 0; }
+  html[data-demo-site] .demo-landing-hero { min-height: 0; }
+}
+@media (max-width: 640px) {
+  html[data-demo-site] .demo-form-grid,
+  html[data-demo-site] .demo-choice-grid { grid-template-columns: minmax(0, 1fr); }
+  html[data-demo-site] .demo-landing-hero {
+    background-image: linear-gradient(rgba(16, 4, 3, 0.6), rgba(16, 4, 3, 0.88)), var(--demo-landing-image);
+    background-position: 60% center;
+  }
+  /* Calendly requires 320px. Let it use the full viewport on small phones. */
+  html[data-demo-site] .demo-booking-section { padding-inline: 0; }
+  html[data-demo-site] .demo-booking-section > h2,
+  html[data-demo-site] .demo-booking-fallback { padding-inline: 1.5rem; }
+}
