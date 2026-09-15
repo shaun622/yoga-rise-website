@@ -61,7 +61,6 @@ export function renderDemoPage() {
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', `https://www.yogarise.com.au${path}/`);
-  document.querySelector('[data-site-footer] .newsletter')?.setAttribute('id', 'demo-newsletter');
 
   if (path === '/book-a-call') {
     loadBookingCalendar();

@@ -1,0 +1,38 @@
+<form class="hero-optin" data-hero-optin novalidate>
+  <p class="hero-optin-title">Be first to hear what’s next.</p>
+  <label class="form-honeypot" aria-hidden="true">
+    Company
+    <input type="text" name="company" tabindex="-1" autocomplete="off" />
+  </label>
+  <div class="hero-optin-fields">
+    <label>
+      <span class="sr-only">First name</span>
+      <input
+        type="text"
+        name="full_name"
+        placeholder="First name"
+        autocomplete="given-name"
+        minlength="1"
+        maxlength="120"
+        required
+      />
+    </label>
+    <label>
+      <span class="sr-only">Email address</span>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email address"
+        autocomplete="email"
+        required
+      />
+    </label>
+    <button type="submit" data-optin-submit>
+      Keep me posted <span aria-hidden="true">→</span>
+    </button>
+  </div>
+  <p class="hero-optin-note">
+    Join the YogaRise list for event news and updates. Unsubscribe anytime.
+  </p>
+  <p class="hero-optin-message" role="status" aria-live="polite" data-optin-message></p>
+</form>

@@ -1,4 +1,6 @@
 /* Shared header/footer, using the approved full-homepage design. */
+/* Classic desktop scrollbars leave less than 320px at the narrowest viewport. */
+html[data-demo-site] body { min-width: 0; }
 .site-header[data-site-header] {
   --site-logo-width: clamp(12rem, min(23vw, 34vh), 25rem);
   --site-header-top-space: clamp(1.5rem, 3.5vh, 3.5rem);
@@ -47,6 +49,17 @@
 .site-footer[data-site-footer] .footer-content .button { max-width: 100%; white-space: normal; }
 .site-footer[data-site-footer] .footer-legal p { line-height: inherit; }
 .site-footer[data-site-footer] .footer-legal p:first-child { margin-top: 1em; }
+
+/* The homepage opt-in is shared by every regular site footer. */
+.site-footer[data-site-footer] .hero-optin { display: block; width: 100%; margin-top: 2rem; }
+.site-footer[data-site-footer] .hero-optin input:focus-visible { outline: 2px solid white; outline-offset: -4px; }
+#newsletter { scroll-margin-top: 2rem; }
+
+/* Keep the expanded primary navigation on one line on laptops. */
+@media (min-width: 981px) and (max-width: 1280px) {
+  .site-header[data-site-header] { --site-logo-width: clamp(11rem, 20vw, 15rem); gap: 1.5rem; }
+  .site-header[data-site-header] .primary-nav { flex-wrap: nowrap; gap: clamp(0.75rem, 1.5vw, 1.25rem); font-size: 0.75rem; }
+}
 
 /* Keep the compact two-column menu at every width; adapt the logo space below. */
 @media (max-width: 1600px) {

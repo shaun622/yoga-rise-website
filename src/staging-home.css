@@ -1,10 +1,7 @@
 /* Approved full-homepage layout, now published on the custom domains too. */
 html[data-site-mode='staging'] body { min-width: 0; }
 
-/* The established MailerLite form now lives in the homepage footer. */
-.site-footer .hero-optin { display: block; width: 100%; margin-top: 2rem; }
-.site-footer .hero-optin input:focus-visible { outline: 2px solid white; outline-offset: -4px; }
-#newsletter { scroll-margin-top: 2rem; }
+/* Shared newsletter presentation lives in site-chrome.css. */
 
 html[data-site-mode='staging'] .hero {
   display: flex;

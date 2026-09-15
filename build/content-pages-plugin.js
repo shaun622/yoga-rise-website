@@ -11,7 +11,7 @@ function pageLinks(pages, { footer = false } = {}) {
   const byKey = new Map(pages.map((page) => [page.key, page]));
   const selected = order.map((key) => byKey.get(key)).filter(Boolean);
   const links = selected.map((page) => `<a href="${page.path}">${page.label}</a>`);
-  links.push('<a href="/blog/">Blog</a>');
+  links.push('<a href="/blog/">Blog</a>', '<a href="/resources/">Resources</a>');
   return links.join('\n');
 }
 
@@ -43,20 +43,17 @@ export function contentPagesPlugin({ review = false } = {}) {
         .replace('<!-- site:header -->', () => readFileSync(resolve(root, 'build/site-header.html'), 'utf8'))
         .replace('<!-- site:footer -->', () => readFileSync(resolve(root, 'build/site-footer.html'), 'utf8'))
         .replace('<!-- site:team -->', () => readFileSync(resolve(root, 'build/site-team.html'), 'utf8'))
+        .replace('<!-- site:partner-form -->', () => readFileSync(resolve(root, 'build/forms/partner.html'), 'utf8'))
+        .replace('<!-- site:volunteer-form -->', () => readFileSync(resolve(root, 'build/forms/volunteer.html'), 'utf8'))
         .replace('<!-- content:primary-nav -->', pageLinks(activePages))
         .replace('<!-- content:footer-nav -->', pageLinks(activePages, { footer: true }));
 
-      // Move the existing homepage form, preserving its markup and handler.
-      // Other pages link directly to it, not to a now-retired temporary hero.
-      const signup = source === 'index.html'
-        ? transformed.match(/<form class="hero-optin"[\s\S]*?<\/form>/)?.[0]
-        : null;
-      if (signup) transformed = transformed.replace(signup, '');
-      transformed = transformed.replace('<!-- site:newsletter -->', signup
-        || '<a class="button button-light" href="/#newsletter">Join the YogaRise list <span aria-hidden="true">→</span></a>');
+      // One shared form on every regular page; the shared chrome module binds it.
+      transformed = transformed.replace('<!-- site:newsletter -->',
+        () => readFileSync(resolve(root, 'build/site-newsletter.html'), 'utf8'));
 
-      // Existing community CTAs must still land on the retained signup form.
-      transformed = transformed.replace(/(<a\b[^>]*\bhref=")https:\/\/www\.yogarise\.com\.au\/("[^>]*>)/g, '$1/#newsletter$2');
+      // Community update buttons stay on the current page.
+      transformed = transformed.replaceAll('href="https://www.yogarise.com.au/"', 'href="#newsletter"');
 
       transformed = transformed.replace(/data-page-link="([A-Za-z]+)"/g, (_match, key) => {
         const destination = activeByKey.get(key);

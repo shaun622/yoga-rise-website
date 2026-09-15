@@ -55,10 +55,7 @@ export function launchPlugin() {
             .replace(/(<meta\s+name="description"\s+content=")[^"]*("\s*\/?>)/, `$1${escape(description)}$2`)
             .replace(/(<meta\s+property="og:title"\s+content=")[^"]*("\s*\/?>)/, `$1${title} | YogaRise$2`)
             .replace(/(<meta\s+property="og:description"\s+content=")[^"]*("\s*\/?>)/, `$1${escape(description)}$2`)
-            .replace(/<form class="hero-optin"[\s\S]*?<\/form>/,
-              '<a class="button button-light" href="/#newsletter">Join the YogaRise list <span aria-hidden="true">→</span></a>');
-          // Preserve the update anchors used by the approved Courses/Events copy.
-          html = html.replace('class="newsletter" id="newsletter"', 'class="newsletter" id="demo-newsletter"');
+            ;
           const fileName = `${name}/index.html`;
           this.emitFile({ type: 'asset', fileName, source: metadata(html, fileName) });
         }

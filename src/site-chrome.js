@@ -1,4 +1,5 @@
 import './site-chrome.css';
+import './newsletter.js';
 
 const mobileNavigation = window.matchMedia('(max-width: 980px)');
 

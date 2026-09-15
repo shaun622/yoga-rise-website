@@ -25,7 +25,7 @@ function updateFooter() {
   if (!navigation) return;
   const links = new Map([...navigation.querySelectorAll('a')]
     .map((link) => [link.getAttribute('href'), link]));
-  const general = ['/about/', '/expo/', '/membership/', '/blog/'];
+  const general = ['/about/', '/expo/', '/membership/', '/blog/', '/resources/'];
   const contribute = ['/become-a-speaker/', '/become-a-partner/', '/become-a-brand-ambassador/', '/become-a-volunteer/'];
   // Reuse released links; Contact remains unpublished.
   if (![...general, ...contribute].every((path) => links.has(path))) return;

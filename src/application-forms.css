@@ -1,0 +1,59 @@
+/* Presentation only. MailerLite owns validation, submission and success. */
+.content-page .application-form-section { scroll-margin-top: 2rem; }
+.application-form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  align-items: start;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+.application-form-intro { border-top: 1px solid var(--line-dark); padding-top: 2rem; }
+.application-form-panel { min-width: 0; padding: clamp(1.25rem, 3vw, 2.5rem); border: 1px solid var(--line-dark); background: var(--paper); }
+.application-form-fallback { margin-top: 2rem; font-size: 0.9rem; }
+.application-form-fallback a { text-decoration: underline; text-underline-offset: 0.2em; }
+.application-form-panel .ml-form-formContent { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.application-form-panel .ml-form-fieldRow { min-width: 0; }
+.application-form-panel .ml-form-fieldRow:has(textarea),
+.application-form-panel .ml-form-fieldRow:nth-child(n+7) { grid-column: 1 / -1; }
+.application-form-panel label { display: block; margin-bottom: 0.6rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; }
+.application-form-panel .form-control {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  padding: 0.9rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 0;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.application-form-panel .form-control::placeholder { color: #65615e; }
+.application-form-panel textarea.form-control { min-height: 9rem; resize: vertical; }
+.application-form-panel .form-control:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.application-form-panel .ml-error .form-control { border: 2px solid #b22222; }
+.application-form-panel .ml-error label { color: #9f1d1d; }
+.application-form-panel .ml-form-embedSubmit { margin-top: 2rem; }
+.application-form-panel .ml-form-embedSubmit button {
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 1rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.application-form-panel .ml-form-embedSubmit button:hover { color: var(--ink); background: #fff; }
+.application-form-panel .ml-form-embedSubmit button:disabled { opacity: 0.65; cursor: wait; }
+.application-form-panel .loading .sr-only { position: static; width: auto; height: auto; clip-path: none; }
+.application-form-panel .row-success h4 { margin: 0 0 1rem; font-size: 1.75rem; }
+@media (max-width: 1200px) {
+  .application-form-layout { grid-template-columns: minmax(0, 1fr); max-width: 52rem; margin-inline: auto; }
+}
+@media (max-width: 640px) {
+  .application-form-panel .ml-form-formContent { grid-template-columns: minmax(0, 1fr); }
+  .application-form-panel .ml-form-fieldRow { grid-column: 1; }
+}

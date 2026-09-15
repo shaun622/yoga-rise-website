@@ -30,7 +30,9 @@ export function mountDraftForms() {
     if (navigation.tagName === 'UL') {
       const item = document.createElement('li');
       item.append(link);
-      navigation.append(item);
+      const blog = navigation.querySelector('a[href="/blog/"]')?.closest('li');
+      if (blog) blog.after(item);
+      else navigation.append(item);
     } else navigation.append(link);
   });
   if (location.pathname.replace(/\/+$/, '') === '/membership') {

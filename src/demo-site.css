@@ -26,6 +26,13 @@ html[data-demo-site] .content-page .page-hero {
   background-image: linear-gradient(rgba(16, 4, 3, 0.55), transparent 35%), linear-gradient(90deg, rgba(16, 4, 3, 0.86), rgba(16, 4, 3, 0.22)), var(--demo-hero);
   background-position: var(--demo-hero-position);
 }
+
+/* Align Expo/Membership body copy with their full-width hero gutters. The
+   previous 1600px outer cap added a second left inset on wide screens. */
+html[data-demo-page='expo'] .content-page .content-section,
+html[data-demo-page='membership'] .content-page .content-section { max-width: none; }
+html[data-demo-site] .content-page .faq-list + .content-button { margin-top: 2rem; }
+html[data-demo-site] .content-page .content-prose > .content-button { margin-top: 1rem; }
 html[data-demo-site][data-demo-page] .hero {
   background-image: linear-gradient(90deg, rgba(16, 4, 3, 0.6), rgba(16, 4, 3, 0.08)), url('/assets/demo-20260911/home-hero.webp');
   background-position: center;
