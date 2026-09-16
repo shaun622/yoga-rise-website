@@ -28,6 +28,22 @@ html[data-demo-site] body { min-width: 0; }
 .site-footer[data-site-footer] { line-height: 1.2; }
 .site-footer[data-site-footer] .footer-top { grid-template-columns: minmax(14rem, 30rem) minmax(0, 1fr); }
 .site-footer[data-site-footer] .footer-brand img { height: auto; }
+.footer-identity { min-width: 0; }
+.footer-socials { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.footer-socials a {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.15);
+}
+.footer-socials svg { display: block; width: 1.4rem; height: 1.4rem; }
+.footer-socials a:hover { color: var(--ink); background: var(--white); }
+.footer-socials a:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; }
 .site-footer[data-site-footer] .footer-nav {
   display: grid;
   width: min(100%, 30rem);
