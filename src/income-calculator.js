@@ -61,7 +61,7 @@ function calculate() {
   }
   show('calculator-validation', invalid ? 'Use non-negative numbers, up to 52 teaching weeks and a reserve between 0% and 100%.' : '');
   if (invalid) {
-    outputs.forEach(output => { output.textContent = '—'; });
+    outputs.forEach(output => { output.textContent = 'N/A'; });
     return;
   }
   const v = values;
@@ -82,7 +82,7 @@ function calculate() {
   };
   if (![gross, expenses, net, reserve, available, gap, weeklyHours, ...Object.values(levers)].every(Number.isFinite)) {
     show('calculator-validation', 'These numbers are too large to calculate. Please use smaller values.');
-    outputs.forEach(output => { output.textContent = '—'; });
+    outputs.forEach(output => { output.textContent = 'N/A'; });
     return;
   }
   for (const [id, value] of Object.entries({ resGross: gross, resExpenses: expenses, resNet: net, resReserve: reserve, resAvailable: available })) show(id, currency.format(value));

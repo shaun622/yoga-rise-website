@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { applySeoMetadata, pagePath, siteOrigin as origin } from './seo.js';
 
-const origin = 'https://www.yogarise.com.au';
 const readyPages = [
   ['courses', 'Courses', 'Education for the next stage of your yoga career.'],
   ['events', 'Events', 'Events that bring the yoga industry together.'],
@@ -17,18 +17,15 @@ const protectedPages = new Set([
   '404.html',
 ]);
 const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
-const pagePath = (fileName) => fileName === 'index.html' ? '/' : `/${fileName.replace(/index\.html$/, '')}`;
 
 function metadata(html, fileName) {
-  const canonical = `${origin}${pagePath(fileName)}`;
   const indexable = !protectedPages.has(fileName);
-  let result = html.replace(/<link\b[^>]*rel="canonical"[^>]*>\s*/g, '')
-    .replace(/<meta\b[^>]*property="og:url"[^>]*>\s*/g, '');
+  let result = html;
   // This date change was already approved and displayed by the demo script.
   if (fileName === 'expo/index.html') result = result.replace('29 November 2026', 'December 2026');
   // Outreach, calculator and unavailable-assessment pages retain noindex.
   if (indexable) result = result.replace(/<meta\b[^>]*name="robots"[^>]*>\s*/g, '');
-  return result.replace('</head>', `<link rel="canonical" href="${canonical}" />\n<meta property="og:url" content="${canonical}" />\n</head>`);
+  return applySeoMetadata(result, fileName);
 }
 
 export function launchPlugin() {
@@ -64,6 +61,7 @@ export function launchPlugin() {
         const notFound = template.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,
           `<main id="main-content"><section class="demo-landing-hero">${header}<div class="demo-landing-intro"><h1>Page not found</h1><p>This page is not available.</p><a class="button button-light" href="/">Back to YogaRise</a></div></section></main>`)
           .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found | YogaRise</title>')
+          .replace(/(<meta\s+name="description"\s+content=")[^"]*("\s*\/?>)/, '$1This page is not available. Explore YogaRise for education, events and community.$2')
           .replace('</head>', '<meta name="robots" content="noindex, nofollow" /></head>');
         this.emitFile({ type: 'asset', fileName: '404.html', source: metadata(notFound, '404.html') });
 

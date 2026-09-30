@@ -8,7 +8,7 @@ test('Presenter is a static released page with the supplied Jotform and a fallba
   const plugin = launchPlugin();
   plugin.configResolved({ root: resolve('.') });
   const emitted = new Map();
-  const home = '<html><head><title>YogaRise</title></head><body><main id="main-content"><header data-site-header></header></main><footer data-site-footer></footer></body></html>';
+  const home = '<html><head><title>YogaRise</title><meta name="description" content="YogaRise education, events and community." /></head><body><main id="main-content"><header data-site-header></header></main><footer data-site-footer></footer></body></html>';
   plugin.generateBundle.handler.call({ emitFile: (asset) => emitted.set(asset.fileName, asset.source) }, {}, {
     'index.html': { type: 'asset', source: home },
   });
