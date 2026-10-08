@@ -18,6 +18,10 @@ Local browser proof: .wrangler/contact-qa/contact-success.jpg (ignored by Git). 
 
 ## Integration
 
-Cloudflare Pages Functions: POST /api/contact and GET /api/contact-config. Only the non-secret Turnstile site key is exposed by configuration. RESEND_API_KEY and CONTACT_TURNSTILE_SECRET are encrypted server-side bindings; CONTACT_TURNSTILE_SITE_KEY is public configuration. Never place secret values in this repository or browser assets. Client-supplied recipients/senders are ignored. No database or mailing list writes. Plain-text email avoids interpreting submitted HTML.
+Cloudflare Pages Functions: POST /api/contact and GET /api/contact-config. Only the non-secret Turnstile site key is exposed by configuration. RESEND_API_KEY and CONTACT_TURNSTILE_SECRET are encrypted server-side bindings; CONTACT_TURNSTILE_SITE_KEY is public configuration. Never place secret values in this repository or browser assets. Client-supplied recipients/senders are ignored. No database or mailing list writes. Email includes both a branded HTML layout and a plain-text fallback. All visitor content is HTML-escaped, message line breaks are preserved, and mailto values are URI-encoded.
 
 Spam protection: server-validated Turnstile action and hostname, same-origin checks, honeypot, bounded request/field sizes. No development bypass in production. Resend idempotency key is retained for retries of an unchanged submission. Failure preserves visitor input; success requires the provider's accepted email ID, not just an HTTP response.
+
+## Enquiry email presentation update
+
+Requested on 8 October: improve the received enquiry email without making it elaborate. Added a dark YogaRise header, labelled contact details, a separate message panel, a reply action and a quiet source/reference footer. The fluid, maximum-600px layout uses inline styles and presentation tables, with an Outlook width fallback and no external image dependencies. Browser preview inspected at phone widths, including 320px without horizontal overflow. All 32 automated tests pass, including HTML escaping, encoded reply links and retained plain-text content. Production build and Pages Functions compilation pass. Delivery settings, recipients, spam protection and other forms are unchanged.
