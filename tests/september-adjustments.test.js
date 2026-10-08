@@ -103,3 +103,21 @@ test('Contact publishes a real same-origin form with spam protection and no draf
   assert.match(contact, /hello@yogarise\.com\.au/);
   assert.doesNotMatch(contact, /action="mailto:|message sent/i);
 });
+
+test('Contact uses an open, responsive layout without changing the form integration', () => {
+  const contact = read('src/demo-pages/contact.html');
+  const css = read('src/demo-pages.css');
+  assert.match(contact, /class="demo-contact-layout"/);
+  assert.match(contact, /class="demo-contact-details"/);
+  assert.match(contact, /href="\/book-a-call\/"/);
+  for (const name of ['name', 'email', 'phone', 'message']) {
+    assert.match(contact, new RegExp('for="contact-' + name + '"'));
+    assert.match(contact, new RegExp('id="contact-' + name + '" name="' + name + '"'));
+  }
+  assert.match(contact, /This does not sign you up to our mailing list/);
+  assert.match(contact, /data-contact-status role="status" aria-live="polite"/);
+  assert.match(css, /\.demo-contact-panel \{ min-width: 0; \}/);
+  assert.doesNotMatch(css, /\.demo-contact-panel \{[^}]*\b(?:padding|border|background):/);
+  assert.match(css, /@media \(max-width: 980px\) \{\s*html\[data-demo-site\] \.demo-contact-layout \{ grid-template-columns: minmax\(0, 1fr\)/);
+  assert.match(css, /\.demo-contact-panel \.demo-enquiry-form input:focus-visible/);
+});

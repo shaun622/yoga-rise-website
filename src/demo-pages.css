@@ -22,9 +22,84 @@ html[data-demo-site] .demo-landing-hero-resources { --demo-landing-image: url('/
 html[data-demo-site] .demo-landing-hero-booking { --demo-landing-image: url('/assets/demo-20260911/about-hero.webp'); min-height: 36rem; }
 html[data-demo-site] .demo-landing-hero-speaker { --demo-landing-image: url('/assets/demo-20260911/partner-hero.webp'); }
 html[data-demo-site] .demo-landing-hero-contact { --demo-landing-image: url('/assets/demo-20260911/about-hero.webp'); min-height: 36rem; }
+html[data-demo-page='contact'] body { min-width: 0; }
 html[data-demo-site] .demo-contact-section { background: #fff; }
-html[data-demo-site] .demo-contact-intro > p > a { overflow-wrap: anywhere; text-decoration: underline; }
-html[data-demo-site] .demo-contact-panel { min-width: 0; padding: clamp(1.25rem, 3vw, 2.5rem); border: 1px solid var(--line-dark); background: var(--paper); }
+html[data-demo-site] .demo-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  max-width: 80rem;
+  margin-inline: auto;
+}
+html[data-demo-site] .demo-contact-intro { min-width: 0; max-width: 28rem; }
+html[data-demo-site] .demo-contact-intro h2 { max-width: 12ch; }
+html[data-demo-site] .demo-contact-details {
+  margin-top: clamp(2rem, 4vw, 4rem);
+  padding-top: 1.75rem;
+  border-top: 1px solid #d9d0c8;
+}
+html[data-demo-site] .demo-contact-details .demo-contact-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+html[data-demo-site] .demo-contact-email {
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: #b6a699;
+  text-underline-offset: 0.3em;
+}
+html[data-demo-site] .demo-contact-details .demo-contact-call-copy { margin: 2rem 0 0.25rem; }
+html[data-demo-site] .demo-contact-call {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 2.75rem;
+  border-bottom: 1px solid #b6a699;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+html[data-demo-site] .demo-contact-call span { font-size: 1.5rem; font-weight: 400; }
+html[data-demo-site] .demo-contact-panel { min-width: 0; }
+/* Keep the form open on the white page, rather than inside a boxed card.
+   These overrides are Contact-only; provider application forms are unchanged. */
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form fieldset { margin: 0 0 1.5rem; }
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form legend { margin-bottom: 0.5rem; font-size: 1.35rem; }
+html[data-demo-site] .demo-contact-panel .demo-contact-required { margin-bottom: 2rem; color: #665c55; font-size: 0.85rem; }
+html[data-demo-site] .demo-contact-panel .demo-form-grid { gap: 0.75rem 1.75rem; }
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form label { gap: 0.25rem; font-size: 0.9rem; font-weight: 500; }
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form input:not([type='checkbox']),
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form textarea {
+  padding: 0.75rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid #9a8a7c;
+  background: #fff;
+  transition: border-color 160ms ease;
+}
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form textarea { min-height: 9rem; }
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form input:focus-visible,
+html[data-demo-site] .demo-contact-panel .demo-enquiry-form textarea:focus-visible {
+  border-bottom-color: #32180f;
+  outline: 2px solid #8b6652;
+  outline-offset: 3px;
+}
+html[data-demo-site] .demo-contact-panel .demo-field-help { max-width: 38rem; color: #665c55; font-size: 0.8rem; line-height: 1.6; }
+html[data-demo-site] .demo-contact-actions { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; }
+html[data-demo-site] .demo-contact-actions .button {
+  gap: 2.5rem;
+  margin: 0;
+  border-color: #32180f;
+  color: #fff;
+  background: #32180f;
+}
+html[data-demo-site] .demo-contact-actions .button:not(:disabled):hover,
+html[data-demo-site] .demo-contact-actions .button:not(:disabled):focus-visible { background: #513021; }
+html[data-demo-site] .demo-contact-panel .contact-form-status { margin: 1.25rem 0 0; font-size: 0.9rem; }
 html[data-demo-site] .contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 html[data-demo-site] .contact-form-status { min-height: 1.6em; margin-top: 1.5rem; overflow-wrap: anywhere; }
 html[data-demo-site] .contact-form-status[data-error] { color: #8b2319; }
@@ -160,6 +235,10 @@ html[data-demo-site] .demo-calculator-dialog {
 html[data-demo-site] .demo-calculator-dialog::backdrop { background: rgba(16, 4, 3, 0.75); }
 html[data-demo-site] .demo-dialog-close { display: block; margin-left: auto; width: 2.75rem; height: 2.75rem; border: 0; background: transparent; font-size: 2rem; cursor: pointer; }
 @media (max-width: 980px) {
+  html[data-demo-site] .demo-contact-layout { grid-template-columns: minmax(0, 1fr); max-width: 42rem; }
+  html[data-demo-site] .demo-contact-intro { max-width: none; }
+  html[data-demo-site] .demo-contact-intro h2 { max-width: 18ch; }
+  html[data-demo-site] .demo-contact-details { margin-top: 2rem; }
   html[data-demo-site] .demo-landing-split { grid-template-columns: minmax(0, 1fr); }
   html[data-demo-site] .demo-landing-grid { grid-template-columns: minmax(0, 1fr); }
   html[data-demo-site] .demo-landing-grid h3 { min-height: 0; }

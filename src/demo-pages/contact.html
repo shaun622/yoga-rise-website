@@ -8,29 +8,36 @@
   </div>
 </section>
 <section class="demo-landing-section demo-contact-section" id="contact-enquiry" aria-labelledby="contact-form-title">
-  <div class="demo-landing-split">
+  <div class="demo-contact-layout">
     <div class="demo-contact-intro">
-      <p class="demo-eyebrow">Contact YogaRise</p>
+      <p class="demo-eyebrow">Get in touch</p>
       <h2 id="contact-form-title">Let's start a conversation.</h2>
       <p>Send us your question or tell us what you'd like to explore.</p>
-      <p>Email: <a href="mailto:hello@yogarise.com.au">hello@yogarise.com.au</a></p>
-      <a class="button button-dark" href="/book-a-call/">Book a call <span aria-hidden="true">→</span></a>
+      <div class="demo-contact-details">
+        <p class="demo-contact-label">Email the team</p>
+        <a class="demo-contact-email" href="mailto:hello@yogarise.com.au">hello@yogarise.com.au</a>
+        <p class="demo-contact-call-copy">Prefer to talk it through?</p>
+        <a class="demo-contact-call" href="/book-a-call/">Book a call <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
     <div class="demo-contact-panel">
     <form class="demo-enquiry-form" data-contact-form action="/api/contact" method="post" aria-describedby="contact-form-help">
       <fieldset>
-        <legend>Get in touch</legend>
+        <legend>Send us a message</legend>
+        <p class="demo-contact-required">All fields are required unless marked optional.</p>
         <div class="demo-form-grid">
-          <label>Name<input name="name" autocomplete="name" maxlength="200" required /></label>
-          <label>Email address<input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
-          <label class="demo-form-full">Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="100" /></label>
-          <label class="demo-form-full">Message<textarea name="message" maxlength="5000" required></textarea></label>
+          <label for="contact-name">Name<input id="contact-name" name="name" autocomplete="name" maxlength="200" required /></label>
+          <label for="contact-email">Email address<input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+          <label for="contact-phone" class="demo-form-full">Phone (optional)<input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="100" /></label>
+          <label for="contact-message" class="demo-form-full">Message<textarea id="contact-message" name="message" maxlength="5000" required></textarea></label>
         </div>
         <div class="contact-honeypot" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off" /></label></div>
       </fieldset>
       <p class="demo-field-help" id="contact-form-help">Your details will be sent to the YogaRise team to respond to your enquiry. This does not sign you up to our mailing list.</p>
-      <div data-contact-challenge></div>
-      <button class="button button-dark" type="submit" disabled>Send enquiry <span aria-hidden="true">→</span></button>
+      <div class="demo-contact-actions">
+        <div data-contact-challenge></div>
+        <button class="button button-dark" type="submit" disabled>Send enquiry <span aria-hidden="true">→</span></button>
+      </div>
       <p class="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true">Loading the secure form…</p>
       <noscript><p>Please enable JavaScript to use this form, or email <a href="mailto:hello@yogarise.com.au">hello@yogarise.com.au</a>.</p></noscript>
     </form>
