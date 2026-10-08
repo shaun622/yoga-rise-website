@@ -17,19 +17,22 @@
       <a class="button button-dark" href="/book-a-call/">Book a call <span aria-hidden="true">→</span></a>
     </div>
     <div class="demo-contact-panel">
-    <p class="demo-draft-notice">Local design preview. The Contact form connection is still required. This draft does not send enquiries.</p>
-    <form class="demo-enquiry-form" data-demo-draft-form>
-      <fieldset disabled>
+    <form class="demo-enquiry-form" data-contact-form action="/api/contact" method="post" aria-describedby="contact-form-help">
+      <fieldset>
         <legend>Get in touch</legend>
         <div class="demo-form-grid">
-          <label>Name<input name="name" autocomplete="name" required /></label>
-          <label>Email address<input name="email" type="email" autocomplete="email" required /></label>
-          <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" /></label>
-          <label class="demo-form-full">Message<textarea name="message" required></textarea></label>
+          <label>Name<input name="name" autocomplete="name" maxlength="200" required /></label>
+          <label>Email address<input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+          <label class="demo-form-full">Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="100" /></label>
+          <label class="demo-form-full">Message<textarea name="message" maxlength="5000" required></textarea></label>
         </div>
+        <div class="contact-honeypot" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off" /></label></div>
       </fieldset>
+      <p class="demo-field-help" id="contact-form-help">Your details will be sent to the YogaRise team to respond to your enquiry. This does not sign you up to our mailing list.</p>
+      <div data-contact-challenge></div>
       <button class="button button-dark" type="submit" disabled>Send enquiry <span aria-hidden="true">→</span></button>
-      <p role="status" aria-live="polite"></p>
+      <p class="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true">Loading the secure form…</p>
+      <noscript><p>Please enable JavaScript to use this form, or email <a href="mailto:hello@yogarise.com.au">hello@yogarise.com.au</a>.</p></noscript>
     </form>
     </div>
   </div>

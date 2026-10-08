@@ -35,6 +35,7 @@ const pageImages = new Map([
   ['events/index.html', images.events],
   ['resources/index.html', images.resources],
   ['book-a-call/index.html', images.about],
+  ['contact/index.html', images.about],
   ['blog/index.html', images.about],
   ['yoga-teacher-income-calculator/index.html', images.why],
   ['yogarise-marketing-health-check/index.html', images.why],

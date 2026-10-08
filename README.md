@@ -35,8 +35,10 @@ The site uses the approved layout `02`; the earlier layout comparison routes red
 - Production branch: `main`
 
 The repository is designed for Cloudflare Pages Git integration. The custom-styled signup forms
-submit through the public endpoints supplied by the client's MailerLite embeds, so no API token or
-Pages Function is required. Authentication, payments, and course gating are not included in this
+submit through the public endpoints supplied by the client's MailerLite embeds. The Contact page
+uses a separate Resend-backed Pages Function with encrypted production secrets and Turnstile.
+See [the Contact integration record](docs/contact-form-release-2026-10-08.md) for deployment and test evidence.
+Authentication, payments, and course gating are not included in this
 first homepage phase.
 
 ## Analytics and Search Console

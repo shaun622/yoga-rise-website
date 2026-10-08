@@ -44,7 +44,7 @@ const bundle = renderedSite();
 const pages = Object.entries(bundle).filter(([name]) => name.endsWith('.html'));
 
 test('every released page has complete static, page-specific social and canonical metadata', () => {
-  assert.equal(pages.length, 21);
+  assert.equal(pages.length, 22);
   const titles = new Set();
   const descriptions = new Set();
   for (const [fileName, { source: html }] of pages) {
@@ -117,15 +117,15 @@ test('sharing image files exist with the declared WebP dimensions', () => {
 
 test('SEO updates preserve noindex, the sitemap boundary and unreleased pages', () => {
   const urls = [...bundle['sitemap.xml'].source.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-  assert.equal(urls.length, 16);
+  assert.equal(urls.length, 17);
   assert.equal(new Set(urls).size, urls.length);
   for (const [fileName, { source: html }] of pages) {
     const noindex = /<meta\b[^>]*name="robots"[^>]*content="noindex, nofollow"/.test(headOf(html));
     assert.equal(noindex, protectedPages.has(fileName), fileName);
     assert.equal(urls.includes(`${siteOrigin}${pagePath(fileName)}`), !protectedPages.has(fileName), fileName);
   }
-  assert.ok(!bundle['contact/index.html']);
-  assert.doesNotMatch(bundle['sitemap.xml'].source, /pages\.dev|contact|elevate/);
+  assert.ok(bundle['contact/index.html']);
+  assert.doesNotMatch(bundle['sitemap.xml'].source, /pages\.dev|elevate/);
   assert.match(read('public/robots.txt'), /Sitemap: https:\/\/www\.yogarise\.com\.au\/sitemap.xml/);
   assert.match(read('public/_headers'), /https:\/\/yoga-rise-website\.pages\.dev\/\*\s+X-Robots-Tag: noindex, nofollow/);
   assert.match(read('public/_headers'), /https:\/\/:version\.yoga-rise-website\.pages\.dev\/\*\s+X-Robots-Tag: noindex, nofollow/);

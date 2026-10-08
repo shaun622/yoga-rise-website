@@ -22,6 +22,7 @@ test('regular pages share the complete newsletter form and home-linked logo', ()
     assert.equal((html.match(/id="newsletter"/g) || []).length, 1, path);
     assert.match(html, /class="brand" href="\/"/, path);
     assert.match(html, /href="\/resources\/">Resources/, path);
+    assert.match(html, /href="\/contact\/">Contact/, path);
     assert.doesNotMatch(html, /href="[^"]*demo-newsletter"/, path);
     assert.doesNotMatch(html, /<a[^>]*>Home<\/a>/, path);
   }
@@ -35,13 +36,13 @@ test('generated ready pages retain the shared newsletter instead of a link back 
   const emitted = new Map();
   plugin.generateBundle.handler.call({ emitFile: asset => emitted.set(asset.fileName, asset.source) }, {},
     { 'index.html': { type: 'asset', source: render('index.html') } });
-  for (const name of ['courses', 'events', 'resources', 'book-a-call', 'become-a-speaker']) {
+  for (const name of ['courses', 'events', 'resources', 'book-a-call', 'become-a-speaker', 'contact']) {
     const html = emitted.get(name + '/index.html');
     assert.equal((html.match(/data-hero-optin/g) || []).length, 1, name);
     assert.match(html, /id="newsletter"/);
     assert.doesNotMatch(html, /demo-newsletter|href="\/#newsletter"/);
   }
-  assert.ok(!emitted.has('contact/index.html'), 'Do not release the disconnected Contact form');
+  assert.match(emitted.get('contact/index.html'), /data-contact-form/);
 });
 
 test('update CTAs follow the annotated locations and preserve unreleased content', () => {
@@ -91,12 +92,14 @@ test('supplied MailerLite applications keep separate destinations, fields and ca
   assert.doesNotMatch(render('become-a-volunteer/index.html'), /Final volunteer benefits|accessibility_requirements/);
 });
 
-test('Contact remains an honest local form preview, not a mailto-only replacement or fake success', () => {
-  const contact = read('src/demo-pages/contact.draft.html');
+test('Contact publishes a real same-origin form with spam protection and no draft controls', () => {
+  const contact = read('src/demo-pages/contact.html');
   assert.match(contact, /id="contact-enquiry"/);
   for (const name of ['name', 'email', 'phone', 'message']) assert.match(contact, new RegExp('name="' + name + '"'));
-  assert.match(contact, /data-demo-draft-form/);
+  assert.match(contact, /data-contact-form action="\/api\/contact" method="post"/);
   assert.match(contact, /type="submit" disabled/);
+  assert.match(contact, /data-contact-challenge/);
+  assert.doesNotMatch(contact, /fieldset disabled|data-demo-draft-form|connection.*required/i);
   assert.match(contact, /hello@yogarise\.com\.au/);
   assert.doesNotMatch(contact, /action="mailto:|message sent/i);
 });

@@ -11,7 +11,7 @@ function pageLinks(pages, { footer = false } = {}) {
   const byKey = new Map(pages.map((page) => [page.key, page]));
   const selected = order.map((key) => byKey.get(key)).filter(Boolean);
   const links = selected.map((page) => `<a href="${page.path}">${page.label}</a>`);
-  links.push('<a href="/blog/">Blog</a>', '<a href="/resources/">Resources</a>');
+  links.push('<a href="/blog/">Blog</a>', '<a href="/contact/">Contact</a>', '<a href="/resources/">Resources</a>');
   return links.join('\n');
 }
 

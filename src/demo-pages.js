@@ -3,6 +3,8 @@ import events from './demo-pages/events.html?raw';
 import resources from './demo-pages/resources.html?raw';
 import booking from './demo-pages/book-a-call.html?raw';
 import presenter from './demo-pages/become-a-speaker.html?raw';
+import contact from './demo-pages/contact.html?raw';
+import { mountContactForm } from './contact-form.js';
 
 const pages = new Map([
   ['/courses', { title: 'Courses', html: courses }],
@@ -10,6 +12,7 @@ const pages = new Map([
   ['/resources', { title: 'Resources', html: resources }],
   ['/book-a-call', { title: 'Book a call', html: booking }],
   ['/become-a-speaker', { title: 'Become a YogaRise Presenter', html: presenter }],
+  ['/contact', { title: 'Contact', html: contact }],
 ]);
 
 export function registerDemoDraftPages(drafts) {
@@ -36,6 +39,7 @@ export function renderDemoPage() {
   if (!main || !header) return false;
   if (main.hasAttribute('data-ready-page')) {
     if (path === '/book-a-call') loadBookingCalendar();
+    if (path === '/contact') mountContactForm();
     return true;
   }
 
@@ -65,6 +69,7 @@ export function renderDemoPage() {
   if (path === '/book-a-call') {
     loadBookingCalendar();
   }
+  if (path === '/contact') mountContactForm();
   // Native initial fragment navigation may run before this content exists.
   if (location.hash) {
     let fragment;

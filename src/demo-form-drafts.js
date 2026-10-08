@@ -1,10 +1,6 @@
 // Development-only UI. This module is dynamically imported inside a DEV
 // guard, and must not be emitted by the normal production build.
-import contact from './demo-pages/contact.draft.html?raw';
-
-export const draftPages = [
-  ['/contact', { title: 'Contact (local draft)', html: contact }],
-];
+export const draftPages = [];
 
 const shortForm = (purpose, phone = false) => `
   <div class="demo-form-shell">
@@ -23,18 +19,6 @@ const shortForm = (purpose, phone = false) => `
   </div>`;
 
 export function mountDraftForms() {
-  document.querySelectorAll('[data-navigation], .demo-footer-nav > ul').forEach((navigation) => {
-    const link = document.createElement('a');
-    link.href = '/contact/';
-    link.textContent = 'Contact';
-    if (navigation.tagName === 'UL') {
-      const item = document.createElement('li');
-      item.append(link);
-      const blog = navigation.querySelector('a[href="/blog/"]')?.closest('li');
-      if (blog) blog.after(item);
-      else navigation.append(item);
-    } else navigation.append(link);
-  });
   if (location.pathname.replace(/\/+$/, '') === '/membership') {
     const title = [...document.querySelectorAll('h2')].find((h2) => h2.textContent === 'Join the YogaRise community.');
     const button = title?.closest('section')?.querySelector('a.content-button');

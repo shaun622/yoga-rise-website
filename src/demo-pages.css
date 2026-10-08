@@ -25,6 +25,10 @@ html[data-demo-site] .demo-landing-hero-contact { --demo-landing-image: url('/as
 html[data-demo-site] .demo-contact-section { background: #fff; }
 html[data-demo-site] .demo-contact-intro > p > a { overflow-wrap: anywhere; text-decoration: underline; }
 html[data-demo-site] .demo-contact-panel { min-width: 0; padding: clamp(1.25rem, 3vw, 2.5rem); border: 1px solid var(--line-dark); background: var(--paper); }
+html[data-demo-site] .contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+html[data-demo-site] .contact-form-status { min-height: 1.6em; margin-top: 1.5rem; overflow-wrap: anywhere; }
+html[data-demo-site] .contact-form-status[data-error] { color: #8b2319; }
+html[data-demo-site] [data-contact-challenge] { max-width: 100%; min-height: 140px; }
 html[data-demo-site] .demo-landing-hero > .site-header[data-site-header] { padding: 0; }
 html[data-demo-site] .demo-landing-intro { width: min(48rem, 100%); margin-top: auto; }
 html[data-demo-site] .demo-landing-page h1 {

@@ -22,7 +22,7 @@ test('Presenter is a static released page with the supplied Jotform and a fallba
   assert.match(page, /rel="canonical" href="https:\/\/www\.yogarise\.com\.au\/become-a-speaker\/"/);
   assert.doesNotMatch(page, /data-demo-draft-form|fieldset disabled|connection pending|<form\b/i);
   assert.match(emitted.get('sitemap.xml'), /https:\/\/www\.yogarise\.com\.au\/become-a-speaker\//);
-  assert.ok(!emitted.has('contact/index.html'));
+  assert.match(emitted.get('contact/index.html'), /data-contact-form/);
 });
 
 test('Presenter is discoverable without enabling unrelated draft forms', () => {
@@ -32,7 +32,7 @@ test('Presenter is discoverable without enabling unrelated draft forms', () => {
   }
   const drafts = readFileSync('src/demo-form-drafts.js', 'utf8');
   assert.doesNotMatch(drafts, /speaker|presenter/i);
-  assert.match(drafts, /contact\.draft\.html/);
+  assert.doesNotMatch(drafts, /contact\.draft\.html/);
   const css = readFileSync('src/demo-pages.css', 'utf8');
   const frameRule = css.match(/\.presenter-form-panel iframe\s*\{([^}]*)\}/)?.[1];
   assert.ok(frameRule);
