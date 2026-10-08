@@ -51,14 +51,6 @@ function updateFooter() {
 function updateExpo() {
   const hero = document.querySelector('.page-hero-expo');
   if (!hero) return;
-  const date = hero.querySelector('.page-hero-lead');
-  // Keep the existing separators, Sydney and Full Day Event unchanged.
-  for (const node of date?.childNodes ?? []) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      node.textContent = node.textContent.replace('29 November 2026', 'December 2026');
-    }
-  }
-
   const audience = [...document.querySelectorAll('.content-section')]
     .find((section) => section.querySelector('h2')?.textContent === 'This is for you if...');
   if (audience) {

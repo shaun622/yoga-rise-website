@@ -21,8 +21,6 @@ const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;
 function metadata(html, fileName) {
   const indexable = !protectedPages.has(fileName);
   let result = html;
-  // This date change was already approved and displayed by the demo script.
-  if (fileName === 'expo/index.html') result = result.replace('29 November 2026', 'December 2026');
   // Outreach, calculator and unavailable-assessment pages retain noindex.
   if (indexable) result = result.replace(/<meta\b[^>]*name="robots"[^>]*>\s*/g, '');
   return applySeoMetadata(result, fileName);
