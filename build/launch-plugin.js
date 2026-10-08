@@ -6,7 +6,7 @@ const readyPages = [
   ['courses', 'Courses', 'Education for the next stage of your yoga career.'],
   ['events', 'Events', 'Events that bring the yoga industry together.'],
   ['resources', 'Resources', 'Practical tools for life beyond the mat.'],
-  ['book-a-call', 'Book a call', 'Book a YogaRise call with Valerie Saindon.'],
+  ['book-a-call', 'Book a call', 'Book a call with Valerie Saindon.'],
   ['become-a-speaker', 'Become a YogaRise Presenter', 'Share your expertise with the YogaRise community. Apply to present at events, workshops and education programs.'],
 ];
 const protectedPages = new Set([

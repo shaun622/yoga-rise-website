@@ -56,7 +56,7 @@ export function renderDemoPage() {
   main.classList.add('demo-landing-page');
   document.title = `${page.title} | YogaRise`;
   const description = main.querySelector('.demo-landing-intro > p:not(.demo-eyebrow)')?.textContent
-    || 'Book a YogaRise call with Valerie Saindon.';
+    || 'Book a call with Valerie Saindon.';
   document.querySelector('meta[name="description"]')?.setAttribute('content', description);
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
