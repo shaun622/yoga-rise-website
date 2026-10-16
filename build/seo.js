@@ -1,4 +1,5 @@
 import { articles } from '../content/articles.js';
+import { events } from '../content/events.js';
 
 export const siteOrigin = 'https://www.yogarise.com.au';
 export const pagePath = (fileName) => fileName === 'index.html' ? '/' : `/${fileName.replace(/index\.html$/, '')}`;
@@ -33,6 +34,7 @@ const pageImages = new Map([
   ['become-a-speaker/index.html', images.partner],
   ['courses/index.html', images.courses],
   ['events/index.html', images.events],
+  ...events.map(event => [`events/${event.slug}/index.html`, { src: event.image, alt: event.imageAlt, width: event.imageWidth, height: event.imageHeight }]),
   ['resources/index.html', images.resources],
   ['book-a-call/index.html', images.about],
   ['contact/index.html', images.about],

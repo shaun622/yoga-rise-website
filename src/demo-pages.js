@@ -5,10 +5,14 @@ import booking from './demo-pages/book-a-call.html?raw';
 import presenter from './demo-pages/become-a-speaker.html?raw';
 import contact from './demo-pages/contact.html?raw';
 import { mountContactForm } from './contact-form.js';
+import { events as eventCatalogue } from '../content/events.js';
+import { renderEventsIndex, renderEventPage } from './event-pages.js';
+import { mountEventTickets } from './event-tickets.js';
 
 const pages = new Map([
   ['/courses', { title: 'Courses', html: courses }],
-  ['/events', { title: 'Events', html: events }],
+  ['/events', { title: 'Events', html: renderEventsIndex(events) }],
+  ...eventCatalogue.map(event => [`/events/${event.slug}`, { title: event.title, html: renderEventPage(event) }]),
   ['/resources', { title: 'Resources', html: resources }],
   ['/book-a-call', { title: 'Book a call', html: booking }],
   ['/become-a-speaker', { title: 'Become a YogaRise Presenter', html: presenter }],
@@ -40,6 +44,7 @@ export function renderDemoPage() {
   if (main.hasAttribute('data-ready-page')) {
     if (path === '/book-a-call') loadBookingCalendar();
     if (path === '/contact') mountContactForm();
+    if (path.startsWith('/events/')) mountEventTickets();
     return true;
   }
 
@@ -70,6 +75,7 @@ export function renderDemoPage() {
     loadBookingCalendar();
   }
   if (path === '/contact') mountContactForm();
+  if (path.startsWith('/events/')) mountEventTickets();
   // Native initial fragment navigation may run before this content exists.
   if (location.hash) {
     let fragment;

@@ -3,12 +3,13 @@ import { readFileSync } from 'node:fs';
 import { activeContentPages, contentPages } from '../content/page-release.js';
 
 const toPosix = (value) => value.replaceAll('\\', '/');
-const primaryOrder = ['about', 'expo', 'awards', 'membership'];
+const primaryOrder = ['about', 'events', 'awards', 'membership'];
 const footerOrder = [...primaryOrder, 'partner', 'ambassador', 'volunteer', 'healthCheck'];
 
 function pageLinks(pages, { footer = false } = {}) {
   const order = footer ? footerOrder : primaryOrder;
   const byKey = new Map(pages.map((page) => [page.key, page]));
+  byKey.set('events', { path: '/events/', label: 'Events' });
   const selected = order.map((key) => byKey.get(key)).filter(Boolean);
   const links = selected.map((page) => `<a href="${page.path}">${page.label}</a>`);
   links.push('<a href="/blog/">Blog</a>', '<a href="/contact/">Contact</a>', '<a href="/resources/">Resources</a>');

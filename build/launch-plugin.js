@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { applySeoMetadata, pagePath, siteOrigin as origin } from './seo.js';
+import { events } from '../content/events.js';
+import { renderEventsIndex, renderEventPage } from '../src/event-pages.js';
 
 const readyPages = [
   ['courses', 'Courses', 'Education for the next stage of your yoga career.'],
   ['events', 'Events', 'Events that bring the yoga industry together.'],
+  ...events.map(event => [`events/${event.slug}`, event.title, event.description]),
   ['resources', 'Resources', 'Practical tools for life beyond the mat.'],
   ['book-a-call', 'Book a call', 'Book a call with Valerie Saindon.'],
   ['become-a-speaker', 'Become a YogaRise Presenter', 'Share your expertise with the YogaRise community. Apply to present at events, workshops and education programs.'],
@@ -43,8 +46,10 @@ export function launchPlugin() {
         if (!header) throw new Error('Missing shared header for ready pages');
         const sitemap = [];
         for (const [name, title, description] of readyPages) {
-          const fragment = readFileSync(resolve(root, `src/demo-pages/${name}.html`), 'utf8')
-            .replace('<div data-demo-header-slot></div>', header);
+          const event = events.find(item => name === `events/${item.slug}`);
+          let fragment = event ? renderEventPage(event) : readFileSync(resolve(root, `src/demo-pages/${name}.html`), 'utf8');
+          if (name === 'events') fragment = renderEventsIndex(fragment);
+          fragment = fragment.replace('<div data-demo-header-slot></div>', header);
           let html = template.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,
             `<main id="main-content" class="demo-landing-page" data-ready-page="${name}">${fragment}</main>`)
             .replace(/<title>[\s\S]*?<\/title>/, `<title>${title} | YogaRise</title>`)

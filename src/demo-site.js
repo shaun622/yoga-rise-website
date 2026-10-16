@@ -1,5 +1,6 @@
 import './demo-site.css';
 import './demo-pages.css';
+import './events.css';
 import { registerDemoDraftPages, renderDemoPage, updateDemoDestinationLinks } from './demo-pages.js';
 
 // Main-site cutover approved 14 September. Outreach forms keep their original
@@ -25,7 +26,7 @@ function updateFooter() {
   if (!navigation) return;
   const links = new Map([...navigation.querySelectorAll('a')]
     .map((link) => [link.getAttribute('href'), link]));
-  const general = ['/about/', '/expo/', '/membership/', '/blog/', '/contact/', '/resources/'];
+  const general = ['/about/', '/events/', '/membership/', '/blog/', '/contact/', '/resources/'];
   const contribute = ['/become-a-speaker/', '/become-a-partner/', '/become-a-brand-ambassador/', '/become-a-volunteer/'];
   // Reuse released links, with Contact immediately below Blog.
   if (![...general, ...contribute].every((path) => links.has(path))) return;

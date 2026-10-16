@@ -4,6 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { activeContentPages } from '../content/page-release.js';
 import { articles } from '../content/articles.js';
+import { events, eventPath } from '../content/events.js';
 import { contentPagesPlugin } from '../build/content-pages-plugin.js';
 import { articlesPlugin } from '../build/articles-plugin.js';
 import { launchPlugin } from '../build/launch-plugin.js';
@@ -43,8 +44,40 @@ function renderedSite() {
 const bundle = renderedSite();
 const pages = Object.entries(bundle).filter(([name]) => name.endsWith('.html'));
 
+test('every catalogue event has a linked static detail page and the shared menu leads to Events', () => {
+  const index = bundle['events/index.html'].source;
+  for (const event of events) {
+    const path = eventPath(event);
+    assert.ok(index.includes(`href="${path}"`), `Missing listing link: ${path}`);
+    const html = bundle[`${path.slice(1)}index.html`]?.source;
+    assert.ok(html, `Missing static route: ${path}`);
+    assert.ok(html.includes(event.dateLabel), `Missing event date: ${path}`);
+    assert.ok(html.includes('href="/events/"'), `Missing return link: ${path}`);
+  }
+  const navigation = bundle['index.html'].source.match(/<nav\b[^>]*id="primary-navigation"[\s\S]*?<\/nav>/)?.[0];
+  assert.ok(navigation?.includes('href="/events/"'));
+  assert.ok(!navigation.includes('href="/expo/"'));
+});
+
+test('event ticket anchors resolve to one checkout and only supplied event codes are embedded', () => {
+  for (const event of events) {
+    const html = bundle[`events/${event.slug}/index.html`].source;
+    assert.equal((html.match(/id="tickets"/g) || []).length, 1);
+    const links = [...html.matchAll(/<a\b[^>]*class="[^"]*event-ticket-button[^>]*>/g)];
+    assert.ok(links.length > 0);
+    for (const [link] of links) assert.ok(link.includes('href="#tickets"'));
+    assert.doesNotMatch(html, /<dialog|data-event-ticket|Eventbrite/);
+    const frames = [...html.matchAll(/<iframe\b[^>]*data-checkout="([^"]+)"[^>]*>/g)];
+    assert.equal(frames.length, event.checkout ? 1 : 0);
+    if (event.checkout) {
+      assert.equal(frames[0][1], event.checkout.slug);
+      assert.ok(html.includes(`href="${event.checkout.url}"`));
+    }
+  }
+});
+
 test('every released page has complete static, page-specific social and canonical metadata', () => {
-  assert.equal(pages.length, 22);
+  assert.equal(pages.length, 22 + events.length);
   const titles = new Set();
   const descriptions = new Set();
   for (const [fileName, { source: html }] of pages) {
@@ -117,7 +150,7 @@ test('sharing image files exist with the declared WebP dimensions', () => {
 
 test('SEO updates preserve noindex, the sitemap boundary and unreleased pages', () => {
   const urls = [...bundle['sitemap.xml'].source.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-  assert.equal(urls.length, 17);
+  assert.equal(urls.length, 17 + events.length);
   assert.equal(new Set(urls).size, urls.length);
   for (const [fileName, { source: html }] of pages) {
     const noindex = /<meta\b[^>]*name="robots"[^>]*content="noindex, nofollow"/.test(headOf(html));
