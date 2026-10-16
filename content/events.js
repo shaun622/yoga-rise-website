@@ -135,7 +135,10 @@ export const events = [
     otherTitle: 'Prefer to connect in person?',
     otherCopy: "We're also hosting The Yoga Industry Connect in Sydney, bringing together yoga professionals for a morning of practical education, industry conversations and face-to-face networking.",
     otherLabel: 'Explore the Sydney event',
-    checkout: null,
+    checkout: {
+      slug: 'the-yoga-industry-connect-online',
+      url: 'https://events.humanitix.com/the-yoga-industry-connect-online/tickets',
+    },
   },
 ];
 

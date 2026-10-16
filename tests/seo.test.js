@@ -72,8 +72,20 @@ test('event ticket anchors resolve to one checkout and only supplied event codes
     if (event.checkout) {
       assert.equal(frames[0][1], event.checkout.slug);
       assert.ok(html.includes(`href="${event.checkout.url}"`));
+      assert.doesNotMatch(html, /event-checkout-placeholder|Online ticket booking is coming soon/);
     }
   }
+});
+
+test('online event publishes its supplied Humanitix checkout, separate from Sydney', () => {
+  const online = events.find(event => event.edition === 'Online');
+  assert.deepEqual(online.checkout, {
+    slug: 'the-yoga-industry-connect-online',
+    url: 'https://events.humanitix.com/the-yoga-industry-connect-online/tickets',
+  });
+  const html = bundle[`events/${online.slug}/index.html`].source;
+  assert.match(html, /data-checkout="the-yoga-industry-connect-online"/);
+  assert.doesNotMatch(html, /data-checkout="the-yoga-industry-connect"/);
 });
 
 test('every released page has complete static, page-specific social and canonical metadata', () => {
