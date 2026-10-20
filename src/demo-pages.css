@@ -17,7 +17,7 @@ html[data-demo-site] .demo-landing-hero {
   background-size: cover;
 }
 html[data-demo-site] .demo-landing-hero-courses { --demo-landing-image: url('/assets/demo-20260911/educators.webp'); }
-html[data-demo-site] .demo-landing-hero-events { --demo-landing-image: url('/assets/demo-20260911/events.webp'); }
+html[data-demo-site] .demo-landing-hero-events { --demo-landing-image: url('/assets/events-online-20261020.webp'); }
 html[data-demo-site] .demo-landing-hero-resources { --demo-landing-image: url('/assets/demo-20260911/studio-owners.webp'); }
 html[data-demo-site] .demo-landing-hero-booking { --demo-landing-image: url('/assets/demo-20260911/about-hero.webp'); min-height: 36rem; }
 html[data-demo-site] .demo-landing-hero-speaker { --demo-landing-image: url('/assets/demo-20260911/partner-hero.webp'); }

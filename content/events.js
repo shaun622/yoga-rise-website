@@ -20,7 +20,7 @@ export const eventSessions = [
     role: 'Founder of YogaRise & Marketing Strategist',
     title: 'Marketing That Connects: How to Attract the Right Students and Clients',
     description: 'Discover how understanding your audience, communicating your value and making it easier for people to work with you can create a more intentional approach to marketing.',
-    image: '/assets/valerie.webp', width: 800, height: 1000,
+    image: '/assets/valerie-original-20261020.webp', width: 1600, height: 1500,
     portraitClass: 'valerie-portrait',
   },
 ];
@@ -103,9 +103,9 @@ export const events = [
     subtitle: 'An Evening of Learning & Connection for Yoga Professionals',
     description: 'Three practical educational sessions, insights from the Industry Survey and opportunities to connect with yoga teachers, studio owners, educators and professionals across Australia.',
     excerpt: 'Fresh perspectives and meaningful conversations, wherever you are. Join the yoga community live online.',
-    image: '/assets/demo-20260911/courses.webp',
-    imageAlt: 'Illustrative image of online learning for yoga professionals on a laptop',
-    imageWidth: 768, imageHeight: 512,
+    image: '/assets/events-online-20261020.webp',
+    imageAlt: 'Illustrative image of yoga professionals connecting on a group video call displayed on a laptop',
+    imageWidth: 1600, imageHeight: 900,
     introductionTitle: 'Professional learning and connection, wherever you are',
     introduction: [
       'The Yoga Industry Connect Online brings together yoga professionals from across Australia for an evening of practical education, industry insights and meaningful conversations.',

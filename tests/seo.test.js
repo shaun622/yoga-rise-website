@@ -88,6 +88,21 @@ test('online event publishes its supplied Humanitix checkout, separate from Sydn
   assert.doesNotMatch(html, /data-checkout="the-yoga-industry-connect"/);
 });
 
+test('Events and the online event share the supplied laptop image without replacing Sydney imagery', () => {
+  const online = events.find(event => event.edition === 'Online');
+  const laptop = '/assets/events-online-20261020.webp';
+  assert.equal(online.image, laptop);
+  assert.match(read('src/demo-pages.css'), /\.demo-landing-hero-events\s*\{[^}]*events-online-20261020\.webp/);
+  for (const fileName of ['events/index.html', `events/${online.slug}/index.html`]) {
+    assert.equal(meta(bundle[fileName].source, 'og:image'), `${siteOrigin}${laptop}`);
+    assert.equal(meta(bundle[fileName].source, 'og:image:width'), '1600');
+    assert.equal(meta(bundle[fileName].source, 'og:image:height'), '900');
+  }
+  assert.ok(bundle['events/index.html'].source.includes(`src="${laptop}"`));
+  assert.ok(bundle[`events/${online.slug}/index.html`].source.includes(`url('${laptop}')`));
+  assert.equal(events.find(event => event.edition === 'Sydney').image, '/assets/demo-20260911/events.webp');
+});
+
 test('every released page has complete static, page-specific social and canonical metadata', () => {
   assert.equal(pages.length, 22 + events.length);
   const titles = new Set();

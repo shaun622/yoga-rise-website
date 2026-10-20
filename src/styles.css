@@ -1809,8 +1809,8 @@ html[data-site-mode='live'] .hero-title {
   }
 }
 
-/* One face-focused crop for Valerie everywhere: team, founder and Expo.
-   Keep the supplied photo intact and crop inside the existing portrait ratio. */
+/* One face-focused crop for Valerie everywhere: team, founder, Expo and events.
+   Reframe the supplied original's extra headroom without altering its colours. */
 .valerie-portrait-frame {
   display: block;
   width: 100%;
@@ -1826,7 +1826,7 @@ html[data-site-mode='live'] .hero-title {
   aspect-ratio: auto;
   object-fit: cover;
   object-position: center top;
-  transform: scale(1.38);
+  transform: translateY(-23%) scale(1.65);
   transform-origin: center top;
 }
 

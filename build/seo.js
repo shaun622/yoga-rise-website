@@ -16,7 +16,11 @@ const images = {
   seated: image('seated', 'Woman sitting cross-legged against a warm brown background'),
   why: image('why', 'Man practising a seated yoga twist against a warm brown background'),
   courses: image('educators', 'Yoga educator teaching anatomy with a skeleton model to a small group', 768, 512),
-  events: image('events', 'People connecting over coffee beside YogaRise networking event signage', 768, 512),
+  events: {
+    src: '/assets/events-online-20261020.webp',
+    alt: 'Illustrative image of yoga professionals connecting on a group video call displayed on a laptop',
+    width: 1600, height: 900,
+  },
   resources: image('studio-owners', 'Yoga studio owner talking with two people at the reception desk', 768, 512),
 };
 
