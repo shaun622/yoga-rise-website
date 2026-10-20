@@ -44,6 +44,13 @@ function renderedSite() {
 const bundle = renderedSite();
 const pages = Object.entries(bundle).filter(([name]) => name.endsWith('.html'));
 
+test('both homepage explore buttons lead to Events', () => {
+  const html = bundle['index.html'].source;
+  const links = [...html.matchAll(/<a\b[^>]*href="\/events\/"[^>]*>Explore events<\/a>/g)];
+  assert.equal(links.length, 2);
+  assert.doesNotMatch(html, /Explore the Expo/i);
+});
+
 test('every catalogue event has a linked static detail page and the shared menu leads to Events', () => {
   const index = bundle['events/index.html'].source;
   for (const event of events) {
