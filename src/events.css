@@ -49,6 +49,7 @@ html[data-demo-site] .event-facts { list-style: none; margin: 0 0 1.75rem; paddi
 html[data-demo-site] .event-facts li { display: flex; align-items: start; gap: 0.85rem; margin: 0 0 1rem; }
 html[data-demo-site] .event-facts svg { width: 1.35rem; height: 1.35rem; flex: 0 0 1.35rem; margin-top: 0.1rem; }
 html[data-demo-site] .event-facts small { display: block; margin-top: 0.25rem; font-size: 0.8rem; }
+html[data-demo-site] .event-map-link { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2.75rem; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.2em; }
 html[data-demo-site] .event-hero-price, html[data-demo-site] .event-ticket-price { display: flex; align-items: baseline; gap: 0.75rem; font-size: 3rem; line-height: 1.1; letter-spacing: -0.04em; }
 html[data-demo-site] .event-hero-price span, html[data-demo-site] .event-ticket-price span { font-size: 0.9rem; letter-spacing: 0; }
 html[data-demo-site] .event-hero-booking .event-price-note { font-size: 0.8rem; color: #f1e9e2; }

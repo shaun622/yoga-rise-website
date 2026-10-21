@@ -84,6 +84,29 @@ test('event ticket anchors resolve to one checkout and only supplied event codes
   }
 });
 
+test('Sydney publishes its confirmed venue, address and map in both event summaries', () => {
+  const sydney = events.find(event => event.edition === 'Sydney');
+  const html = bundle[`events/${sydney.slug}/index.html`].source;
+  assert.equal(sydney.location, 'The Dale Loft');
+  assert.equal(sydney.venueNote, '27-39 Abercrombie Street, Chippendale, 2008');
+  assert.equal(sydney.mapsUrl, 'https://maps.app.goo.gl/Ds7AepgBGDYqakuN6?g_st=ic');
+  const summaries = [...html.matchAll(/<ul class="event-facts">[\s\S]*?<\/ul>/g)];
+  assert.equal(summaries.length, 2);
+  for (const [summary] of summaries) {
+    assert.ok(summary.includes(sydney.location));
+    assert.ok(summary.includes(sydney.venueNote));
+    assert.ok(summary.includes(`href="${sydney.mapsUrl}" target="_blank" rel="noopener noreferrer"`));
+    assert.match(summary, /View on Google Maps/);
+  }
+  assert.ok(bundle['events/index.html'].source.includes(sydney.location));
+  const online = bundle['events/the-yoga-industry-connect-online/index.html'].source;
+  assert.ok(online.includes(sydney.location));
+  assert.match(online, /Live online via Zoom/);
+  for (const page of [html, online, bundle['events/index.html'].source]) {
+    assert.doesNotMatch(page, /Venue to be announced|Sydney CBD/);
+  }
+});
+
 test('online event publishes its supplied Humanitix checkout, separate from Sydney', () => {
   const online = events.find(event => event.edition === 'Online');
   assert.deepEqual(online.checkout, {

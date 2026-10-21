@@ -17,7 +17,7 @@ const ticketButton = (event, light = false) => `<a class="button ${light ? 'butt
 const facts = (event) => `<ul class="event-facts">
   <li>${icon('calendar')}<time datetime="${event.date}">${escape(event.dateLabel)}</time></li>
   <li>${icon('clock')}<span>${escape(event.time)}</span></li>
-  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}</span></li>
+  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
 </ul>`;
 
 export function renderEventCards() {
