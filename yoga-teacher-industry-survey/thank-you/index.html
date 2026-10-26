@@ -6,21 +6,21 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta
       name="description"
-      content="Thank you for completing the Yoga Teacher Industry Survey."
+      content="Thank you for sharing your voice. Your contribution helps shape a more connected yoga industry."
     />
     <meta name="theme-color" content="#1b0907" />
     <link rel="icon" href="/assets/yogarise-favicon.png" type="image/png" />
     <meta property="og:title" content="Thank you | YogaRise" />
     <meta
       property="og:description"
-      content="Thank you for completing the Yoga Teacher Industry Survey."
+      content="Thank you for sharing your voice. Your contribution helps shape a more connected yoga industry."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://www.yogarise.com.au/assets/demo-20260911/seated.webp" />
     <title>Thank you | YogaRise</title>
     <script type="module" src="/src/survey-thank-you.js"></script>
   </head>
-  <body class="survey-page-body">
+  <body class="survey-page-body survey-thanks-page">
     <a class="skip-link" href="#thank-you-content">Skip to content</a>
 
     <main class="survey-thanks-layout" id="thank-you-content">
@@ -29,70 +29,58 @@
       </a>
 
       <div class="survey-thanks-content">
-        <h1>Thank you for completing the survey.</h1>
+        <header class="survey-thanks-intro">
+          <h1>Thank you for sharing your voice.</h1>
+          <p>Your contribution helps shape a more connected yoga industry.</p>
+        </header>
 
-        <form class="survey-thanks-form" data-survey-thanks-form novalidate>
-          <p class="survey-thanks-form-title">Be the first to know.</p>
-          <label class="form-honeypot" aria-hidden="true">
-            Company
-            <input type="text" name="company" tabindex="-1" autocomplete="off" />
-          </label>
-          <div class="survey-thanks-fields">
-            <label>
-              <span class="sr-only">First name</span>
-              <input
-                type="text"
-                name="first_name"
-                placeholder="First name"
-                autocomplete="given-name"
-                maxlength="120"
-                required
-              />
-            </label>
-            <label>
-              <span class="sr-only">Last name</span>
-              <input
-                type="text"
-                name="last_name"
-                placeholder="Last name"
-                autocomplete="family-name"
-                maxlength="120"
-              />
-            </label>
-            <label>
-              <span class="sr-only">Email address</span>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                autocomplete="email"
-                required
-              />
-            </label>
-            <label>
-              <span class="sr-only">Mobile number (optional)</span>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Mobile (optional)"
-                autocomplete="tel"
-                maxlength="40"
-              />
-            </label>
-            <button type="submit" data-survey-thanks-submit>
-              Keep me posted <span aria-hidden="true">→</span>
-            </button>
+        <section class="survey-thanks-offers" aria-labelledby="survey-offers-title">
+          <h2 id="survey-offers-title">Your exclusive survey thank-you</h2>
+          <p>As a thank you for completing the survey, enjoy an exclusive discount on our upcoming events.</p>
+
+          <div class="survey-offer-grid">
+            <article class="survey-offer" aria-labelledby="survey-sydney-title">
+              <div class="survey-offer-heading">
+                <h3 id="survey-sydney-title">Sydney - In person</h3>
+                <p class="survey-offer-saving">$15 off</p>
+              </div>
+              <ul class="survey-offer-details">
+                <li><time datetime="2026-12-06">Sunday 6 December</time></li>
+                <li>10:00 am - 12:30 pm</li>
+                <li>The Dale Loft, Chippendale</li>
+              </ul>
+              <p class="survey-offer-price">Now <strong>$20</strong></p>
+              <p class="survey-offer-description">Practical learning, industry insights and meaningful connections.</p>
+              <a class="button button-dark survey-offer-link" href="/events/the-yoga-industry-connect-sydney/">View Sydney Event <span aria-hidden="true">→</span></a>
+            </article>
+
+            <article class="survey-offer" aria-labelledby="survey-online-title">
+              <div class="survey-offer-heading">
+                <h3 id="survey-online-title">Online</h3>
+                <p class="survey-offer-saving">$10 off</p>
+              </div>
+              <ul class="survey-offer-details">
+                <li><time datetime="2026-12-09">Wednesday 9 December</time></li>
+                <li>7:00 pm - 8:15 pm AEDT</li>
+                <li>Live via Zoom</li>
+              </ul>
+              <p class="survey-offer-price">Now <strong>$15</strong></p>
+              <p class="survey-offer-description">Practical learning and connection with yoga professionals across Australia.</p>
+              <a class="button button-dark survey-offer-link" href="/events/the-yoga-industry-connect-online/">View Online Event <span aria-hidden="true">→</span></a>
+            </article>
           </div>
-          <p class="survey-thanks-note">
-            Put your details below to be the first to know about our next events.
-          </p>
-          <p
-            class="survey-thanks-message"
-            role="status"
-            aria-live="polite"
-            data-survey-thanks-message
-          ></p>
-        </form>
+        </section>
+
+        <section class="survey-discount-instructions" aria-labelledby="survey-discount-title">
+          <div>
+            <h2 id="survey-discount-title">How to claim your discount</h2>
+            <p>Enter code <strong>SURVEY</strong> at checkout to receive your exclusive discount.</p>
+            <p class="survey-discount-terms">Valid for one person (one ticket).</p>
+          </div>
+          <div class="survey-discount-code"><span>Your discount code</span><code>SURVEY</code></div>
+        </section>
+
+        <p class="survey-thanks-closing">Thank you for helping us shape the future of Australia's yoga industry.</p>
       </div>
     </main>
   </body>

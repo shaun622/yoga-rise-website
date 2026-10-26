@@ -44,6 +44,35 @@ function renderedSite() {
 const bundle = renderedSite();
 const pages = Object.entries(bundle).filter(([name]) => name.endsWith('.html'));
 
+test('survey thank-you publishes the supplied event offers and claim instructions', () => {
+  const html = bundle['yoga-teacher-industry-survey/thank-you/index.html'].source;
+  assert.match(html, /<h1>Thank you for sharing your voice\.<\/h1>/);
+  assert.match(html, /Your contribution helps shape a more connected yoga industry\./);
+  assert.match(html, /Your exclusive survey thank-you/);
+  assert.match(html, /Enter code <strong>SURVEY<\/strong> at checkout/);
+  assert.match(html, /Valid for one person \(one ticket\)\./);
+  assert.match(html, /Thank you for helping us shape the future of Australia's yoga industry\./);
+  assert.match(html, /name="robots" content="noindex, nofollow"/);
+  assert.doesNotMatch(html, /<form\b|Keep me posted|Sydney Central|Venue to be announced/);
+
+  const offers = [...html.matchAll(/<article class="survey-offer"[\s\S]*?<\/article>/g)].map(([offer]) => offer);
+  assert.equal(offers.length, 2);
+  for (const [index, edition, discount, label] of [[0, 'Sydney', 15, 'View Sydney Event'], [1, 'Online', 10, 'View Online Event']]) {
+    const event = events.find(item => item.edition === edition);
+    const offer = offers[index];
+    assert.ok(offer.includes(`$${discount} off`));
+    assert.ok(offer.includes(`Now <strong>$${event.price - discount}</strong>`));
+    assert.ok(offer.includes(`datetime="${event.date}"`));
+    assert.ok(offer.includes(`href="${eventPath(event)}">${label}`));
+    assert.ok(bundle[`${eventPath(event).slice(1)}index.html`], 'Offer destination is published');
+  }
+  assert.match(offers[0], /The Dale Loft, Chippendale/);
+  assert.match(offers[1], /7:00 pm - 8:15 pm AEDT/);
+  assert.match(offers[1], /Live via Zoom/);
+  assert.doesNotMatch(read('src/survey-thank-you.js'), /subscribeToMailerLite|addEventListener/);
+  assert.match(read('yoga-teacher-industry-survey/index.html'), /https:\/\/form\.jotform\.com\/jsform\/262418532735459/);
+});
+
 test('both homepage explore buttons lead to Events', () => {
   const html = bundle['index.html'].source;
   const links = [...html.matchAll(/<a\b[^>]*href="\/events\/"[^>]*>Explore events<\/a>/g)];

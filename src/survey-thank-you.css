@@ -1,0 +1,37 @@
+/* The survey thank-you offer keeps the survey's branding and background. */
+.survey-thanks-page {
+  background-image: linear-gradient(rgba(27, 9, 7, 0.76), rgba(27, 9, 7, 0.92)), url('/assets/hero.webp');
+}
+
+.survey-thanks-page .survey-brand { width: clamp(10rem, 16vw, 16rem); }
+.survey-thanks-page .survey-thanks-content { width: min(72rem, 100%); margin: 0; padding-bottom: 0; }
+.survey-thanks-intro { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.survey-thanks-page h1 { max-width: 52rem; margin-bottom: 1.25rem; font-size: clamp(2.65rem, 5vw, 4.75rem); line-height: 1.05; }
+.survey-thanks-intro > p { max-width: 40rem; margin-bottom: 0; color: #eee1d7; font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.6; }
+.survey-thanks-page h2 { margin-bottom: 0.75rem; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 500; }
+.survey-thanks-offers > p { max-width: 42rem; margin-bottom: 2rem; color: #eee1d7; line-height: 1.6; }
+.survey-offer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.survey-offer { display: flex; flex-direction: column; min-width: 0; padding: clamp(1.5rem, 3vw, 2.5rem); color: var(--brown); background: #faf7f3; }
+.survey-offer-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #d8c9bd; }
+.survey-offer-heading h3 { margin: 0; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.survey-offer-saving { margin: 0; padding: 0.5rem 0.75rem; color: #fff; background: #70432b; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+.survey-offer-details { list-style: none; margin: 1.5rem 0; padding: 0; font-size: 0.95rem; font-weight: 400; line-height: 1.6; }
+.survey-offer-details li + li { margin-top: 0.25rem; }
+.survey-offer-price { display: flex; align-items: baseline; gap: 0.65rem; margin: 0 0 1rem; font-size: 1rem; }
+.survey-offer-price strong { font-size: 3.5rem; font-weight: 500; letter-spacing: -0.06em; line-height: 1; }
+.survey-offer-description { margin-bottom: 1.75rem; color: #51463d; font-size: 0.95rem; font-weight: 400; line-height: 1.6; }
+.survey-offer .survey-offer-link { justify-content: space-between; gap: 1rem; margin-top: auto; padding-inline: 1.25rem; color: #fff; background: var(--brown); border-color: var(--brown); font-size: 0.8rem; }
+.survey-offer .survey-offer-link:hover { color: #fff; background: #553222; }
+.survey-discount-instructions { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2.5rem; padding-block: 2rem; border-top: 1px solid #9d8575; border-bottom: 1px solid #9d8575; }
+.survey-discount-instructions h2 { font-size: clamp(1.25rem, 2vw, 1.6rem); }
+.survey-discount-instructions p { max-width: 37rem; margin-bottom: 0.75rem; color: #eee1d7; font-size: 0.95rem; font-weight: 400; line-height: 1.6; }
+.survey-discount-instructions .survey-discount-terms { margin-bottom: 0; font-size: 0.8rem; }
+.survey-discount-code { flex-shrink: 0; padding: 1rem 1.5rem; border: 1px solid #c1a996; text-align: center; }
+.survey-discount-code span { display: block; margin-bottom: 0.5rem; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.survey-discount-code code { font-family: inherit; font-size: 1.75rem; font-weight: 600; letter-spacing: 0.12em; }
+.survey-thanks-closing { max-width: 40rem; margin: 2rem 0 0; color: #eee1d7; font-size: 0.95rem; font-weight: 400; line-height: 1.6; }
+
+@media (max-width: 700px) {
+  .survey-offer-grid { grid-template-columns: minmax(0, 1fr); }
+  .survey-discount-instructions { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+}
