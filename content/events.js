@@ -100,7 +100,7 @@ export const events = [
     time: '7:00 - 8:15 pm AEDT',
     location: 'Live online via Zoom',
     venueNote: '',
-    price: 25,
+    price: 0,
     subtitle: 'An Evening of Learning & Connection for Yoga Professionals',
     description: 'Three practical educational sessions, insights from the Industry Survey and opportunities to connect with yoga teachers, studio owners, educators and professionals across Australia.',
     excerpt: 'Fresh perspectives and meaningful conversations, wherever you are. Join the yoga community live online.',

@@ -5,6 +5,7 @@ const escape = (text) => String(text).replace(/[&<>"']/g, character => ({
 })[character]);
 const paragraphs = (items) => items.map(text => `<p>${escape(text)}</p>`).join('');
 const arrow = '<span aria-hidden="true">→</span>';
+const priceLabel = (event) => event.price === 0 ? 'Free' : `$${event.price}`;
 const icon = (name) => {
   const paths = {
     calendar: '<rect x="3" y="5" width="18" height="16" rx="1"/><path d="M7 3v4m10-4v4M3 11h18"/>',
@@ -13,7 +14,7 @@ const icon = (name) => {
   };
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">${paths[name]}</svg>`;
 };
-const ticketButton = (event, light = false) => `<a class="button ${light ? 'button-light' : 'button-dark'} event-ticket-button" href="#tickets">Get your ticket ${arrow}</a>`;
+const ticketButton = (event, light = false) => `<a class="button ${light ? 'button-light' : 'button-dark'} event-ticket-button" href="#tickets">${event.price === 0 ? 'Register for free' : 'Get your ticket'} ${arrow}</a>`;
 const facts = (event) => `<ul class="event-facts">
   <li>${icon('calendar')}<time datetime="${event.date}">${escape(event.dateLabel)}</time></li>
   <li>${icon('clock')}<span>${escape(event.time)}</span></li>
@@ -31,7 +32,7 @@ export function renderEventCards() {
         <p class="event-card-category">${escape(event.format)} <span>·</span> ${escape(event.shortDate)}</p>
         <h3>${escape(event.displayTitle || event.title)}${event.edition ? `<span>${escape(event.edition)}</span>` : ''}</h3>
         <p class="event-card-description">${escape(event.excerpt)}</p>
-        <div class="event-card-meta"><span>${escape(event.time)}<br />${escape(event.location)}</span><span class="event-card-price">$${event.price}<small>per person</small></span></div>
+        <div class="event-card-meta"><span>${escape(event.time)}<br />${escape(event.location)}</span><span class="event-card-price">${priceLabel(event)}<small>${event.price === 0 ? 'Registration required' : 'per person'}</small></span></div>
         <span class="event-card-cta">Explore event ${arrow}</span>
       </div>
     </a>
@@ -69,7 +70,7 @@ export function renderEventPage(event) {
       <aside class="event-hero-booking" aria-label="Event at a glance">
         <p class="demo-eyebrow">${escape(event.format)}</p>
         ${facts(event)}
-        <p class="event-hero-price">$${event.price}<span>per person</span></p>
+        <p class="event-hero-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p>
         <p class="event-price-note">${escape(event.priceNote)}</p>
         ${ticketButton(event, true)}
         <a class="event-programme-link" href="#programme">View the programme ↓</a>
@@ -117,17 +118,17 @@ export function renderEventPage(event) {
 
   <section class="demo-landing-section event-tickets" aria-labelledby="event-tickets-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Be part of it</p><h2 id="event-tickets-title">${event.edition === 'Sydney' ? 'Join us in Sydney' : 'Join us online'}</h2>${facts(event)}</div>
-    <div class="event-ticket-summary"><p class="event-ticket-price">$${event.price}<span>per person</span></p><h3>Your ticket includes</h3><ul>${event.inclusions.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${event.joiningNote ? `<p class="event-joining-note">${escape(event.joiningNote)}</p>` : ''}${ticketButton(event)}<p class="event-ticket-tagline">Learn. Connect. Grow.</p></div>
+    <div class="event-ticket-summary"><p class="event-ticket-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p><h3>Your ${event.price === 0 ? 'registration' : 'ticket'} includes</h3><ul>${event.inclusions.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${event.joiningNote ? `<p class="event-joining-note">${escape(event.joiningNote)}</p>` : ''}${ticketButton(event)}<p class="event-ticket-tagline">Learn. Connect. Grow.</p></div>
   </div></section>
 
   ${other ? `<aside class="demo-landing-section event-other" aria-labelledby="event-other-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Another way to join us</p><h2 id="event-other-title">${escape(event.otherTitle)}</h2></div>
-    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}<br />${escape(other.time)}</strong><br />${escape(other.location)} · $${other.price} per person</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
+    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}<br />${escape(other.time)}</strong><br />${escape(other.location)} · ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
   </div></aside>` : ''}
 
   <section class="demo-landing-section event-checkout" id="tickets" aria-labelledby="event-checkout-title" tabindex="-1">
     <div class="event-checkout-inner">
-      <div class="event-section-heading"><p class="demo-eyebrow">Ticket booking</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} · ${escape(event.time)}</p></div>
+      <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} · ${escape(event.time)}</p></div>
       ${event.checkout ? '<p class="event-checkout-status" role="status">Loading the secure Humanitix checkout...</p>' : ''}
       ${event.checkout ? `<div class="event-checkout-widget">
         <iframe data-checkout="${escape(event.checkout.slug)}" title="${escape(event.title)} ticket checkout"></iframe>

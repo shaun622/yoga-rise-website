@@ -57,11 +57,16 @@ test('survey thank-you publishes the supplied event offers and claim instruction
 
   const offers = [...html.matchAll(/<article class="survey-offer"[\s\S]*?<\/article>/g)].map(([offer]) => offer);
   assert.equal(offers.length, 2);
-  for (const [index, edition, discount, label] of [[0, 'Sydney', 15, 'View Sydney Event'], [1, 'Online', 10, 'View Online Event']]) {
+  for (const [index, edition, discount, label] of [[0, 'Sydney', 15, 'View Sydney Event'], [1, 'Online', 0, 'View Online Event']]) {
     const event = events.find(item => item.edition === edition);
     const offer = offers[index];
-    assert.ok(offer.includes(`$${discount} off`));
-    assert.ok(offer.includes(`Now <strong>$${event.price - discount}</strong>`));
+    if (event.price === 0) {
+      assert.match(offer, /<strong>Free<\/strong>/);
+      assert.doesNotMatch(offer, /\$\d+|\boff\b/);
+    } else {
+      assert.ok(offer.includes(`$${discount} off`));
+      assert.ok(offer.includes(`Now <strong>$${event.price - discount}</strong>`));
+    }
     assert.ok(offer.includes(`datetime="${event.date}"`));
     assert.ok(offer.includes(`href="${eventPath(event)}">${label}`));
     assert.ok(bundle[`${eventPath(event).slice(1)}index.html`], 'Offer destination is published');
@@ -69,8 +74,33 @@ test('survey thank-you publishes the supplied event offers and claim instruction
   assert.match(offers[0], /The Dale Loft, Chippendale/);
   assert.match(offers[1], /7:00 pm - 8:15 pm AEDT/);
   assert.match(offers[1], /Live via Zoom/);
+  assert.match(html, /at checkout for \$15 off the Sydney in-person event/);
+  assert.match(html, /live online event is free and does not require a discount code/);
   assert.doesNotMatch(read('src/survey-thank-you.js'), /subscribeToMailerLite|addEventListener/);
   assert.match(read('yoga-teacher-industry-survey/index.html'), /https:\/\/form\.jotform\.com\/jsform\/262418532735459/);
+});
+
+test('free online registration renders consistently without changing Sydney ticket prices', () => {
+  const online = events.find(event => event.edition === 'Online');
+  const sydney = events.find(event => event.edition === 'Sydney');
+  assert.equal(online.price, 0);
+  assert.equal(sydney.price, 35);
+  const onlineHtml = bundle[`events/${online.slug}/index.html`].source;
+  assert.match(onlineHtml, /event-hero-price">Free<span>Registration required/);
+  assert.match(onlineHtml, /event-ticket-price">Free<span>Registration required/);
+  assert.match(onlineHtml, /Your registration includes/);
+  assert.match(onlineHtml, /Free registration/);
+  const buttons = [...onlineHtml.matchAll(/<a\b[^>]*class="[^"]*event-ticket-button[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.ok(buttons.length > 0);
+  for (const [, label] of buttons) assert.match(label, /Register for free/);
+  assert.doesNotMatch(onlineHtml, /\$25|\$0|\$-\d/);
+  const sydneyHtml = bundle[`events/${sydney.slug}/index.html`].source;
+  assert.match(sydneyHtml, /event-hero-price">\$35<span>per person/);
+  assert.match(sydneyHtml, /Live online via Zoom · Free<\/p>/);
+  const cards = [...bundle['events/index.html'].source.matchAll(/<article class="event-card">[\s\S]*?<\/article>/g)];
+  const onlineCard = cards.find(([html]) => html.includes(`/events/${online.slug}/`))[0];
+  assert.match(onlineCard, /event-card-price">Free<small>Registration required/);
+  assert.doesNotMatch(onlineCard, /\$25|\$0/);
 });
 
 test('both homepage explore buttons lead to Events', () => {
