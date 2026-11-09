@@ -6,7 +6,7 @@ export const eventSessions = [
     role: 'Yoga Teacher, Mentor & Studio Owner',
     title: 'Getting Your Systems in Flow: Less Admin, More Time for What Matters',
     description: 'Discover how the right systems and tools can simplify bookings, scheduling and everyday administration, helping you save valuable time and focus more energy on teaching and growing your business.',
-    image: '/assets/nic-dorsch.jpg', width: 623, height: 1107,
+    image: '/assets/nic-dorsch-headshot-20261109.webp', width: 570, height: 570,
   },
   {
     name: 'Emma Scott',
