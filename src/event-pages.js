@@ -24,9 +24,9 @@ const facts = (event) => `<ul class="event-facts">
 export function renderEventCards() {
   return [...events].sort((a, b) => a.date.localeCompare(b.date)).map(event => `<article class="event-card">
     <a class="event-card-link" href="${eventPath(event)}" aria-label="Explore ${escape(event.title)}, ${escape(event.shortDate)}">
-      <div class="event-card-media">
+      <div class="event-card-media${event.webinar ? ' event-card-media-artwork' : ''}">
         <img src="${event.image}" alt="${escape(event.imageAlt)}" width="${event.imageWidth}" height="${event.imageHeight}" loading="lazy" decoding="async" />
-        <span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>
+        ${event.webinar ? '' : `<span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>`}
       </div>
       <div class="event-card-copy">
         <p class="event-card-category">${escape(event.format)} <span>·</span> ${escape(event.shortDate)}</p>
@@ -43,10 +43,15 @@ export function renderEventsIndex(fragment) {
   return fragment.replace('<!-- events:grid -->', renderEventCards());
 }
 
+function renderSpeakerPhoto(speaker) {
+  const crop = speaker.portraitClass ? ' valerie-portrait-frame' : '';
+  const imageClass = speaker.portraitClass ? 'class="valerie-portrait-image" ' : '';
+  return `<div class="event-speaker-photo${crop}"><img ${imageClass}src="${speaker.image}" alt="${escape(speaker.name)}" width="${speaker.width}" height="${speaker.height}" loading="lazy" decoding="async" /></div>`;
+}
+
 function renderSession(session, index) {
-  const portrait = `<img ${session.portraitClass ? 'class="valerie-portrait-image" ' : ''}src="${session.image}" alt="${escape(session.name)}" width="${session.width}" height="${session.height}" loading="lazy" decoding="async" />`;
   return `<article class="event-session">
-    <div class="event-speaker-photo${session.portraitClass ? ' valerie-portrait-frame' : ''}">${portrait}</div>
+    ${renderSpeakerPhoto(session)}
     <p class="event-session-number">Session 0${index + 1}</p>
     <h3>${escape(session.title)}</h3>
     <p class="event-speaker-name">${escape(session.name)}<span>${escape(session.role)}</span></p>
@@ -54,10 +59,70 @@ function renderSession(session, index) {
   </article>`;
 }
 
+function renderWebinarSections(event) {
+  const { topics, takeaways, audience, facilitator, faqs } = event.webinar;
+  return `
+  <section class="demo-landing-section event-introduction" aria-labelledby="event-intro-title">
+    <div class="event-section-layout">
+      <div><p class="demo-eyebrow">About the webinar</p><h2 id="event-intro-title">${escape(event.introductionTitle)}</h2></div>
+      <div class="event-prose">${paragraphs(event.introduction)}${ticketButton(event)}</div>
+    </div>
+  </section>
+
+  <section class="demo-landing-section event-programme event-webinar-topics" id="programme" aria-labelledby="event-programme-title">
+    <div class="event-section-layout">
+      <div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">What we’ll explore</h2></div>
+      <dl class="event-schedule">${topics.map(([topic, detail]) => `<div><dt>${escape(topic)}</dt><dd>${escape(detail)}</dd></div>`).join('')}</dl>
+    </div>
+  </section>
+
+  <section class="demo-landing-section event-learning" aria-labelledby="event-learning-title">
+    <div class="event-section-layout">
+      <div><p class="demo-eyebrow">Take the next step</p><h2 id="event-learning-title">What you can take away</h2></div>
+      <div class="event-prose">${paragraphs(takeaways)}${ticketButton(event)}</div>
+    </div>
+  </section>
+
+  <section class="demo-landing-section event-connection" aria-labelledby="event-audience-title">
+    <div class="event-section-layout">
+      <div><p class="demo-eyebrow">Is this for you?</p><h2 id="event-audience-title">Who this is for</h2></div>
+      <div class="event-prose">${paragraphs(audience)}</div>
+    </div>
+  </section>
+
+  <section class="demo-landing-section event-about event-webinar-facilitator" aria-labelledby="event-facilitator-title">
+    <div class="event-section-layout">
+      <div>
+        <p class="demo-eyebrow">Your facilitator</p>
+        <h2 id="event-facilitator-title">${escape(facilitator.name)}</h2>
+        ${renderSpeakerPhoto(facilitator)}
+        <p class="event-manifesto">${escape(facilitator.role)}</p>
+      </div>
+      <div class="event-prose">${paragraphs(facilitator.bio)}</div>
+    </div>
+  </section>`;
+}
+
+function renderWebinarFaq(event) {
+  return `
+  <section class="demo-landing-section event-about event-webinar-faq" aria-labelledby="event-faq-title">
+    <div class="event-section-layout">
+      <h2 id="event-faq-title">Frequently asked questions</h2>
+      <div class="event-prose">
+        ${event.webinar.faqs.map(([question, answer]) => `
+        <details>
+          <summary>${escape(question)}</summary>
+          <p>${escape(answer)}</p>
+        </details>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
 export function renderEventPage(event) {
   const other = events.find(item => item.slug === event.otherSlug);
   return `<div class="event-page">
-  <section class="demo-landing-hero event-detail-hero event-detail-hero-${event.edition.toLowerCase()}" aria-labelledby="demo-page-title" style="--demo-landing-image: url('${event.image}')">
+  <section class="demo-landing-hero event-detail-hero event-detail-hero-${event.edition?.toLowerCase() ?? 'online'}" aria-labelledby="demo-page-title" style="--demo-landing-image: url('${event.heroImage ?? event.image}')">
     <div data-demo-header-slot></div>
     <div class="event-hero-layout">
       <div class="event-hero-copy">
@@ -73,12 +138,12 @@ export function renderEventPage(event) {
         <p class="event-hero-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p>
         <p class="event-price-note">${escape(event.priceNote)}</p>
         ${ticketButton(event, true)}
-        <a class="event-programme-link" href="#programme">View the programme ↓</a>
+        <a class="event-programme-link" href="#programme">${event.webinar ? 'See what we’ll explore' : 'View the programme'} ↓</a>
       </aside>
     </div>
   </section>
 
-  <section class="demo-landing-section event-introduction" aria-labelledby="event-intro-title">
+  ${event.webinar ? renderWebinarSections(event) : `<section class="demo-landing-section event-introduction" aria-labelledby="event-intro-title">
     <div class="event-section-layout"><div><p class="demo-eyebrow">Beyond your usual circle</p><h2 id="event-intro-title">${escape(event.introductionTitle)}</h2></div>
       <div class="event-prose">${paragraphs(event.introduction)}${ticketButton(event)}</div></div>
   </section>
@@ -114,12 +179,14 @@ export function renderEventPage(event) {
   <section class="demo-landing-section event-about" aria-labelledby="event-about-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Meet YogaRise</p><h2 id="event-about-title">Supporting the people behind the practice.</h2><p class="event-manifesto">Education. Community. Opportunity.<br />Grow beyond the mat.</p></div>
     <div class="event-prose"><p>YogaRise is an emerging Australian yoga industry platform bringing together education, professional connections and opportunities for growth.</p><p>Through events, resources and industry initiatives, we're working to support yoga professionals in developing their skills, building sustainable careers and connecting with the wider industry.</p><p>${escape(event.firstEvent)}</p>${ticketButton(event)}</div>
-  </div></section>
+  </div></section>`}
 
   <section class="demo-landing-section event-tickets" aria-labelledby="event-tickets-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Be part of it</p><h2 id="event-tickets-title">${event.edition === 'Sydney' ? 'Join us in Sydney' : 'Join us online'}</h2>${facts(event)}</div>
     <div class="event-ticket-summary"><p class="event-ticket-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p><h3>Your ${event.price === 0 ? 'registration' : 'ticket'} includes</h3><ul>${event.inclusions.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${event.joiningNote ? `<p class="event-joining-note">${escape(event.joiningNote)}</p>` : ''}${ticketButton(event)}<p class="event-ticket-tagline">Learn. Connect. Grow.</p></div>
   </div></section>
+
+  ${event.webinar ? renderWebinarFaq(event) : ''}
 
   ${other ? `<aside class="demo-landing-section event-other" aria-labelledby="event-other-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Another way to join us</p><h2 id="event-other-title">${escape(event.otherTitle)}</h2></div>

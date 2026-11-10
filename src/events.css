@@ -16,7 +16,10 @@ html[data-demo-site] .event-card { min-width: 0; }
 html[data-demo-site] .event-card-link { display: flex; height: 100%; flex-direction: column; border-bottom: 1px solid #b3a79b; }
 html[data-demo-site] .event-card-media { position: relative; overflow: hidden; }
 html[data-demo-site] .event-card-media img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 250ms ease; }
+html[data-demo-site] .event-card-media-artwork { background: #f0f0f0; }
+html[data-demo-site] .event-card-media-artwork img { object-fit: contain; }
 html[data-demo-site] .event-card-link:hover .event-card-media img { transform: scale(1.025); }
+html[data-demo-site] .event-card-link:hover .event-card-media-artwork img { transform: none; }
 html[data-demo-site] .event-date-badge { position: absolute; top: 1.25rem; left: 1.25rem; display: grid; place-items: center; min-width: 4.5rem; padding: 0.65rem 0.8rem; color: #1b0907; background: #fff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; }
 html[data-demo-site] .event-date-badge strong { font-size: 2rem; font-weight: 500; line-height: 1.1; letter-spacing: -0.05em; }
 html[data-demo-site] .event-card-copy { display: flex; flex: 1; flex-direction: column; align-items: start; padding: 1.75rem 0 1.5rem; }
@@ -105,6 +108,12 @@ html[data-demo-site] .event-checkout-fallback { margin: 1.5rem 0 0; font-size: 0
 html[data-demo-site] .event-checkout-fallback a { text-decoration: underline; text-underline-offset: 0.2em; }
 html[data-demo-site] .event-checkout-placeholder { max-width: 44rem; padding-top: 2rem; border-top: 1px solid #b3a79b; }
 html[data-demo-site] .event-checkout-placeholder p { color: #665c55; }
+html[data-demo-site] .event-webinar-topics dt { font-weight: 600; }
+html[data-demo-site] .event-webinar-facilitator .event-speaker-photo { width: min(100%, 15rem); }
+html[data-demo-site] .event-webinar-faq details { border-top: 1px solid #c9beb3; }
+html[data-demo-site] .event-webinar-faq details:last-child { border-bottom: 1px solid #c9beb3; }
+html[data-demo-site] .event-webinar-faq summary { padding-block: 1rem; cursor: pointer; }
+html[data-demo-site] .event-webinar-faq details p { margin: 0 0 1rem; line-height: 1.6; }
 
 @media (max-width: 980px) {
   html[data-demo-site] .event-hero-layout, html[data-demo-site] .event-section-layout { grid-template-columns: minmax(0, 1fr); }

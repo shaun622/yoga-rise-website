@@ -1,4 +1,6 @@
-// Add future events here. The listing, detail routes and sharing metadata use
+import { webinars } from './webinars.js';
+
+// The listing, detail routes and sharing metadata use
 // this one catalogue. Checkout details stay null until supplied by YogaRise.
 export const eventSessions = [
   {
@@ -141,6 +143,7 @@ export const events = [
       url: 'https://events.humanitix.com/the-yoga-industry-connect-online/tickets',
     },
   },
+  ...webinars,
 ];
 
 export const eventPath = (event) => `/events/${event.slug}/`;
