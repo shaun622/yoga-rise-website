@@ -16,8 +16,8 @@ html[data-demo-site] .event-card { min-width: 0; }
 html[data-demo-site] .event-card-link { display: flex; height: 100%; flex-direction: column; border-bottom: 1px solid #b3a79b; }
 html[data-demo-site] .event-card-media { position: relative; overflow: hidden; }
 html[data-demo-site] .event-card-media img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 250ms ease; }
-html[data-demo-site] .event-card-media-artwork { background: #f0f0f0; }
-html[data-demo-site] .event-card-media-artwork img { object-fit: contain; }
+html[data-demo-site] .event-card-media-artwork { background: #656565; }
+html[data-demo-site] .event-card-media-artwork img { aspect-ratio: auto; object-fit: contain; }
 html[data-demo-site] .event-card-link:hover .event-card-media img { transform: scale(1.025); }
 html[data-demo-site] .event-card-link:hover .event-card-media-artwork img { transform: none; }
 html[data-demo-site] .event-date-badge { position: absolute; top: 1.25rem; left: 1.25rem; display: grid; place-items: center; min-width: 4.5rem; padding: 0.65rem 0.8rem; color: #1b0907; background: #fff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; }
@@ -127,6 +127,7 @@ html[data-demo-site] .event-webinar-faq details p { margin: 0 0 1rem; line-heigh
   html[data-demo-site] .event-list-hero, html[data-demo-site] .event-detail-hero { background-image: linear-gradient(rgba(24, 10, 5, 0.76), rgba(24, 10, 5, 0.94)), var(--demo-landing-image); }
   html[data-demo-site] .event-grid, html[data-demo-site] .event-benefit-grid, html[data-demo-site] .event-session-grid, html[data-demo-site] .event-survey-session { grid-template-columns: minmax(0, 1fr); }
   html[data-demo-site] .event-card-media img { aspect-ratio: 3 / 2; }
+  html[data-demo-site] .event-card-media-artwork img { aspect-ratio: auto; }
   html[data-demo-site] .event-date-badge { top: 0.75rem; left: 0.75rem; min-width: 3.5rem; }
   html[data-demo-site] .event-date-badge strong { font-size: 1.65rem; }
   html[data-demo-site] .event-card-meta { font-size: 0.8rem; }

@@ -26,7 +26,7 @@ export function renderEventCards() {
     <a class="event-card-link" href="${eventPath(event)}" aria-label="Explore ${escape(event.title)}, ${escape(event.shortDate)}">
       <div class="event-card-media${event.webinar ? ' event-card-media-artwork' : ''}">
         <img src="${event.image}" alt="${escape(event.imageAlt)}" width="${event.imageWidth}" height="${event.imageHeight}" loading="lazy" decoding="async" />
-        ${event.webinar ? '' : `<span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>`}
+        <span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>
       </div>
       <div class="event-card-copy">
         <p class="event-card-category">${escape(event.format)} <span>·</span> ${escape(event.shortDate)}</p>
