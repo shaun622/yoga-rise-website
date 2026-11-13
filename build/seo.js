@@ -38,6 +38,7 @@ const pageImages = new Map([
   ['become-a-speaker/index.html', images.partner],
   ['courses/index.html', images.courses],
   ['events/index.html', images.events],
+  ['events/thank-you/index.html', images.events],
   ...events.map(event => [`events/${event.slug}/index.html`, { src: event.image, alt: event.imageAlt, width: event.imageWidth, height: event.imageHeight }]),
   ['resources/index.html', images.resources],
   ['book-a-call/index.html', images.about],

@@ -21,8 +21,8 @@ const facts = (event) => `<ul class="event-facts">
   <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
 </ul>`;
 
-export function renderEventCards() {
-  return [...events].sort((a, b) => a.date.localeCompare(b.date)).map(event => `<article class="event-card">
+export function renderEventCards(eventList = events) {
+  return [...eventList].sort((a, b) => a.date.localeCompare(b.date)).map(event => `<article class="event-card">
     <a class="event-card-link" href="${eventPath(event)}" aria-label="Explore ${escape(event.title)}, ${escape(event.shortDate)}">
       <div class="event-card-media${event.webinar ? ' event-card-media-artwork' : ''}">
         <img src="${event.image}" alt="${escape(event.imageAlt)}" width="${event.imageWidth}" height="${event.imageHeight}" loading="lazy" decoding="async" />
@@ -41,6 +41,34 @@ export function renderEventCards() {
 
 export function renderEventsIndex(fragment) {
   return fragment.replace('<!-- events:grid -->', renderEventCards());
+}
+
+function renderUpcomingCards(bookedEvent) {
+  const now = Date.now();
+  const upcoming = events.filter(event => event !== bookedEvent && Date.parse(event.startsAt) > now);
+  return renderEventCards(upcoming) || '<p>Check back soon for more YogaRise events.</p>';
+}
+
+export function renderEventThankYou(fragment) {
+  return fragment.replace('<!-- events:grid -->', renderUpcomingCards());
+}
+
+export function mountEventThankYou() {
+  const slug = new URLSearchParams(location.search).get('event');
+  const bookedEvent = events.find(event => event.slug === slug);
+  document.querySelector('[data-other-events]').innerHTML = renderUpcomingCards(bookedEvent);
+  if (!bookedEvent) return;
+
+  const confirmation = document.querySelector('[data-event-confirmation]');
+  confirmation.innerHTML = `<h2>${escape(bookedEvent.title)}</h2>
+    ${facts(bookedEvent)}
+    <a class="button button-light" href="${eventPath(bookedEvent)}calendar.ics" download>Add to your calendar ${arrow}</a>`;
+  confirmation.hidden = false;
+
+  const confirmationEmail = document.querySelector('[data-confirmation-email]');
+  confirmationEmail.textContent = bookedEvent.format === 'In person'
+    ? 'Your confirmation email is on its way.'
+    : 'Your confirmation email is on its way. We’ll send your joining link before the event.';
 }
 
 function renderSpeakerPhoto(speaker) {

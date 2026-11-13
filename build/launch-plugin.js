@@ -1,12 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { applySeoMetadata, pagePath, siteOrigin as origin } from './seo.js';
-import { events } from '../content/events.js';
-import { renderEventsIndex, renderEventPage } from '../src/event-pages.js';
+import { events, eventPath } from '../content/events.js';
+import { renderEventsIndex, renderEventPage, renderEventThankYou } from '../src/event-pages.js';
 
 const readyPages = [
   ['courses', 'Courses', 'Education for the next stage of your yoga career.'],
   ['events', 'Events', 'Events that bring the yoga industry together.'],
+  ['events/thank-you', 'Thanks for registering', 'Find out what happens next and explore more YogaRise events.'],
   ...events.map(event => [`events/${event.slug}`, event.title, event.description]),
   ['resources', 'Resources', 'Practical tools for life beyond the mat.'],
   ['book-a-call', 'Book a call', 'Book a call with Valerie Saindon.'],
@@ -14,6 +15,7 @@ const readyPages = [
   ['contact', 'Contact', 'Get in touch with the YogaRise team. Send an enquiry or book a call with Valerie Saindon.'],
 ];
 const protectedPages = new Set([
+  'events/thank-you/index.html',
   'yoga-teacher-industry-survey/index.html',
   'yoga-teacher-industry-survey/thank-you/index.html',
   'yoga-teacher-income-calculator/index.html',
@@ -21,12 +23,35 @@ const protectedPages = new Set([
   '404.html',
 ]);
 const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+const calendarTime = (value) => new Date(value).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+const calendarText = (value) => value.replaceAll('\\', '\\\\').replaceAll(/\r\n|\r|\n/g, '\\n').replaceAll(/[,;]/g, '\\$&');
+
+function eventCalendar(event, createdAt) {
+  const venue = [event.location, event.venueNote].filter(Boolean).join(', ');
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//YogaRise//Events//EN',
+    'BEGIN:VEVENT',
+    `UID:${event.slug}@yogarise.com.au`,
+    `DTSTAMP:${createdAt}`,
+    `DTSTART:${calendarTime(event.startsAt)}`,
+    `DTEND:${calendarTime(event.endsAt)}`,
+    `SUMMARY:${calendarText(event.title)}`,
+    `LOCATION:${calendarText(venue)}`,
+    `URL:${origin}${eventPath(event)}`,
+    'END:VEVENT',
+    'END:VCALENDAR',
+    '',
+  ].join('\r\n');
+}
 
 function metadata(html, fileName) {
   const indexable = !protectedPages.has(fileName);
   let result = html;
-  // Outreach, calculator and unavailable-assessment pages retain noindex.
-  if (indexable) result = result.replace(/<meta\b[^>]*name="robots"[^>]*>\s*/g, '');
+  const robots = /<meta\b[^>]*name="robots"[^>]*>\s*/g;
+  if (indexable) result = result.replace(robots, '');
+  else if (!robots.test(result)) result = result.replace('</head>', '<meta name="robots" content="noindex, nofollow" /></head>');
   return applySeoMetadata(result, fileName);
 }
 
@@ -45,10 +70,12 @@ export function launchPlugin() {
         const header = template.match(/<header\b[^>]*data-site-header[\s\S]*?<\/header>/)?.[0];
         if (!header) throw new Error('Missing shared header for ready pages');
         const sitemap = [];
+        const createdAt = calendarTime(Date.now());
         for (const [name, title, description] of readyPages) {
           const event = events.find(item => name === `events/${item.slug}`);
           let fragment = event ? renderEventPage(event) : readFileSync(resolve(root, `src/demo-pages/${name}.html`), 'utf8');
           if (name === 'events') fragment = renderEventsIndex(fragment);
+          if (name === 'events/thank-you') fragment = renderEventThankYou(fragment);
           fragment = fragment.replace('<div data-demo-header-slot></div>', header);
           let html = template.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,
             `<main id="main-content" class="demo-landing-page" data-ready-page="${name}">${fragment}</main>`)
@@ -59,6 +86,10 @@ export function launchPlugin() {
             ;
           const fileName = `${name}/index.html`;
           this.emitFile({ type: 'asset', fileName, source: metadata(html, fileName) });
+          if (!protectedPages.has(fileName)) sitemap.push(`${origin}/${name}/`);
+          if (event) {
+            this.emitFile({ type: 'asset', fileName: `${name}/calendar.ics`, source: eventCalendar(event, createdAt) });
+          }
         }
         // A genuine 404 prevents unknown paths becoming a
         // misleading homepage, now that ready destinations have real files.
@@ -74,9 +105,7 @@ export function launchPlugin() {
           asset.source = metadata(String(asset.source), fileName);
           if (!protectedPages.has(fileName)) sitemap.push(`${origin}${pagePath(fileName)}`);
         }
-        // Some bundlers expose emitted files immediately; a Set keeps this
-        // deterministic either way and excludes every unfinished local draft.
-        readyPages.forEach(([name]) => sitemap.push(`${origin}/${name}/`));
+        // Deduplicate ready routes if the bundler exposes emitted files immediately.
         const sitemapXml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + [...new Set(sitemap)].sort().map((url) => `  <url><loc>${url}</loc></url>`).join('\n') + '\n</urlset>\n';
         if (bundle['sitemap.xml']) bundle['sitemap.xml'].source = sitemapXml;

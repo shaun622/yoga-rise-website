@@ -19,6 +19,7 @@ function meta(html, key) {
   return matches[0][1];
 }
 const protectedPages = new Set([
+  'events/thank-you/index.html',
   '404.html', 'yoga-teacher-industry-survey/index.html',
   'yoga-teacher-industry-survey/thank-you/index.html',
   'yoga-teacher-income-calculator/index.html', 'yogarise-marketing-health-check/index.html',
@@ -193,7 +194,7 @@ test('Events and the online event share the supplied laptop image without replac
 });
 
 test('every released page has complete static, page-specific social and canonical metadata', () => {
-  assert.equal(pages.length, 22 + events.length);
+  assert.equal(pages.length, 23 + events.length);
   const titles = new Set();
   const descriptions = new Set();
   for (const [fileName, { source: html }] of pages) {
