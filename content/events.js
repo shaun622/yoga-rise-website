@@ -5,7 +5,7 @@ import { webinars } from './webinars.js';
 export const eventSessions = [
   {
     name: 'Nic Dorsch',
-    role: 'Yoga Teacher, Mentor & Studio Owner',
+    role: 'Yoga Teacher, Teacher Trainer & Studio Owner',
     title: 'Getting Your Systems in Flow: Less Admin, More Time for What Matters',
     description: 'Discover how the right systems and tools can simplify bookings, scheduling and everyday administration, helping you save valuable time and focus more energy on teaching and growing your business.',
     image: '/assets/nic-dorsch-headshot-20261109.webp', width: 570, height: 570,

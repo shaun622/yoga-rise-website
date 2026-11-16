@@ -109,13 +109,13 @@ export const webinars = [
       ],
       facilitator: {
         name: 'Nic Dorsch',
-        role: 'Yoga teacher and bodywork therapist',
+        role: 'Yoga Teacher, Teacher Trainer & Studio Owner',
         image: '/assets/nic-dorsch-headshot-20261109.webp',
         width: 570,
         height: 570,
         bio: [
-          'Nic is a yoga teacher and bodywork therapist with over 20 years of experience supporting students through classes, private sessions and retreats.',
-          'Alongside her teaching experience, Nic brings a background in accounting and bookkeeping and a firsthand understanding of the admin involved in running a yoga business.',
+          'Nic is a Yoga Teacher, Teacher Trainer & Mentor, Studio Owner and movement specialist with over 22 years of experience supporting students in classes, private sessions, teacher trainings and on retreats.',
+          'Alongside her teaching experience, Nic brings with her a background in accounting and bookkeeping and a firsthand understanding of the admin involved in running a Yoga business, whether that’s running a Yoga studio or working independently for studios or gyms.',
           'After spending hours managing her own business behind the scenes, she discovered how the right systems could free up time for teaching and life beyond work. In this session, she’ll share practical tools to help you simplify your admin, save you time and make the day-to-day easier.',
         ],
       },
