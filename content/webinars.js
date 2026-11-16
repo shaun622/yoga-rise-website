@@ -92,6 +92,7 @@ export const webinars = [
       'Drawing on her accounting and bookkeeping background and her experience running a business, Nic will share how she approached these challenges and what changed when she put the right systems in place.',
     ],
     webinar: {
+      compareFacilitatorLayouts: true,
       topics: [
         ['Which systems do you actually need?', 'Consider what suits your business, your priorities and the way you work.'],
         ['Bookings that work for you', 'Explore how a suitable booking system can simplify scheduling and payments.'],

@@ -1,6 +1,7 @@
 import './demo-site.css';
 import './demo-pages.css';
 import './events.css';
+import { mountFacilitatorSwitcher } from './facilitator-switcher.js';
 import { registerDemoDraftPages, renderDemoPage, updateDemoDestinationLinks } from './demo-pages.js';
 
 // Main-site cutover approved 14 September. Outreach forms keep their original
@@ -88,6 +89,7 @@ if (isDemo) {
       registerDemoDraftPages(drafts.draftPages);
     }
     renderDemoPage();
+    mountFacilitatorSwitcher();
     updateDemoDestinationLinks();
     drafts?.mountDraftForms();
   };

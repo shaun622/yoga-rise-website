@@ -88,7 +88,8 @@ function renderSession(session, index) {
 }
 
 function renderWebinarSections(event) {
-  const { topics, takeaways, audience, facilitator, faqs } = event.webinar;
+  const { topics, takeaways, audience, facilitator, compareFacilitatorLayouts } = event.webinar;
+  const facilitatorPhoto = renderSpeakerPhoto(facilitator);
   return `
   <section class="demo-landing-section event-introduction" aria-labelledby="event-intro-title">
     <div class="event-section-layout">
@@ -118,14 +119,19 @@ function renderWebinarSections(event) {
     </div>
   </section>
 
-  <section class="demo-landing-section event-about event-webinar-facilitator" aria-labelledby="event-facilitator-title">
+  <section class="demo-landing-section event-about event-webinar-facilitator" aria-labelledby="event-facilitator-title"${compareFacilitatorLayouts ? ' id="facilitator" data-facilitator-preview="split"' : ''}>
+    ${compareFacilitatorLayouts ? `<div class="facilitator-switcher" data-facilitator-switcher role="group" aria-label="Facilitator layout" hidden>
+      <button type="button" data-layout="split" aria-pressed="true">Option 1</button>
+      <button type="button" data-layout="profile" aria-pressed="false">Option 2</button>
+    </div>` : ''}
     <div class="event-section-layout">
-      <div>
+      <div${compareFacilitatorLayouts ? ' class="facilitator-preview-identity"' : ''}>
         <p class="demo-eyebrow">Your facilitator</p>
         <h2 id="event-facilitator-title">${escape(facilitator.name)}</h2>
-        ${renderSpeakerPhoto(facilitator)}
+        ${compareFacilitatorLayouts ? '' : facilitatorPhoto}
         <p class="event-manifesto">${escape(facilitator.role)}</p>
       </div>
+      ${compareFacilitatorLayouts ? facilitatorPhoto : ''}
       <div class="event-prose">${paragraphs(facilitator.bio)}</div>
     </div>
   </section>`;
