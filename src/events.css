@@ -149,6 +149,31 @@ html[data-demo-site] .event-checkout-placeholder { max-width: 44rem; padding-top
 html[data-demo-site] .event-checkout-placeholder p { color: #665c55; }
 html[data-demo-site] .event-webinar-topics dt { font-weight: 600; }
 html[data-demo-site] .event-webinar-facilitator .event-speaker-photo { width: min(100%, 15rem); }
+html[data-demo-site] .event-webinar-facilitator-split .event-section-layout {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'photo identity' 'photo bio';
+  align-items: start;
+  column-gap: clamp(1.5rem, 5vw, 5rem);
+  row-gap: clamp(1.25rem, 2.75vw, 2.5rem);
+  max-width: 69rem;
+  margin-inline: auto;
+  padding-top: clamp(1.5rem, 3vw, 3rem);
+  border-top: 1px solid #cbbcb0;
+}
+html[data-demo-site] .event-webinar-facilitator-split .event-facilitator-identity { grid-area: identity; }
+html[data-demo-site] .event-webinar-facilitator-split .event-prose { grid-area: bio; }
+html[data-demo-site] .event-webinar-facilitator-split .event-speaker-photo {
+  grid-area: photo;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 21rem;
+  margin: 0;
+}
+html[data-demo-site] .event-webinar-facilitator-split .demo-eyebrow { margin-bottom: 0.6rem; color: #72513e; }
+html[data-demo-site] .event-webinar-facilitator-split h2 { margin: 0 0 0.5rem; }
+html[data-demo-site] .event-webinar-facilitator-split .event-manifesto { margin: 0; font-weight: 500; color: #665045; }
+html[data-demo-site] .event-webinar-facilitator-split .event-prose p:last-child { margin-bottom: 0; }
 html[data-demo-site] .event-webinar-faq details { border-top: 1px solid #c9beb3; }
 html[data-demo-site] .event-webinar-faq details:last-child { border-bottom: 1px solid #c9beb3; }
 html[data-demo-site] .event-webinar-faq summary { padding-block: 1rem; cursor: pointer; }
@@ -164,6 +189,12 @@ html[data-demo-site] .event-webinar-faq details p { margin: 0 0 1rem; line-heigh
   html[data-demo-site] .event-list-heading { align-items: start; flex-direction: column; }
 }
 @media (max-width: 640px) {
+  html[data-demo-site] .event-webinar-facilitator-split .event-section-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: 'identity' 'photo' 'bio';
+  }
+  html[data-demo-site] .event-webinar-facilitator-split .event-speaker-photo { max-width: 16rem; }
   html[data-demo-site] .event-list-hero, html[data-demo-site] .event-detail-hero { background-image: linear-gradient(rgba(24, 10, 5, 0.76), rgba(24, 10, 5, 0.94)), var(--demo-landing-image); }
   html[data-demo-site] .event-grid, html[data-demo-site] .event-benefit-grid, html[data-demo-site] .event-session-grid, html[data-demo-site] .event-survey-session { grid-template-columns: minmax(0, 1fr); }
   html[data-demo-site] .event-card-media img { aspect-ratio: 3 / 2; }
