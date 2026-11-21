@@ -223,6 +223,15 @@ export function renderEventPage(event) {
     <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}<br />${escape(other.time)}</strong><br />${escape(other.location)} · ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
   </div></aside>` : ''}
 
+  ${event.sponsors?.length ? `<section class="demo-landing-section event-sponsors" id="sponsors" aria-labelledby="event-sponsors-title">
+    <h2 id="event-sponsors-title">Thank you to our sponsors</h2>
+    <div class="event-sponsor-logos">
+      ${event.sponsors.map(sponsor => `<a href="${escape(sponsor.url)}" rel="sponsored">
+        <img src="${escape(sponsor.image)}" alt="${escape(sponsor.name)}" width="${sponsor.width}" height="${sponsor.height}" loading="lazy" decoding="async" />
+      </a>`).join('')}
+    </div>
+  </section>` : ''}
+
   <section class="demo-landing-section event-checkout" id="tickets" aria-labelledby="event-checkout-title" tabindex="-1">
     <div class="event-checkout-inner">
       <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} · ${escape(event.time)}</p></div>

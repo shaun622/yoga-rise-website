@@ -138,6 +138,22 @@ html[data-demo-site] .event-ticket-summary .event-ticket-button:hover { backgrou
 html[data-demo-site] .event-joining-note { font-size: 0.9rem; }
 html[data-demo-site] .event-ticket-summary .event-ticket-tagline { margin: 1.25rem 0 0; font-size: 0.85rem; }
 html[data-demo-site] .event-other { background: #fff; }
+html[data-demo-site] .event-sponsors {
+  padding-block: clamp(2.75rem, 5vw, 5rem);
+  border-top: 1px solid #e1d9d1;
+  background: #fff;
+  text-align: center;
+}
+html[data-demo-site] .event-sponsor-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+html[data-demo-site] .event-sponsor-logos a { width: min(100%, 12.5rem); }
+html[data-demo-site] .event-sponsor-logos a:focus-visible { outline-offset: 0.4rem; }
+html[data-demo-site] .event-sponsor-logos img { display: block; width: 100%; height: auto; filter: grayscale(1); }
 html[data-demo-site] .event-checkout { scroll-margin-top: 2rem; background: #faf8f5; }
 html[data-demo-site] .event-checkout-inner { max-width: 70rem; margin-inline: auto; }
 html[data-demo-site] .event-checkout-widget { background: #fff; }

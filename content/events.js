@@ -85,6 +85,9 @@ export const events = [
     otherTitle: "Can't make it to Sydney? Join us online.",
     otherCopy: "We're also hosting a shorter online edition of The Yoga Industry Connect for yoga professionals who can't attend in person.",
     otherLabel: 'Explore the online event',
+    sponsors: [
+      { name: 'YourStory', url: 'https://yourstory.net.au/', image: '/assets/yourstory-sponsor.webp', width: 640, height: 443 },
+    ],
     checkout: {
       slug: 'the-yoga-industry-connect',
       url: 'https://events.humanitix.com/the-yoga-industry-connect/tickets',
