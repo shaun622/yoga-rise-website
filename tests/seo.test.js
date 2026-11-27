@@ -45,47 +45,42 @@ function renderedSite() {
 const bundle = renderedSite();
 const pages = Object.entries(bundle).filter(([name]) => name.endsWith('.html'));
 
-test('survey thank-you publishes the supplied event offers and claim instructions', () => {
+test('survey thank-you shows the Sydney postponement and the free online event', () => {
   const html = bundle['yoga-teacher-industry-survey/thank-you/index.html'].source;
   assert.match(html, /<h1>Thank you for sharing your voice\.<\/h1>/);
   assert.match(html, /Your contribution helps shape a more connected yoga industry\./);
-  assert.match(html, /Your exclusive survey thank-you/);
-  assert.match(html, /Enter code <strong>SURVEY<\/strong> at checkout/);
-  assert.match(html, /Valid for one person \(one ticket\)\./);
+  assert.match(html, /The Yoga Industry Connect/);
+  assert.doesNotMatch(html, /2026-12-06|Sunday 6 December|The Dale Loft|\$15 off|\$20|<code>SURVEY<\/code>/);
   assert.match(html, /Thank you for helping us shape the future of Australia's yoga industry\./);
   assert.match(html, /name="robots" content="noindex, nofollow"/);
   assert.doesNotMatch(html, /<form\b|Keep me posted|Sydney Central|Venue to be announced/);
 
   const offers = [...html.matchAll(/<article class="survey-offer"[\s\S]*?<\/article>/g)].map(([offer]) => offer);
   assert.equal(offers.length, 2);
-  for (const [index, edition, discount, label] of [[0, 'Sydney', 15, 'View Sydney Event'], [1, 'Online', 0, 'View Online Event']]) {
+  for (const [index, edition, label] of [[0, 'Sydney', 'View Sydney Event'], [1, 'Online', 'View Online Event']]) {
     const event = events.find(item => item.edition === edition);
     const offer = offers[index];
-    if (event.price === 0) {
+    if (event.postponed) {
+      assert.ok(offer.includes(event.dateLabel));
+      assert.doesNotMatch(offer, /datetime=|\$\d+/);
+    } else {
       assert.match(offer, /<strong>Free<\/strong>/);
       assert.doesNotMatch(offer, /\$\d+|\boff\b/);
-    } else {
-      assert.ok(offer.includes(`$${discount} off`));
-      assert.ok(offer.includes(`Now <strong>$${event.price - discount}</strong>`));
+      assert.ok(offer.includes(`datetime="${event.date}"`));
     }
-    assert.ok(offer.includes(`datetime="${event.date}"`));
     assert.ok(offer.includes(`href="${eventPath(event)}">${label}`));
     assert.ok(bundle[`${eventPath(event).slice(1)}index.html`], 'Offer destination is published');
   }
-  assert.match(offers[0], /The Dale Loft, Chippendale/);
   assert.match(offers[1], /7:00 pm - 8:15 pm AEDT/);
   assert.match(offers[1], /Live via Zoom/);
-  assert.match(html, /at checkout for \$15 off the Sydney in-person event/);
-  assert.match(html, /live online event is free and does not require a discount code/);
   assert.doesNotMatch(read('src/survey-thank-you.js'), /subscribeToMailerLite|addEventListener/);
   assert.match(read('yoga-teacher-industry-survey/index.html'), /https:\/\/form\.jotform\.com\/jsform\/262418532735459/);
 });
 
-test('free online registration renders consistently without changing Sydney ticket prices', () => {
+test('free online registration renders consistently, including the link from Sydney', () => {
   const online = events.find(event => event.edition === 'Online');
   const sydney = events.find(event => event.edition === 'Sydney');
   assert.equal(online.price, 0);
-  assert.equal(sydney.price, 35);
   const onlineHtml = bundle[`events/${online.slug}/index.html`].source;
   assert.match(onlineHtml, /event-hero-price">Free<span>Registration required/);
   assert.match(onlineHtml, /event-ticket-price">Free<span>Registration required/);
@@ -96,7 +91,6 @@ test('free online registration renders consistently without changing Sydney tick
   for (const [, label] of buttons) assert.match(label, /Register for free/);
   assert.doesNotMatch(onlineHtml, /\$25|\$0|\$-\d/);
   const sydneyHtml = bundle[`events/${sydney.slug}/index.html`].source;
-  assert.match(sydneyHtml, /event-hero-price">\$35<span>per person/);
   assert.match(sydneyHtml, /Live online via Zoom · Free<\/p>/);
   const cards = [...bundle['events/index.html'].source.matchAll(/<article class="event-card">[\s\S]*?<\/article>/g)];
   const onlineCard = cards.find(([html]) => html.includes(`/events/${online.slug}/`))[0];
@@ -127,7 +121,7 @@ test('every catalogue event has a linked static detail page and the shared menu 
 });
 
 test('event ticket anchors resolve to one checkout and only supplied event codes are embedded', () => {
-  for (const event of events) {
+  for (const event of events.filter(event => !event.postponed)) {
     const html = bundle[`events/${event.slug}/index.html`].source;
     assert.equal((html.match(/id="tickets"/g) || []).length, 1);
     const links = [...html.matchAll(/<a\b[^>]*class="[^"]*event-ticket-button[^>]*>/g)];
@@ -144,26 +138,20 @@ test('event ticket anchors resolve to one checkout and only supplied event codes
   }
 });
 
-test('Sydney publishes its confirmed venue, address and map in both event summaries', () => {
+test('Sydney postponement reaches the listing, confirmations and cross-links without offering stale tickets or a calendar', () => {
   const sydney = events.find(event => event.edition === 'Sydney');
-  const html = bundle[`events/${sydney.slug}/index.html`].source;
-  assert.equal(sydney.location, 'The Dale Loft');
-  assert.equal(sydney.venueNote, '27-39 Abercrombie Street, Chippendale, 2008');
-  assert.equal(sydney.mapsUrl, 'https://maps.app.goo.gl/Ds7AepgBGDYqakuN6?g_st=ic');
-  const summaries = [...html.matchAll(/<ul class="event-facts">[\s\S]*?<\/ul>/g)];
-  assert.equal(summaries.length, 2);
-  for (const [summary] of summaries) {
-    assert.ok(summary.includes(sydney.location));
-    assert.ok(summary.includes(sydney.venueNote));
-    assert.ok(summary.includes(`href="${sydney.mapsUrl}" target="_blank" rel="noopener noreferrer"`));
-    assert.match(summary, /View on Google Maps/);
+  assert.equal(sydney.dateLabel, 'Postponed to 2027, date TBA');
+  for (const name of ['events/index.html', 'events/thank-you/index.html',
+    `events/${sydney.slug}/index.html`, 'events/the-yoga-industry-connect-online/index.html']) {
+    const html = bundle[name].source;
+    assert.ok(html.includes(sydney.dateLabel), name);
+    assert.doesNotMatch(html, /6 December 2026|2026-12-06|The Dale Loft|data-checkout="the-yoga-industry-connect"/);
   }
-  assert.ok(bundle['events/index.html'].source.includes(sydney.location));
-  const online = bundle['events/the-yoga-industry-connect-online/index.html'].source;
-  assert.ok(online.includes(sydney.location));
-  assert.match(online, /Live online via Zoom/);
-  for (const page of [html, online, bundle['events/index.html'].source]) {
-    assert.doesNotMatch(page, /Venue to be announced|Sydney CBD/);
+  const detail = bundle[`events/${sydney.slug}/index.html`].source;
+  assert.doesNotMatch(detail, /href="#tickets"|id="tickets"|Get your ticket|Book your place/);
+  assert.match(detail, /href="\/events\/the-yoga-industry-connect-online\/"/);
+  for (const event of events) {
+    assert.equal(Boolean(bundle[`events/${event.slug}/calendar.ics`]), !event.postponed);
   }
 });
 
