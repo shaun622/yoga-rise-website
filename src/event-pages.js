@@ -4,7 +4,7 @@ const escape = (text) => String(text).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character]);
 const paragraphs = (items) => items.map(text => `<p>${escape(text)}</p>`).join('');
-const arrow = '<span aria-hidden="true">→</span>';
+const arrow = '<span aria-hidden="true">â†’</span>';
 const priceLabel = (event) => event.price === 0 ? 'Free' : `$${event.price}`;
 const icon = (name) => {
   const paths = {
@@ -14,25 +14,27 @@ const icon = (name) => {
   };
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">${paths[name]}</svg>`;
 };
-const ticketButton = (event, light = false) => `<a class="button ${light ? 'button-light' : 'button-dark'} event-ticket-button" href="#tickets">${event.price === 0 ? 'Register for free' : 'Get your ticket'} ${arrow}</a>`;
+const ticketButton = (event, light = false) => event.postponed ? '' : `<a class="button ${light ? 'button-light' : 'button-dark'} event-ticket-button" href="#tickets">${event.price === 0 ? 'Register for free' : 'Get your ticket'} ${arrow}</a>`;
 const facts = (event) => `<ul class="event-facts">
   <li>${icon('calendar')}<time datetime="${event.date}">${escape(event.dateLabel)}</time></li>
   <li>${icon('clock')}<span>${escape(event.time)}</span></li>
-  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
+  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">â†—</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
 </ul>`;
 
 export function renderEventCards(eventList = events) {
-  return [...eventList].sort((a, b) => a.date.localeCompare(b.date)).map(event => `<article class="event-card">
-    <a class="event-card-link" href="${eventPath(event)}" aria-label="Explore ${escape(event.title)}, ${escape(event.shortDate)}">
+  const scheduled = eventList.filter(event => !event.postponed).sort((a, b) => a.date.localeCompare(b.date));
+  const postponed = eventList.filter(event => event.postponed);
+  return [...scheduled, ...postponed].map(event => `<article class="event-card">
+    <a class="event-card-link" href="${eventPath(event)}" aria-label="Explore ${escape(event.title)}, ${escape(event.shortDate || event.dateLabel)}">
       <div class="event-card-media${event.webinar ? ' event-card-media-artwork' : ''}">
         <img src="${event.image}" alt="${escape(event.imageAlt)}" width="${event.imageWidth}" height="${event.imageHeight}" loading="lazy" decoding="async" />
-        <span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>
+        ${event.postponed ? '' : `<span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>`}
       </div>
       <div class="event-card-copy">
-        <p class="event-card-category">${escape(event.format)} <span>·</span> ${escape(event.shortDate)}</p>
+        <p class="event-card-category">${escape(event.format)}${event.shortDate ? ` <span>Â·</span> ${escape(event.shortDate)}` : ''}</p>
         <h3>${escape(event.displayTitle || event.title)}${event.edition ? `<span>${escape(event.edition)}</span>` : ''}</h3>
         <p class="event-card-description">${escape(event.excerpt)}</p>
-        <div class="event-card-meta"><span>${escape(event.time)}<br />${escape(event.location)}</span><span class="event-card-price">${priceLabel(event)}<small>${event.price === 0 ? 'Registration required' : 'per person'}</small></span></div>
+        <div class="event-card-meta">${event.postponed ? `<strong>${escape(event.dateLabel)}</strong>` : `<span>${escape(event.time)}<br />${escape(event.location)}</span><span class="event-card-price">${priceLabel(event)}<small>${event.price === 0 ? 'Registration required' : 'per person'}</small></span>`}</div>
         <span class="event-card-cta">Explore event ${arrow}</span>
       </div>
     </a>
@@ -45,7 +47,7 @@ export function renderEventsIndex(fragment) {
 
 function renderUpcomingCards(bookedEvent) {
   const now = Date.now();
-  const upcoming = events.filter(event => event !== bookedEvent && Date.parse(event.startsAt) > now);
+  const upcoming = events.filter(event => event !== bookedEvent && (event.postponed || Date.parse(event.startsAt) > now));
   return renderEventCards(upcoming) || '<p>Check back soon for more YogaRise events.</p>';
 }
 
@@ -60,6 +62,13 @@ export function mountEventThankYou() {
   if (!bookedEvent) return;
 
   const confirmation = document.querySelector('[data-event-confirmation]');
+  if (bookedEvent.postponed) {
+    document.querySelector('#demo-page-title').textContent = bookedEvent.title;
+    confirmation.textContent = bookedEvent.dateLabel;
+    confirmation.hidden = false;
+    document.querySelector('.event-thanks-next').innerHTML = `<h2 id="event-thanks-next-title">Event update</h2><p>Check the <a href="${eventPath(bookedEvent)}">event page</a> for the new date.</p>`;
+    return;
+  }
   confirmation.innerHTML = `<h2>${escape(bookedEvent.title)}</h2>
     ${facts(bookedEvent)}
     <a class="button button-light" href="${eventPath(bookedEvent)}calendar.ics" download>Add to your calendar ${arrow}</a>`;
@@ -68,7 +77,7 @@ export function mountEventThankYou() {
   const confirmationEmail = document.querySelector('[data-confirmation-email]');
   confirmationEmail.textContent = bookedEvent.format === 'In person'
     ? 'Your confirmation email is on its way.'
-    : 'Your confirmation email is on its way. We’ll send your joining link before the event.';
+    : 'Your confirmation email is on its way. Weâ€™ll send your joining link before the event.';
 }
 
 function renderSpeakerPhoto(speaker) {
@@ -100,7 +109,7 @@ function renderWebinarSections(event) {
 
   <section class="demo-landing-section event-programme event-webinar-topics" id="programme" aria-labelledby="event-programme-title">
     <div class="event-section-layout">
-      <div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">What we’ll explore</h2></div>
+      <div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">What weâ€™ll explore</h2></div>
       <dl class="event-schedule">${topics.map(([topic, detail]) => `<div><dt>${escape(topic)}</dt><dd>${escape(detail)}</dd></div>`).join('')}</dl>
     </div>
   </section>
@@ -156,7 +165,7 @@ export function renderEventPage(event) {
     <div data-demo-header-slot></div>
     <div class="event-hero-layout">
       <div class="event-hero-copy">
-        <a class="event-back" href="/events/">← All events</a>
+        <a class="event-back" href="/events/">â† All events</a>
         <p class="demo-eyebrow">YogaRise presents</p>
         <h1 id="demo-page-title">${escape(event.displayTitle || event.title)}${event.edition ? `<span>${escape(event.edition)}</span>` : ''}</h1>
         <p class="event-subtitle">${escape(event.subtitle)}</p>
@@ -164,11 +173,11 @@ export function renderEventPage(event) {
       </div>
       <aside class="event-hero-booking" aria-label="Event at a glance">
         <p class="demo-eyebrow">${escape(event.format)}</p>
-        ${facts(event)}
+        ${event.postponed ? `<p class="event-subtitle"><strong>${escape(event.dateLabel)}</strong></p>` : `${facts(event)}
         <p class="event-hero-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p>
         <p class="event-price-note">${escape(event.priceNote)}</p>
         ${ticketButton(event, true)}
-        <a class="event-programme-link" href="#programme">${event.webinar ? 'See what we’ll explore' : 'View the programme'} ↓</a>
+        <a class="event-programme-link" href="#programme">${event.webinar ? 'See what weâ€™ll explore' : 'View the programme'} â†“</a>`}
       </aside>
     </div>
   </section>
@@ -188,11 +197,11 @@ export function renderEventPage(event) {
     ${ticketButton(event)}
   </section>
 
-  <section class="demo-landing-section event-programme" id="programme" aria-labelledby="event-programme-title">
+  ${event.postponed ? '' : `<section class="demo-landing-section event-programme" id="programme" aria-labelledby="event-programme-title">
     <div class="event-section-layout"><div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">${escape(event.programmeTitle)}</h2><p>${escape(event.dateLabel)}</p><p class="event-programme-note">${event.edition === 'Online' ? 'All times are AEDT. ' : ''}Programme and timings are subject to minor changes.</p>${ticketButton(event)}</div>
       <dl class="event-schedule">${event.programme.map(([time, title]) => `<div><dt>${escape(time)}</dt><dd>${escape(title)}</dd></div>`).join('')}</dl>
     </div>
-  </section>
+  </section>`}
 
   <section class="demo-landing-section event-learning" aria-labelledby="event-learning-title">
     <div class="event-section-heading"><p class="demo-eyebrow">Fresh perspectives. Practical ideas.</p><h2 id="event-learning-title">What you'll learn</h2><p>${escape(event.learningIntro)}</p></div>
@@ -211,16 +220,16 @@ export function renderEventPage(event) {
     <div class="event-prose"><p>YogaRise is an emerging Australian yoga industry platform bringing together education, professional connections and opportunities for growth.</p><p>Through events, resources and industry initiatives, we're working to support yoga professionals in developing their skills, building sustainable careers and connecting with the wider industry.</p><p>${escape(event.firstEvent)}</p>${ticketButton(event)}</div>
   </div></section>`}
 
-  <section class="demo-landing-section event-tickets" aria-labelledby="event-tickets-title"><div class="event-section-layout">
+  ${event.postponed ? '' : `<section class="demo-landing-section event-tickets" aria-labelledby="event-tickets-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Be part of it</p><h2 id="event-tickets-title">${event.edition === 'Sydney' ? 'Join us in Sydney' : 'Join us online'}</h2>${facts(event)}</div>
     <div class="event-ticket-summary"><p class="event-ticket-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p><h3>Your ${event.price === 0 ? 'registration' : 'ticket'} includes</h3><ul>${event.inclusions.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${event.joiningNote ? `<p class="event-joining-note">${escape(event.joiningNote)}</p>` : ''}${ticketButton(event)}<p class="event-ticket-tagline">Learn. Connect. Grow.</p></div>
-  </div></section>
+  </div></section>`}
 
   ${event.webinar ? renderWebinarFaq(event) : ''}
 
   ${other ? `<aside class="demo-landing-section event-other" aria-labelledby="event-other-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Another way to join us</p><h2 id="event-other-title">${escape(event.otherTitle)}</h2></div>
-    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}<br />${escape(other.time)}</strong><br />${escape(other.location)} · ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
+    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}</strong>${other.postponed ? '' : `<br /><strong>${escape(other.time)}</strong><br />${escape(other.location)} Â· ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}`}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
   </div></aside>` : ''}
 
   ${event.sponsors?.length ? `<section class="demo-landing-section event-sponsors" id="sponsors" aria-labelledby="event-sponsors-title">
@@ -232,16 +241,16 @@ export function renderEventPage(event) {
     </div>
   </section>` : ''}
 
-  <section class="demo-landing-section event-checkout" id="tickets" aria-labelledby="event-checkout-title" tabindex="-1">
+  ${event.postponed ? '' : `<section class="demo-landing-section event-checkout" id="tickets" aria-labelledby="event-checkout-title" tabindex="-1">
     <div class="event-checkout-inner">
-      <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} · ${escape(event.time)}</p></div>
+      <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} Â· ${escape(event.time)}</p></div>
       ${event.checkout ? '<p class="event-checkout-status" role="status">Loading the secure Humanitix checkout...</p>' : ''}
       ${event.checkout ? `<div class="event-checkout-widget">
         <iframe data-checkout="${escape(event.checkout.slug)}" title="${escape(event.title)} ticket checkout"></iframe>
       </div>
-      <p class="event-checkout-fallback">Having trouble with the checkout? <a href="${escape(event.checkout.url)}" target="_blank" rel="noopener noreferrer">Open on Humanitix <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>`
+      <p class="event-checkout-fallback">Having trouble with the checkout? <a href="${escape(event.checkout.url)}" target="_blank" rel="noopener noreferrer">Open on Humanitix <span aria-hidden="true">â†—</span><span class="sr-only"> (opens in a new tab)</span></a></p>`
       : `<div class="event-checkout-placeholder"><h3>Online ticket booking is coming soon</h3><p>Tickets for this event will be available here soon. Join the YogaRise list to hear when bookings open.</p><a class="button button-dark" href="#newsletter">Keep me updated ${arrow}</a></div>`}
     </div>
-  </section>
+  </section>`}
   </div>`;
 }
