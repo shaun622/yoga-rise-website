@@ -91,7 +91,7 @@ test('free online registration renders consistently, including the link from Syd
   for (const [, label] of buttons) assert.match(label, /Register for free/);
   assert.doesNotMatch(onlineHtml, /\$25|\$0|\$-\d/);
   const sydneyHtml = bundle[`events/${sydney.slug}/index.html`].source;
-  assert.match(sydneyHtml, /Live online via Zoom Â· Free<\/p>/);
+  assert.match(sydneyHtml, /Live online via Zoom · Free<\/p>/);
   const cards = [...bundle['events/index.html'].source.matchAll(/<article class="event-card">[\s\S]*?<\/article>/g)];
   const onlineCard = cards.find(([html]) => html.includes(`/events/${online.slug}/`))[0];
   assert.match(onlineCard, /event-card-price">Free<small>Registration required/);
