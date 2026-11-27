@@ -8,7 +8,7 @@ const readyPages = [
   ['courses', 'Courses', 'Education for the next stage of your yoga career.'],
   ['events', 'Events', 'Events that bring the yoga industry together.'],
   ['events/thank-you', 'Thanks for registering', 'Find out what happens next and explore more YogaRise events.'],
-  ...events.map(event => [`events/${event.slug}`, event.title, event.description]),
+  ...events.map(event => [`events/${event.slug}`, event.title, event.postponed ? `${event.title}. ${event.dateLabel}.` : event.description]),
   ['resources', 'Resources', 'Practical tools for life beyond the mat.'],
   ['book-a-call', 'Book a call', 'Book a call with Valerie Saindon.'],
   ['become-a-speaker', 'Become a YogaRise Presenter', 'Share your expertise with the YogaRise community. Apply to present at events, workshops and education programs.'],
@@ -87,7 +87,7 @@ export function launchPlugin() {
           const fileName = `${name}/index.html`;
           this.emitFile({ type: 'asset', fileName, source: metadata(html, fileName) });
           if (!protectedPages.has(fileName)) sitemap.push(`${origin}/${name}/`);
-          if (event) {
+          if (event?.startsAt && event.endsAt) {
             this.emitFile({ type: 'asset', fileName: `${name}/calendar.ics`, source: eventCalendar(event, createdAt) });
           }
         }
