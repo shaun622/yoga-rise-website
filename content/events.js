@@ -35,13 +35,8 @@ export const events = [
     sessions: eventSessions,
     edition: 'Sydney',
     format: 'In person',
-    date: '2026-12-06',
-    startsAt: '2026-12-06T10:00:00+11:00',
-    endsAt: '2026-12-06T12:30:00+11:00',
-    dateLabel: 'Sunday 6 December 2026',
-    shortDate: '6 December 2026',
-    day: '06', month: 'Dec',
-    time: '10:00 am - 12:30 pm',
+    postponed: true,
+    dateLabel: 'Postponed to 2027, date TBA',
     location: 'The Dale Loft',
     venueNote: '27-39 Abercrombie Street, Chippendale, 2008',
     mapsUrl: 'https://maps.app.goo.gl/Ds7AepgBGDYqakuN6?g_st=ic',
@@ -88,10 +83,7 @@ export const events = [
     sponsors: [
       { name: 'YourStory', url: 'https://yourstory.net.au/', image: '/assets/yourstory-sponsor.webp', width: 640, height: 443 },
     ],
-    checkout: {
-      slug: 'the-yoga-industry-connect',
-      url: 'https://events.humanitix.com/the-yoga-industry-connect/tickets',
-    },
+    checkout: null,
   },
   {
     slug: 'the-yoga-industry-connect-online',
