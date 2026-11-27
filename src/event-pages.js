@@ -4,7 +4,7 @@ const escape = (text) => String(text).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character]);
 const paragraphs = (items) => items.map(text => `<p>${escape(text)}</p>`).join('');
-const arrow = '<span aria-hidden="true">â†’</span>';
+const arrow = '<span aria-hidden="true">→</span>';
 const priceLabel = (event) => event.price === 0 ? 'Free' : `$${event.price}`;
 const icon = (name) => {
   const paths = {
@@ -18,7 +18,7 @@ const ticketButton = (event, light = false) => event.postponed ? '' : `<a class=
 const facts = (event) => `<ul class="event-facts">
   <li>${icon('calendar')}<time datetime="${event.date}">${escape(event.dateLabel)}</time></li>
   <li>${icon('clock')}<span>${escape(event.time)}</span></li>
-  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">â†—</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
+  <li>${icon('location')}<span>${escape(event.location)}${event.venueNote ? `<small>${escape(event.venueNote)}</small>` : ''}${event.mapsUrl ? `<a class="event-map-link" href="${escape(event.mapsUrl)}" target="_blank" rel="noopener noreferrer">View on Google Maps <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>` : ''}</span></li>
 </ul>`;
 
 export function renderEventCards(eventList = events) {
@@ -31,7 +31,7 @@ export function renderEventCards(eventList = events) {
         ${event.postponed ? '' : `<span class="event-date-badge" aria-hidden="true"><strong>${event.day}</strong>${event.month}</span>`}
       </div>
       <div class="event-card-copy">
-        <p class="event-card-category">${escape(event.format)}${event.shortDate ? ` <span>Â·</span> ${escape(event.shortDate)}` : ''}</p>
+        <p class="event-card-category">${escape(event.format)}${event.shortDate ? ` <span>·</span> ${escape(event.shortDate)}` : ''}</p>
         <h3>${escape(event.displayTitle || event.title)}${event.edition ? `<span>${escape(event.edition)}</span>` : ''}</h3>
         <p class="event-card-description">${escape(event.excerpt)}</p>
         <div class="event-card-meta">${event.postponed ? `<strong>${escape(event.dateLabel)}</strong>` : `<span>${escape(event.time)}<br />${escape(event.location)}</span><span class="event-card-price">${priceLabel(event)}<small>${event.price === 0 ? 'Registration required' : 'per person'}</small></span>`}</div>
@@ -77,7 +77,7 @@ export function mountEventThankYou() {
   const confirmationEmail = document.querySelector('[data-confirmation-email]');
   confirmationEmail.textContent = bookedEvent.format === 'In person'
     ? 'Your confirmation email is on its way.'
-    : 'Your confirmation email is on its way. Weâ€™ll send your joining link before the event.';
+    : 'Your confirmation email is on its way. We’ll send your joining link before the event.';
 }
 
 function renderSpeakerPhoto(speaker) {
@@ -109,7 +109,7 @@ function renderWebinarSections(event) {
 
   <section class="demo-landing-section event-programme event-webinar-topics" id="programme" aria-labelledby="event-programme-title">
     <div class="event-section-layout">
-      <div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">What weâ€™ll explore</h2></div>
+      <div><p class="demo-eyebrow">Your time with us</p><h2 id="event-programme-title">What we’ll explore</h2></div>
       <dl class="event-schedule">${topics.map(([topic, detail]) => `<div><dt>${escape(topic)}</dt><dd>${escape(detail)}</dd></div>`).join('')}</dl>
     </div>
   </section>
@@ -165,7 +165,7 @@ export function renderEventPage(event) {
     <div data-demo-header-slot></div>
     <div class="event-hero-layout">
       <div class="event-hero-copy">
-        <a class="event-back" href="/events/">â† All events</a>
+        <a class="event-back" href="/events/">← All events</a>
         <p class="demo-eyebrow">YogaRise presents</p>
         <h1 id="demo-page-title">${escape(event.displayTitle || event.title)}${event.edition ? `<span>${escape(event.edition)}</span>` : ''}</h1>
         <p class="event-subtitle">${escape(event.subtitle)}</p>
@@ -177,7 +177,7 @@ export function renderEventPage(event) {
         <p class="event-hero-price">${priceLabel(event)}<span>${event.price === 0 ? 'Registration required' : 'per person'}</span></p>
         <p class="event-price-note">${escape(event.priceNote)}</p>
         ${ticketButton(event, true)}
-        <a class="event-programme-link" href="#programme">${event.webinar ? 'See what weâ€™ll explore' : 'View the programme'} â†“</a>`}
+        <a class="event-programme-link" href="#programme">${event.webinar ? 'See what we’ll explore' : 'View the programme'} ↓</a>`}
       </aside>
     </div>
   </section>
@@ -229,7 +229,7 @@ export function renderEventPage(event) {
 
   ${other ? `<aside class="demo-landing-section event-other" aria-labelledby="event-other-title"><div class="event-section-layout">
     <div><p class="demo-eyebrow">Another way to join us</p><h2 id="event-other-title">${escape(event.otherTitle)}</h2></div>
-    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}</strong>${other.postponed ? '' : `<br /><strong>${escape(other.time)}</strong><br />${escape(other.location)} Â· ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}`}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
+    <div class="event-prose"><p>${escape(event.otherCopy)}</p><p><strong>${escape(other.dateLabel)}</strong>${other.postponed ? '' : `<br /><strong>${escape(other.time)}</strong><br />${escape(other.location)} · ${priceLabel(other)}${other.price === 0 ? '' : ' per person'}`}</p><a class="button button-dark" href="${eventPath(other)}">${escape(event.otherLabel)} ${arrow}</a></div>
   </div></aside>` : ''}
 
   ${event.sponsors?.length ? `<section class="demo-landing-section event-sponsors" id="sponsors" aria-labelledby="event-sponsors-title">
@@ -243,12 +243,12 @@ export function renderEventPage(event) {
 
   ${event.postponed ? '' : `<section class="demo-landing-section event-checkout" id="tickets" aria-labelledby="event-checkout-title" tabindex="-1">
     <div class="event-checkout-inner">
-      <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} Â· ${escape(event.time)}</p></div>
+      <div class="event-section-heading"><p class="demo-eyebrow">${event.price === 0 ? 'Free registration' : 'Ticket booking'}</p><h2 id="event-checkout-title">Book your place</h2><p>${escape(event.title)}<br />${escape(event.dateLabel)} · ${escape(event.time)}</p></div>
       ${event.checkout ? '<p class="event-checkout-status" role="status">Loading the secure Humanitix checkout...</p>' : ''}
       ${event.checkout ? `<div class="event-checkout-widget">
         <iframe data-checkout="${escape(event.checkout.slug)}" title="${escape(event.title)} ticket checkout"></iframe>
       </div>
-      <p class="event-checkout-fallback">Having trouble with the checkout? <a href="${escape(event.checkout.url)}" target="_blank" rel="noopener noreferrer">Open on Humanitix <span aria-hidden="true">â†—</span><span class="sr-only"> (opens in a new tab)</span></a></p>`
+      <p class="event-checkout-fallback">Having trouble with the checkout? <a href="${escape(event.checkout.url)}" target="_blank" rel="noopener noreferrer">Open on Humanitix <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>`
       : `<div class="event-checkout-placeholder"><h3>Online ticket booking is coming soon</h3><p>Tickets for this event will be available here soon. Join the YogaRise list to hear when bookings open.</p><a class="button button-dark" href="#newsletter">Keep me updated ${arrow}</a></div>`}
     </div>
   </section>`}
